@@ -1,14 +1,13 @@
+import { unstable_getServerSession } from 'next-auth';
 import { inviteUsers } from '../../../../../prisma/services/workspace';
-import {
-  validateSession,
-  validateWorkspaceInvite,
-} from '../../../../config/api-validation/index';
+import { validateWorkspaceInvite } from '../../../../config/api-validation/index';
+import { authOptions } from '../../auth/[...nextauth]';
 
 const handler = async (req, res) => {
   const { method } = req;
 
   if (method === 'POST') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     await validateWorkspaceInvite(req, res);
     const { members } = req.body;
     await inviteUsers(

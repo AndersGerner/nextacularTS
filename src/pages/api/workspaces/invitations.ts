@@ -1,11 +1,12 @@
+import { unstable_getServerSession } from 'next-auth';
 import { getPendingInvitations } from '../../../../prisma/services/membership';
-import { validateSession } from '../../../config/api-validation';
+import { authOptions } from '../auth/[...nextauth]';
 
 const handler = async (req, res) => {
   const { method } = req;
 
   if (method === 'GET') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     const invitations = await getPendingInvitations(session.user.email);
     res.status(200).json({ data: { invitations } });
   } else {

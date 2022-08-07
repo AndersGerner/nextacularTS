@@ -1,11 +1,12 @@
+import { unstable_getServerSession } from 'next-auth';
 import { getMembers } from '../../../../../prisma/services/membership';
-import { validateSession } from '../../../../config/api-validation';
+import { authOptions } from '../../auth/[...nextauth]';
 
 const handler = async (req, res) => {
   const { method } = req;
 
   if (method === 'GET') {
-    await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     const members = await getMembers(req.query.workspaceSlug);
     res.status(200).json({ data: { members } });
   } else {

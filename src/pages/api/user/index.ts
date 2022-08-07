@@ -1,5 +1,6 @@
+import { unstable_getServerSession } from 'next-auth';
 import { deactivate } from '../../../../prisma/services/user';
-import { validateSession } from '../../../config/api-validation';
+import { authOptions } from '../auth/[...nextauth]';
 
 const ALLOW_DEACTIVATION = false;
 
@@ -7,7 +8,7 @@ const handler = async (req, res) => {
   const { method } = req;
 
   if (method === 'DELETE') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     if (ALLOW_DEACTIVATION) {
       await deactivate(session.user.userId);
     }

@@ -1,11 +1,12 @@
+import { unstable_getServerSession } from 'next-auth';
 import { remove } from '../../../../../prisma/services/membership';
-import { validateSession } from '../../../../config/api-validation';
+import { authOptions } from '../../auth/[...nextauth]';
 
 const handler = async (req, res) => {
   const { method } = req;
 
   if (method === 'DELETE') {
-    await validateSession(req, res);
+    await unstable_getServerSession(req, res, authOptions);
     const { memberId } = req.body;
     await remove(memberId);
     res.status(200).json({ data: { deletedAt: new Date() } });

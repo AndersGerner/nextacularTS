@@ -1,12 +1,13 @@
+import { unstable_getServerSession } from 'next-auth';
 import { getPayment } from '../../../../../prisma/services/customer';
-import { validateSession } from '../../../../config/api-validation';
 import stripe from '../../../../lib/server/stripe';
+import { authOptions } from '../../auth/[...nextauth]';
 
 const handler = async (req, res) => {
   const { method } = req;
 
   if (method === 'POST') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     const { priceId } = req.query;
     const [customerPayment, price] = await Promise.all([
       getPayment(session.user?.email),

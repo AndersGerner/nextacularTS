@@ -1,14 +1,13 @@
+import { unstable_getServerSession } from 'next-auth';
 import { updateSlug } from '../../../../../prisma/services/workspace';
-import {
-  validateSession,
-  validateUpdateWorkspaceSlug,
-} from '../../../../config/api-validation/index';
+import { validateUpdateWorkspaceSlug } from '../../../../config/api-validation/index';
+import { authOptions } from '../../auth/[...nextauth]';
 
 const handler = async (req, res) => {
   const { method } = req;
 
   if (method === 'PUT') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     let { slug } = req.body;
     await validateUpdateWorkspaceSlug(req, res);
     updateSlug(

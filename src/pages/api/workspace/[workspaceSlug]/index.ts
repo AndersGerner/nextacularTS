@@ -1,11 +1,12 @@
+import { unstable_getServerSession } from 'next-auth';
 import { deleteWorkspace } from '../../../../../prisma/services/workspace';
-import { validateSession } from '../../../../config/api-validation';
+import { authOptions } from '../../auth/[...nextauth]';
 
 const handler = async (req, res) => {
   const { method } = req;
 
   if (method === 'DELETE') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     deleteWorkspace(
       session.user.userId,
       session.user.email,

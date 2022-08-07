@@ -1,19 +1,18 @@
+import { unstable_getServerSession } from 'next-auth';
 import {
   createDomain,
   deleteDomain,
   verifyDomain,
 } from '../../../../../prisma/services/domain';
-import {
-  validateAddDomain,
-  validateSession,
-} from '../../../../config/api-validation';
+import { validateAddDomain } from '../../../../config/api-validation';
 import api from '../../../../lib/common/api';
+import { authOptions } from '../../auth/[...nextauth]';
 
 const handler = async (req, res) => {
   const { method } = req;
 
   if (method === 'POST') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     await validateAddDomain(req, res);
     const { domainName } = req.body;
     const teamId = process.env.VERCEL_TEAM_ID;
@@ -48,7 +47,7 @@ const handler = async (req, res) => {
         .json({ errors: { error: { msg: response.error.message } } });
     }
   } else if (method === 'PUT') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     const { domainName } = req.body;
     const teamId = process.env.VERCEL_TEAM_ID;
     const response = await api(
@@ -78,7 +77,7 @@ const handler = async (req, res) => {
         .json({ errors: { error: { msg: response.error.message } } });
     }
   } else if (method === 'DELETE') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     const { domainName } = req.body;
     const teamId = process.env.VERCEL_TEAM_ID;
     await api(

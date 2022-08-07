@@ -1,5 +1,5 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
 
 import prisma from '../../../../prisma/index';
@@ -11,7 +11,7 @@ import { html, text } from '../../../config/email-templates/signin';
 import { log } from '../../../lib/server/logsnag';
 import { emailConfig, sendMail } from '../../../lib/server/mail';
 
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   callbacks: {
     session: async ({ session, user }) => {
@@ -38,7 +38,8 @@ export default NextAuth({
           log(
             'user-registration',
             'New User Signup',
-            `A new user recently signed up. (${user.email})`
+            `A new user recently signed up. (${user.email})`,
+            null
           ),
         ]);
       }
@@ -61,7 +62,6 @@ export default NextAuth({
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET || null,
-  session: {
-    jwt: true,
-  },
-});
+};
+
+export default NextAuth(authOptions);
