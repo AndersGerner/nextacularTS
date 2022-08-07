@@ -1,9 +1,10 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import { updateSlug } from '../../../../../prisma/services/workspace';
 import { validateUpdateWorkspaceSlug } from '../../../../config/api-validation/index';
 import { authOptions } from '../../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'PUT') {
@@ -14,7 +15,7 @@ const handler = async (req, res) => {
       session.user.userId,
       session.user.email,
       slug,
-      req.query.workspaceSlug
+      req.query.workspaceSlug as string
     )
       .then((slug) => res.status(200).json({ data: { slug } }))
       .catch((error) =>

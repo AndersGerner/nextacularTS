@@ -108,13 +108,7 @@ const Settings = ({ user }) => {
 
   return (
     <AccountLayout>
-      <Meta
-        title="Nextacular - Account Settings"
-        author=""
-        description=""
-        keywords=""
-        noIndex={false}
-      />
+      <Meta title="Nextacular - Account Settings" />
       <ContentTitle
         title="Account Settings"
         subtitle="Manage your profile, preferences, and account settings"

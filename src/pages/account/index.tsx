@@ -69,13 +69,7 @@ const Welcome = () => {
 
   return (
     <AccountLayout>
-      <Meta
-        title="Nextacular - Dashboard"
-        author=""
-        description=""
-        keywords=""
-        noIndex={false}
-      />
+      <Meta title="Nextacular - Dashboard" />
       <ContentTitle
         title="Nextacular Dashboard"
         subtitle="Start building SaaS platforms in a day"

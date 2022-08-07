@@ -1,11 +1,12 @@
 import slugify from 'slugify';
 
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import { createWorkspace } from '../../../../prisma/services/workspace';
 import { validateCreateWorkspace } from '../../../config/api-validation/index';
 import { authOptions } from '../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'POST') {

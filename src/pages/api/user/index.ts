@@ -1,10 +1,11 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import { deactivate } from '../../../../prisma/services/user';
 import { authOptions } from '../auth/[...nextauth]';
 
 const ALLOW_DEACTIVATION = false;
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'DELETE') {

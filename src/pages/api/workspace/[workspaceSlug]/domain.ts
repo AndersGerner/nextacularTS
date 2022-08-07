@@ -1,3 +1,4 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import {
   createDomain,
@@ -8,7 +9,7 @@ import { validateAddDomain } from '../../../../config/api-validation';
 import api from '../../../../lib/common/api';
 import { authOptions } from '../../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'POST') {
@@ -34,7 +35,7 @@ const handler = async (req, res) => {
       await createDomain(
         session.user.userId,
         session.user.email,
-        req.query.workspaceSlug,
+        req.query.workspaceSlug as string,
         domainName,
         apexName,
         verified,
@@ -66,7 +67,7 @@ const handler = async (req, res) => {
       await verifyDomain(
         session.user.userId,
         session.user.email,
-        req.query.workspaceSlug,
+        req.query.workspaceSlug as string,
         domainName,
         response.verified
       );
@@ -94,7 +95,7 @@ const handler = async (req, res) => {
     await deleteDomain(
       session.user.userId,
       session.user.email,
-      req.query.workspaceSlug,
+      req.query.workspaceSlug as string,
       domainName
     );
     res.status(200).json({ data: { domain: domainName } });

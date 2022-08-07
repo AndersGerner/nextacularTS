@@ -1,9 +1,10 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { unstable_getServerSession } from 'next-auth';
 import { updateName } from '../../../../prisma/services/user';
 import { validateUpdateName } from '../../../config/api-validation/index';
 import { authOptions } from '../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'PUT') {

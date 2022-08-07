@@ -1,10 +1,11 @@
 import { InvitationStatus } from '@prisma/client';
 import { unstable_getServerSession } from 'next-auth';
 
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { updateStatus } from '../../../../../prisma/services/membership';
 import { authOptions } from '../../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'PUT') {

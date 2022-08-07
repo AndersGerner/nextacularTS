@@ -1,8 +1,9 @@
 import { unstable_getServerSession } from 'next-auth';
 import { deleteWorkspace } from '../../../../../prisma/services/workspace';
 import { authOptions } from '../../auth/[...nextauth]';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'DELETE') {
@@ -10,7 +11,7 @@ const handler = async (req, res) => {
     deleteWorkspace(
       session.user.userId,
       session.user.email,
-      req.query.workspaceSlug
+      req.query.workspaceSlug as string
     )
       .then((slug) => res.status(200).json({ data: { slug } }))
       .catch((error) =>

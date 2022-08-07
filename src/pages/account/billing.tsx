@@ -45,13 +45,7 @@ const Billing = ({ invoices, products }) => {
 
   return (
     <AccountLayout>
-      <Meta
-        title="Nextacular - Billing"
-        author=""
-        description=""
-        keywords=""
-        noIndex={false}
-      />
+      <Meta title="Nextacular - Billing" />
       <ContentTitle
         title="Billing"
         subtitle="Manage your billing and preferences"
