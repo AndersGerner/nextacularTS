@@ -1,6 +1,6 @@
 import { validationResult } from 'express-validator';
 
-const validateMiddleware = (validations) => {
+const validate = (validations) => {
   return async (req, res, next) => {
     if (validations) {
       await Promise.all(validations.map((validation) => validation.run(req)));
@@ -19,4 +19,4 @@ const validateMiddleware = (validations) => {
   };
 };
 
-export default validateMiddleware;
+export default validate;
