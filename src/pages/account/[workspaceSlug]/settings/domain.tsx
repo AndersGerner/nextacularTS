@@ -11,9 +11,14 @@ import {
 } from '../../../../../prisma/services/workspace';
 
 import Button from '../../../../components/Button/index';
+import CardBody from '../../../../components/Card/CardBody';
+import CardFooter from '../../../../components/Card/CardFooter';
 import DomainCard from '../../../../components/Card/domain';
 import Card from '../../../../components/Card/index';
-import Content from '../../../../components/Content/index';
+import ContentContainer from '../../../../components/Content/ContentContainer';
+import ContentDivider from '../../../../components/Content/ContentDivider';
+import ContentEmpty from '../../../../components/Content/ContentEmpty';
+import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/index';
 import useDomains from '../../../../hooks/data/useDomains';
 import { AccountLayout } from '../../../../layouts/index';
@@ -47,7 +52,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
 
   const handleDomainChange = (event) => setDomain(event.target.value);
 
-  const refresh = (domain, verified) => {
+  const refresh = (domain: string, verified: boolean) => {
     setSubmittingState(true);
 
     if (verified) {
@@ -74,7 +79,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
     return verified;
   };
 
-  const remove = (domain) => {
+  const remove = (domain: string) => {
     api(`/api/workspace/${workspace.slug}/domain`, {
       body: { domainName: domain },
       method: 'DELETE',
@@ -92,14 +97,14 @@ const Domain = ({ isTeamOwner, workspace }) => {
   return (
     <AccountLayout>
       <Meta title={`Nextacular - ${workspace.name} | Domains`} />
-      <Content.Title
+      <ContentTitle
         title="Subdomain Management"
         subtitle="Manage your subdomain"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
-          <Card.Body
+          <CardBody
             title="Subdomain"
             subtitle="Your subdomain depends on your workspace slug"
           >
@@ -114,21 +119,21 @@ const Domain = ({ isTeamOwner, workspace }) => {
                 </a>
               </Link>
             </div>
-          </Card.Body>
+          </CardBody>
         </Card>
-      </Content.Container>
+      </ContentContainer>
       {isTeamOwner && (
         <>
-          <Content.Divider thick />
-          <Content.Title
+          <ContentDivider thick />
+          <ContentTitle
             title="Domain Configuration"
             subtitle="Manage your subdomain and domain names"
           />
-          <Content.Divider />
-          <Content.Container>
+          <ContentDivider />
+          <ContentContainer>
             <Card>
               <form>
-                <Card.Body
+                <CardBody
                   title="Add Your Domain"
                   subtitle="This domain is assigned to your current workspace"
                 >
@@ -140,8 +145,8 @@ const Domain = ({ isTeamOwner, workspace }) => {
                     type="text"
                     value={domain}
                   />
-                </Card.Body>
-                <Card.Footer>
+                </CardBody>
+                <CardFooter>
                   <span />
                   <Button
                     className="text-white bg-blue-600 hover:bg-blue-500"
@@ -150,7 +155,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
                   >
                     Add
                   </Button>
-                </Card.Footer>
+                </CardFooter>
               </form>
             </Card>
             {isLoading ? (
@@ -168,12 +173,12 @@ const Domain = ({ isTeamOwner, workspace }) => {
                 />
               ))
             ) : (
-              <Content.Empty>
+              <ContentEmpty>
                 Once you&apos;ve added your domain on Nextacular, that domain
                 will show up here
-              </Content.Empty>
+              </ContentEmpty>
             )}
-          </Content.Container>
+          </ContentContainer>
         </>
       )}
     </AccountLayout>

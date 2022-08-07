@@ -12,12 +12,17 @@ import {
 import { sendMail } from '../../src/lib/server/mail';
 import prisma from '../index';
 
-export const countWorkspaces = async (slug) =>
+export const countWorkspaces = async (slug: string) =>
   await prisma.workspace.count({
     where: { slug: { startsWith: slug } },
   });
 
-export const createWorkspace = async (creatorId, email, name, slug) => {
+export const createWorkspace = async (
+  creatorId: string,
+  email: string,
+  name: string,
+  slug: string
+) => {
   const count = await countWorkspaces(slug);
 
   if (count > 0) {
@@ -48,7 +53,11 @@ export const createWorkspace = async (creatorId, email, name, slug) => {
   });
 };
 
-export const deleteWorkspace = async (id, email, slug) => {
+export const deleteWorkspace = async (
+  id: string,
+  email: string,
+  slug: string
+) => {
   const workspace = await getOwnWorkspace(id, email, slug);
 
   if (workspace) {
@@ -62,7 +71,7 @@ export const deleteWorkspace = async (id, email, slug) => {
   }
 };
 
-export const getInvitation = async (inviteCode) =>
+export const getInvitation = async (inviteCode: string) =>
   await prisma.workspace.findFirst({
     select: {
       id: true,
@@ -76,7 +85,11 @@ export const getInvitation = async (inviteCode) =>
     },
   });
 
-export const getOwnWorkspace = async (id, email, slug) =>
+export const getOwnWorkspace = async (
+  id: string,
+  email: string,
+  slug: string
+) =>
   await prisma.workspace.findFirst({
     select: {
       id: true,
@@ -103,7 +116,7 @@ export const getOwnWorkspace = async (id, email, slug) =>
     },
   });
 
-export const getSiteWorkspace = async (slug, customDomain) =>
+export const getSiteWorkspace = async (slug: string, customDomain) =>
   await prisma.workspace.findFirst({
     select: {
       id: true,
@@ -129,7 +142,7 @@ export const getSiteWorkspace = async (slug, customDomain) =>
     },
   });
 
-export const getWorkspace = async (id, email, slug) =>
+export const getWorkspace = async (id: string, email: string, slug: string) =>
   await prisma.workspace.findFirst({
     select: {
       creatorId: true,
@@ -164,7 +177,7 @@ export const getWorkspace = async (id, email, slug) =>
     },
   });
 
-export const getWorkspaces = async (id, email) =>
+export const getWorkspaces = async (id: string, email: string) =>
   await prisma.workspace.findMany({
     select: {
       createdAt: true,
@@ -231,7 +244,12 @@ export const getWorkspacePaths = async () => {
   ];
 };
 
-export const inviteUsers = async (id, email, members, slug) => {
+export const inviteUsers = async (
+  id: string,
+  email: string,
+  members,
+  slug: string
+) => {
   const workspace = await getOwnWorkspace(id, email, slug);
   const inviter = email;
 
@@ -275,9 +293,10 @@ export const inviteUsers = async (id, email, members, slug) => {
   }
 };
 
-export const isWorkspaceCreator = (id, creatorId) => id === creatorId;
+export const isWorkspaceCreator = (id: string, creatorId: string) =>
+  id === creatorId;
 
-export const isWorkspaceOwner = (email, workspace) => {
+export const isWorkspaceOwner = (email: string, workspace) => {
   let isTeamOwner = false;
   const member = workspace.members.find(
     (member) => member.email === email && member.teamRole === TeamRole.OWNER
@@ -290,7 +309,7 @@ export const isWorkspaceOwner = (email, workspace) => {
   return isTeamOwner;
 };
 
-export const joinWorkspace = async (workspaceCode, email) => {
+export const joinWorkspace = async (workspaceCode: string, email: string) => {
   const workspace = await prisma.workspace.findFirst({
     select: {
       creatorId: true,
@@ -319,7 +338,12 @@ export const joinWorkspace = async (workspaceCode, email) => {
   }
 };
 
-export const updateName = async (id, email, name, slug) => {
+export const updateName = async (
+  id: string,
+  email: string,
+  name: string,
+  slug: string
+) => {
   const workspace = await getOwnWorkspace(id, email, slug);
 
   if (workspace) {
@@ -333,7 +357,12 @@ export const updateName = async (id, email, name, slug) => {
   }
 };
 
-export const updateSlug = async (id, email, newSlug, pathSlug) => {
+export const updateSlug = async (
+  id: string,
+  email: string,
+  newSlug: string,
+  pathSlug: string
+) => {
   let slug = slugify(newSlug.toLowerCase());
   const count = await countWorkspaces(slug);
 

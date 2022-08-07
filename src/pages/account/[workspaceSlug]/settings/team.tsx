@@ -18,8 +18,12 @@ import {
 } from '../../../../../prisma/services/workspace';
 
 import Button from '../../../../components/Button/index';
+import CardBody from '../../../../components/Card/CardBody';
+import CardFooter from '../../../../components/Card/CardFooter';
 import Card from '../../../../components/Card/index';
-import Content from '../../../../components/Content/index';
+import ContentContainer from '../../../../components/Content/ContentContainer';
+import ContentDivider from '../../../../components/Content/ContentDivider';
+import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/index';
 import useMembers from '../../../../hooks/data/useMembers';
 import { AccountLayout } from '../../../../layouts/index';
@@ -111,14 +115,14 @@ const Team = ({ isTeamOwner, workspace }) => {
   return (
     <AccountLayout>
       <Meta title={`Nextacular - ${workspace.name} | Team Management`} />
-      <Content.Title
+      <ContentTitle
         title="Team Management"
         subtitle="Manage your team under your workspace and invite team members"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
-          <Card.Body
+          <CardBody
             title="Invite Link"
             subtitle="Allow other people to join your team through the link below"
           >
@@ -131,11 +135,11 @@ const Team = ({ isTeamOwner, workspace }) => {
                 <DocumentDuplicateIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
               </CopyToClipboard>
             </div>
-          </Card.Body>
+          </CardBody>
         </Card>
         {isTeamOwner && (
           <Card>
-            <Card.Body
+            <CardBody
               title="Add New Members"
               subtitle="Invite Team members using email address"
             >
@@ -199,8 +203,8 @@ const Team = ({ isTeamOwner, workspace }) => {
                   </Button>
                 </div>
               </div>
-            </Card.Body>
-            <Card.Footer>
+            </CardBody>
+            <CardFooter>
               <small>
                 All invited team members will be set to <strong>Pending</strong>
               </small>
@@ -211,19 +215,19 @@ const Team = ({ isTeamOwner, workspace }) => {
               >
                 Invite
               </Button>
-            </Card.Footer>
+            </CardFooter>
           </Card>
         )}
-      </Content.Container>
-      <Content.Divider thick />
-      <Content.Title
+      </ContentContainer>
+      <ContentDivider thick />
+      <ContentTitle
         title="Team Members"
         subtitle="View team members and pending invites"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
-          <Card.Body title="Manage Team Members">
+          <CardBody title="Manage Team Members">
             <table className="table-fixed">
               <thead className="text-gray-400 border-b">
                 <tr>
@@ -324,9 +328,9 @@ const Team = ({ isTeamOwner, workspace }) => {
                 )}
               </tbody>
             </table>
-          </Card.Body>
+          </CardBody>
         </Card>
-      </Content.Container>
+      </ContentContainer>
     </AccountLayout>
   );
 };

@@ -8,8 +8,12 @@ import {
   isWorkspaceCreator,
 } from '../../../../../prisma/services/workspace';
 import Button from '../../../../components/Button/index';
+import CardBody from '../../../../components/Card/CardBody';
+import CardFooter from '../../../../components/Card/CardFooter';
 import Card from '../../../../components/Card/index';
-import Content from '../../../../components/Content/index';
+import ContentContainer from '../../../../components/Content/ContentContainer';
+import ContentDivider from '../../../../components/Content/ContentDivider';
+import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/index';
 import Modal from '../../../../components/Modal/index';
 import { AccountLayout } from '../../../../layouts/index';
@@ -55,19 +59,19 @@ const Advanced = ({ isCreator }) => {
   return (
     <AccountLayout>
       <Meta title={`Nextacular - ${workspace?.name} | Advanced Settings`} />
-      <Content.Title
+      <ContentTitle
         title="Advanced Workspace Settings"
         subtitle="Manage your workspace settings"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card danger>
-          <Card.Body
+          <CardBody
             title="Delete Workspace"
             subtitle="The workspace will be permanently deleted, including its contents and domains. This action is irreversible and can not be undone."
           />
-          <Card.Footer>
-            <small className={[isCreator && 'text-red-600']}>
+          <CardFooter>
+            <small className={isCreator && 'text-red-600'}>
               {isCreator
                 ? 'This action is not reversible. Please be certain.'
                 : 'Please contact your team creator for the deletion of your workspace.'}
@@ -81,7 +85,7 @@ const Advanced = ({ isCreator }) => {
                 {isSubmitting ? 'Deleting' : 'Delete'}
               </Button>
             )}
-          </Card.Footer>
+          </CardFooter>
           <Modal
             show={showModal}
             title="Deactivate Workspace"
@@ -123,7 +127,7 @@ const Advanced = ({ isCreator }) => {
             </div>
           </Modal>
         </Card>
-      </Content.Container>
+      </ContentContainer>
     </AccountLayout>
   );
 };

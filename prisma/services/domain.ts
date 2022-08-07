@@ -1,13 +1,13 @@
 import prisma from '../index';
 
 export const createDomain = async (
-  id,
-  email,
-  slug,
-  name,
-  apexName,
-  verified,
-  verificationData
+  id: string,
+  email: string,
+  slug: string,
+  name: string,
+  apexName: any,
+  verified: boolean,
+  verificationData: any
 ) => {
   let subdomain = null;
   let verificationValue = null;
@@ -50,7 +50,12 @@ export const createDomain = async (
   });
 };
 
-export const deleteDomain = async (id, email, slug, name) => {
+export const deleteDomain = async (
+  id: string,
+  email: string,
+  slug: string,
+  name: string
+) => {
   const workspace = await prisma.workspace.findFirst({
     select: { id: true },
     where: {
@@ -85,7 +90,7 @@ export const deleteDomain = async (id, email, slug, name) => {
   });
 };
 
-export const getDomains = async (slug) =>
+export const getDomains = async (slug: string) =>
   await prisma.domain.findMany({
     select: {
       name: true,
@@ -102,7 +107,13 @@ export const getDomains = async (slug) =>
     },
   });
 
-export const verifyDomain = async (id, email, slug, name, verified) => {
+export const verifyDomain = async (
+  id: string,
+  email: string,
+  slug: string,
+  name: string,
+  verified: boolean
+) => {
   const workspace = await prisma.workspace.findFirst({
     select: { id: true },
     where: {

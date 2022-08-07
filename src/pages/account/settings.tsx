@@ -7,8 +7,12 @@ import isEmail from 'validator/lib/isEmail';
 
 import { getUser } from '../../../prisma/services/user';
 import Button from '../../components/Button/index';
+import CardBody from '../../components/Card/CardBody';
+import CardFooter from '../../components/Card/CardFooter';
 import Card from '../../components/Card/index';
-import Content from '../../components/Content/index';
+import ContentContainer from '../../components/Content/ContentContainer';
+import ContentDivider from '../../components/Content/ContentDivider';
+import ContentTitle from '../../components/Content/ContentTitle';
 import Meta from '../../components/Meta';
 import Modal from '../../components/Modal/index';
 import { AccountLayout } from '../../layouts/index';
@@ -105,15 +109,15 @@ const Settings = ({ user }) => {
   return (
     <AccountLayout>
       <Meta title="Nextacular - Account Settings" />
-      <Content.Title
+      <ContentTitle
         title="Account Settings"
         subtitle="Manage your profile, preferences, and account settings"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
           <form>
-            <Card.Body
+            <CardBody
               title="Your Name"
               subtitle="Please enter your full name, or a display name you are comfortable with"
             >
@@ -124,8 +128,8 @@ const Settings = ({ user }) => {
                 type="text"
                 value={name}
               />
-            </Card.Body>
-            <Card.Footer>
+            </CardBody>
+            <CardFooter>
               <small>Please use 32 characters at maximum</small>
               <Button
                 className="text-white bg-blue-600 hover:bg-blue-500"
@@ -134,12 +138,12 @@ const Settings = ({ user }) => {
               >
                 Save
               </Button>
-            </Card.Footer>
+            </CardFooter>
           </form>
         </Card>
         <Card>
           <form>
-            <Card.Body
+            <CardBody
               title="Email Address"
               subtitle="Please enter the email address you want to use to log in with
               Nextacular"
@@ -151,8 +155,8 @@ const Settings = ({ user }) => {
                 type="email"
                 value={email}
               />
-            </Card.Body>
-            <Card.Footer>
+            </CardBody>
+            <CardFooter>
               <small>We will email you to verify the change</small>
               <Button
                 className="text-white bg-blue-600 hover:bg-blue-500"
@@ -161,11 +165,11 @@ const Settings = ({ user }) => {
               >
                 Save
               </Button>
-            </Card.Footer>
+            </CardFooter>
           </form>
         </Card>
         <Card>
-          <Card.Body
+          <CardBody
             title="Personal Account ID"
             subtitle="Used when interacting with APIs"
           >
@@ -175,15 +179,15 @@ const Settings = ({ user }) => {
                 <DocumentDuplicateIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
               </CopyToClipboard>
             </div>
-          </Card.Body>
+          </CardBody>
         </Card>
         <Card danger>
-          <Card.Body
+          <CardBody
             title="Danger Zone"
             subtitle="Permanently remove your Personal Account and all of its contents
               from Nextacular platform"
           />
-          <Card.Footer>
+          <CardFooter>
             <small>
               This action is not reversible, so please continue with caution
             </small>
@@ -193,7 +197,7 @@ const Settings = ({ user }) => {
             >
               Deactivate Personal Account
             </Button>
-          </Card.Footer>
+          </CardFooter>
           <Modal
             show={showModal}
             title="Deactivate Personal Account"
@@ -230,7 +234,7 @@ const Settings = ({ user }) => {
             </div>
           </Modal>
         </Card>
-      </Content.Container>
+      </ContentContainer>
     </AccountLayout>
   );
 };

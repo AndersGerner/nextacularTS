@@ -6,6 +6,8 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import { getInvitation } from '../../../prisma/services/workspace';
 import Button from '../../components/Button';
+import CardBody from '../../components/Card/CardBody';
+import CardFooter from '../../components/Card/CardFooter';
 import Card from '../../components/Card/index';
 import api from '../../lib/common/api';
 
@@ -43,11 +45,11 @@ const Invite = ({ workspace }) => {
         <div className="relative flex flex-col mx-auto space-y-5">
           <div className="flex flex-col items-center justify-center mx-auto">
             <Card>
-              <Card.Body
+              <CardBody
                 title={workspace.name}
                 subtitle="You are invited to join this workspace."
               />
-              <Card.Footer>
+              <CardFooter>
                 {data ? (
                   <Button
                     className="text-white bg-blue-600 hover:bg-blue-500"
@@ -63,7 +65,7 @@ const Invite = ({ workspace }) => {
                     </a>
                   </Link>
                 )}
-              </Card.Footer>
+              </CardFooter>
             </Card>
           </div>
         </div>

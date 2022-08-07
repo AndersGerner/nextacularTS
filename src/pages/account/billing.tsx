@@ -6,8 +6,13 @@ import toast from 'react-hot-toast';
 import { getPayment } from '../../../prisma/services/customer';
 
 import Button from '../../components/Button/index';
+import CardBody from '../../components/Card/CardBody';
+import CardFooter from '../../components/Card/CardFooter';
 import Card from '../../components/Card/index';
-import Content from '../../components/Content/index';
+import ContentContainer from '../../components/Content/ContentContainer';
+import ContentDivider from '../../components/Content/ContentDivider';
+import ContentEmpty from '../../components/Content/ContentEmpty';
+import ContentTitle from '../../components/Content/ContentTitle';
 import Meta from '../../components/Meta/index';
 import Modal from '../../components/Modal/index';
 import { AccountLayout } from '../../layouts/index';
@@ -41,14 +46,14 @@ const Billing = ({ invoices, products }) => {
   return (
     <AccountLayout>
       <Meta title="Nextacular - Billing" />
-      <Content.Title
+      <ContentTitle
         title="Billing"
         subtitle="Manage your billing and preferences"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
-          <Card.Body
+          <CardBody
             title="Upgrade Plan"
             subtitle="You are currently under the&nbsp; FREE plan"
           >
@@ -57,8 +62,8 @@ const Billing = ({ invoices, products }) => {
               In order to use the platform for professional purposes or work
               with a team, get started by creating a team or contacting sales.
             </p>
-          </Card.Body>
-          <Card.Footer>
+          </CardBody>
+          <CardFooter>
             <small>You will be redirected to the payment page</small>
             <Button
               className="text-white bg-blue-600 hover:bg-blue-500"
@@ -67,7 +72,7 @@ const Billing = ({ invoices, products }) => {
             >
               Upgrade
             </Button>
-          </Card.Footer>
+          </CardFooter>
         </Card>
         <Modal
           show={showModal}
@@ -80,12 +85,12 @@ const Billing = ({ invoices, products }) => {
           <div className="flex space-x-5">
             {products.map((product, index) => (
               <Card key={index}>
-                <Card.Body title={product.name} subtitle={product.description}>
+                <CardBody title={product.name} subtitle={product.description}>
                   <h3 className="text-4xl font-bold">
                     ${Number(product.prices.unit_amount / 100).toFixed(2)}
                   </h3>
-                </Card.Body>
-                <Card.Footer>
+                </CardBody>
+                <CardFooter>
                   <Button
                     className="w-full text-white bg-blue-600 hover:bg-blue-500"
                     disabled={isSubmitting}
@@ -95,20 +100,20 @@ const Billing = ({ invoices, products }) => {
                       ? 'Redirecting...'
                       : `Upgrade to ${product.name}`}
                   </Button>
-                </Card.Footer>
+                </CardFooter>
               </Card>
             ))}
           </div>
         </Modal>
-      </Content.Container>
-      <Content.Divider thick />
-      <Content.Title
+      </ContentContainer>
+      <ContentDivider thick />
+      <ContentTitle
         title="Invoices"
         subtitle="View and download invoices you may need"
       />
-      <Content.Divider />
+      <ContentDivider />
       {invoices.length > 0 ? (
-        <Content.Container>
+        <ContentContainer>
           <table className="table-auto">
             <thead>
               <tr className="text-left">
@@ -149,12 +154,12 @@ const Billing = ({ invoices, products }) => {
               ))}
             </tbody>
           </table>
-        </Content.Container>
+        </ContentContainer>
       ) : (
-        <Content.Empty>
+        <ContentEmpty>
           Once you&apos;ve paid for something on Nextacular, invoices will show
           up here
-        </Content.Empty>
+        </ContentEmpty>
       )}
     </AccountLayout>
   );

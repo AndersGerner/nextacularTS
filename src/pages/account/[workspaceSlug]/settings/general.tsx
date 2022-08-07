@@ -12,8 +12,12 @@ import {
   isWorkspaceOwner,
 } from '../../../../../prisma/services/workspace';
 import Button from '../../../../components/Button/index';
+import CardBody from '../../../../components/Card/CardBody';
+import CardFooter from '../../../../components/Card/CardFooter';
 import Card from '../../../../components/Card/index';
-import Content from '../../../../components/Content/index';
+import ContentContainer from '../../../../components/Content/ContentContainer';
+import ContentDivider from '../../../../components/Content/ContentDivider';
+import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/index';
 import { AccountLayout } from '../../../../layouts/index';
 import api from '../../../../lib/common/api';
@@ -87,14 +91,14 @@ const General = ({ isTeamOwner, workspace }) => {
   return (
     <AccountLayout>
       <Meta title={`Nextacular - ${workspace.name} | Settings`} />
-      <Content.Title
+      <ContentTitle
         title="Workspace Information"
         subtitle="Manage your workspace details and information"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
-          <Card.Body
+          <CardBody
             title="Workspace Name"
             subtitle="Used to identify your Workspace on the Dashboard"
           >
@@ -105,8 +109,8 @@ const General = ({ isTeamOwner, workspace }) => {
               type="text"
               value={name}
             />
-          </Card.Body>
-          <Card.Footer>
+          </CardBody>
+          <CardFooter>
             <small>Please use 16 characters at maximum</small>
             {isTeamOwner && (
               <Button
@@ -117,10 +121,10 @@ const General = ({ isTeamOwner, workspace }) => {
                 Save
               </Button>
             )}
-          </Card.Footer>
+          </CardFooter>
         </Card>
         <Card>
-          <Card.Body
+          <CardBody
             title="Workspace Slug"
             subtitle="Used to identify your Workspace on the Dashboard"
           >
@@ -136,8 +140,8 @@ const General = ({ isTeamOwner, workspace }) => {
                 {slug.length} / 16
               </span>
             </div>
-          </Card.Body>
-          <Card.Footer>
+          </CardBody>
+          <CardFooter>
             <small>
               Please use 16 characters at maximum. Hyphenated alphanumeric
               characters only.
@@ -151,10 +155,10 @@ const General = ({ isTeamOwner, workspace }) => {
                 Save
               </Button>
             )}
-          </Card.Footer>
+          </CardFooter>
         </Card>
         <Card>
-          <Card.Body
+          <CardBody
             title="Workspace ID"
             subtitle="Used when interacting with APIs"
           >
@@ -167,9 +171,9 @@ const General = ({ isTeamOwner, workspace }) => {
                 <DocumentDuplicateIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
               </CopyToClipboard>
             </div>
-          </Card.Body>
+          </CardBody>
         </Card>
-      </Content.Container>
+      </ContentContainer>
     </AccountLayout>
   );
 };
