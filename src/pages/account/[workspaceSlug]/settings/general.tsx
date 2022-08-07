@@ -12,14 +12,14 @@ import {
   isWorkspaceOwner,
 } from '../../../../../prisma/services/workspace';
 import Button from '../../../../components/Button/Button';
+import Card from '../../../../components/Card/Card';
 import CardBody from '../../../../components/Card/CardBody';
 import CardFooter from '../../../../components/Card/CardFooter';
-import Card from '../../../../components/Card/Card';
 import ContentContainer from '../../../../components/Content/ContentContainer';
 import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/Meta';
-import { AccountLayout } from '../../../../layouts/index';
+import AccountLayout from '../../../../layouts/AccountLayout';
 import api from '../../../../lib/common/api';
 import { useWorkspace } from '../../../../providers/workspace';
 

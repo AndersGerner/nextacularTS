@@ -5,7 +5,7 @@ import toast from 'react-hot-toast';
 import isEmail from 'validator/lib/isEmail';
 
 import Meta from '../../components/Meta/Meta';
-import { AuthLayout } from '../../layouts/index';
+import AuthLayout from '../../layouts/AuthLayout';
 
 const Login = () => {
   const { status } = useSession();

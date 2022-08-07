@@ -6,16 +6,16 @@ import toast from 'react-hot-toast';
 import { getPayment } from '../../../prisma/services/customer';
 
 import Button from '../../components/Button/Button';
+import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
 import CardFooter from '../../components/Card/CardFooter';
-import Card from '../../components/Card/Card';
 import ContentContainer from '../../components/Content/ContentContainer';
 import ContentDivider from '../../components/Content/ContentDivider';
 import ContentEmpty from '../../components/Content/ContentEmpty';
 import ContentTitle from '../../components/Content/ContentTitle';
 import Meta from '../../components/Meta/Meta';
 import Modal from '../../components/Modal/Modal';
-import { AccountLayout } from '../../layouts/index';
+import AccountLayout from '../../layouts/AccountLayout';
 import { redirectToCheckout } from '../../lib/client/stripe';
 import api from '../../lib/common/api';
 import { getInvoices, getProducts } from '../../lib/server/stripe';
@@ -45,7 +45,13 @@ const Billing = ({ invoices, products }) => {
 
   return (
     <AccountLayout>
-      <Meta title="Nextacular - Billing" />
+      <Meta
+        title="Nextacular - Billing"
+        author=""
+        description=""
+        keywords=""
+        noIndex={false}
+      />
       <ContentTitle
         title="Billing"
         subtitle="Manage your billing and preferences"

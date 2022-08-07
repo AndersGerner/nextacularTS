@@ -15,7 +15,7 @@ import ContentDivider from '../../components/Content/ContentDivider';
 import ContentTitle from '../../components/Content/ContentTitle';
 import Meta from '../../components/Meta/Meta';
 import Modal from '../../components/Modal/Modal';
-import { AccountLayout } from '../../layouts/index';
+import AccountLayout from '../../layouts/AccountLayout';
 import api from '../../lib/common/api';
 
 const Settings = ({ user }) => {

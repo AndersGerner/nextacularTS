@@ -2,11 +2,12 @@ import { buffer } from 'micro';
 import prisma from '../../../../prisma';
 import { updateSubscription } from '../../../../prisma/services/customer';
 
+import type { NextApiRequest, NextApiResponse } from 'next';
 import stripe from '../../../lib/server/stripe';
 
 export const config = { api: { bodyParser: false } };
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const reqBuffer = await buffer(req);
   const signature = req.headers['stripe-signature'];
   let event = null;

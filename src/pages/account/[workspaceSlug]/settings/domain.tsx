@@ -21,8 +21,8 @@ import ContentEmpty from '../../../../components/Content/ContentEmpty';
 import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/Meta';
 import useDomains from '../../../../hooks/data/useDomains';
-import { AccountLayout } from '../../../../layouts/index';
 import api from '../../../../lib/common/api';
+import AccountLayout from '../../../../layouts/AccountLayout';
 
 const Domain = ({ isTeamOwner, workspace }) => {
   const { data, isLoading } = useDomains(workspace.slug);

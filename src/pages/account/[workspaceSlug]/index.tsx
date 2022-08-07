@@ -2,7 +2,7 @@ import ContentContainer from '../../../components/Content/ContentContainer';
 import ContentDivider from '../../../components/Content/ContentDivider';
 import ContentTitle from '../../../components/Content/ContentTitle';
 import Meta from '../../../components/Meta/Meta';
-import { AccountLayout } from '../../../layouts/index';
+import AccountLayout from '../../../layouts/AccountLayout';
 import { useWorkspace } from '../../../providers/workspace';
 
 const Workspace = () => {

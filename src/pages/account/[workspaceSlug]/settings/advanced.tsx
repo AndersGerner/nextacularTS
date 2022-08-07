@@ -16,9 +16,9 @@ import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/Meta';
 import Modal from '../../../../components/Modal/Modal';
-import { AccountLayout } from '../../../../layouts/index';
 import api from '../../../../lib/common/api';
 import { useWorkspace } from '../../../../providers/workspace';
+import AccountLayout from '../../../../layouts/AccountLayout';
 
 const Advanced = ({ isCreator }) => {
   const { setWorkspace, workspace } = useWorkspace();

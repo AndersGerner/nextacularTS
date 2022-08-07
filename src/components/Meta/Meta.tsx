@@ -2,10 +2,10 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 type MetaProps = {
-  author: string;
-  description: string;
-  keywords: string;
-  noIndex: boolean;
+  author?: string;
+  description?: string;
+  keywords?: string;
+  noIndex?: boolean;
   title: string;
 };
 

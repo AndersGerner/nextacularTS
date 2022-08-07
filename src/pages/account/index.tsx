@@ -13,7 +13,7 @@ import ContentTitle from '../../components/Content/ContentTitle';
 import Meta from '../../components/Meta/Meta';
 import useInvitations from '../../hooks/data/useInvitations';
 import useWorkspaces from '../../hooks/data/useWorkspaces';
-import { AccountLayout } from '../../layouts/index';
+import AccountLayout from '../../layouts/AccountLayout';
 import api from '../../lib/common/api';
 import { useWorkspace } from '../../providers/workspace';
 
