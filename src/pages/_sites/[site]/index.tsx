@@ -2,12 +2,12 @@ import { ExternalLinkIcon } from '@heroicons/react/outline';
 import DefaultErrorPage from 'next/error';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-
-import Meta from '@/components/Meta';
 import {
   getSiteWorkspace,
   getWorkspacePaths,
-} from '@/prisma/services/workspace';
+} from '../../../../prisma/services/workspace';
+
+import Meta from '../../../components/Meta';
 
 const Site = ({ workspace }) => {
   const router = useRouter();
@@ -51,7 +51,7 @@ const Site = ({ workspace }) => {
     </main>
   ) : (
     <>
-      <Meta noIndex />
+      <Meta noIndex title={undefined} />
       <DefaultErrorPage statusCode={404} />
     </>
   );

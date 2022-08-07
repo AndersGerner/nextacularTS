@@ -1,18 +1,18 @@
-import { useState } from 'react';
 import { DocumentDuplicateIcon } from '@heroicons/react/outline';
 import { getSession, signOut } from 'next-auth/react';
+import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
 import isEmail from 'validator/lib/isEmail';
 
-import Button from '@/components/Button/index';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import Meta from '@/components/Meta';
-import Modal from '@/components/Modal/index';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { getUser } from '@/prisma/services/user';
+import { getUser } from '../../../prisma/services/user';
+import Button from '../../components/Button/index';
+import Card from '../../components/Card/index';
+import Content from '../../components/Content/index';
+import Meta from '../../components/Meta';
+import Modal from '../../components/Modal/index';
+import { AccountLayout } from '../../layouts/index';
+import api from '../../lib/common/api';
 
 const Settings = ({ user }) => {
   const [email, setEmail] = useState(user.email || '');

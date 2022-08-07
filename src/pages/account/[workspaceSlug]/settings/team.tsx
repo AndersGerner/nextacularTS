@@ -1,4 +1,3 @@
-import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import {
   ChevronDownIcon,
@@ -9,18 +8,22 @@ import {
 } from '@heroicons/react/outline';
 import { InvitationStatus, TeamRole } from '@prisma/client';
 import { getSession } from 'next-auth/react';
+import { Fragment, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
 import isEmail from 'validator/lib/isEmail';
+import {
+  getWorkspace,
+  isWorkspaceOwner,
+} from '../../../../../prisma/services/workspace';
 
-import Button from '@/components/Button/index';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import Meta from '@/components/Meta/index';
-import { useMembers } from '@/hooks/data';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { getWorkspace, isWorkspaceOwner } from '@/prisma/services/workspace';
+import Button from '../../../../components/Button/index';
+import Card from '../../../../components/Card/index';
+import Content from '../../../../components/Content/index';
+import Meta from '../../../../components/Meta/index';
+import useMembers from '../../../../hooks/data/useMembers';
+import { AccountLayout } from '../../../../layouts/index';
+import api from '../../../../lib/common/api';
 
 const MEMBERS_TEMPLATE = { email: '', role: TeamRole.MEMBER };
 

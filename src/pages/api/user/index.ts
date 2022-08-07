@@ -1,5 +1,5 @@
-import { validateSession } from '@/config/api-validation';
-import { deactivate } from '@/prisma/services/user';
+import { deactivate } from '../../../../prisma/services/user';
+import { validateSession } from '../../../config/api-validation';
 
 const ALLOW_DEACTIVATION = false;
 

@@ -1,5 +1,5 @@
-import { validateSession } from '@/config/api-validation';
-import api from '@/lib/common/api';
+import { validateSession } from '../../../../config/api-validation';
+import api from '../../../../lib/common/api';
 
 const handler = async (req, res) => {
   const { method } = req;

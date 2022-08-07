@@ -1,16 +1,15 @@
-import { useEffect, useState } from 'react';
-import Router, { useRouter } from 'next/router';
-import { SessionProvider } from 'next-auth/react';
 import { ThemeProvider } from 'next-themes';
+import Router, { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import ReactGA from 'react-ga';
 import TopBarProgress from 'react-topbar-progress-indicator';
 import { SWRConfig } from 'swr';
 
-import progressBarConfig from '@/config/progress-bar/index';
-import swrConfig from '@/config/swr/index';
-import WorkspaceProvider from '@/providers/workspace';
-
-import '@/styles/globals.css';
+import { SessionProvider } from 'next-auth/react';
+import progressBarConfig from '../config/progress-bar/index';
+import swrConfig from '../config/swr';
+import WorkspaceProvider from '../providers/workspace';
+import '../styles/globals.css';
 
 const App = ({ Component, pageProps }) => {
   const [progress, setProgress] = useState(false);

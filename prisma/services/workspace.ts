@@ -2,15 +2,15 @@ import { InvitationStatus, TeamRole } from '@prisma/client';
 import slugify from 'slugify';
 
 import {
-  html as createHtml,
-  text as createText,
-} from '@/config/email-templates/workspace-create';
-import {
   html as inviteHtml,
   text as inviteText,
-} from '@/config/email-templates/invitation';
-import { sendMail } from '@/lib/server/mail';
-import prisma from '@/prisma/index';
+} from '../../src/config/email-templates/invitation';
+import {
+  html as createHtml,
+  text as createText,
+} from '../../src/config/email-templates/workspace-create';
+import { sendMail } from '../../src/lib/server/mail';
+import prisma from '../index';
 
 export const countWorkspaces = async (slug) =>
   await prisma.workspace.count({
@@ -43,6 +43,7 @@ export const createWorkspace = async (creatorId, email, name, slug) => {
     html: createHtml({ code: workspace.inviteCode, name }),
     subject: `[Nextacular] Workspace created: ${name}`,
     text: createText({ code: workspace.inviteCode, name }),
+    from: process.env.EMAIL_FROM,
     to: email,
   });
 };
@@ -264,6 +265,7 @@ export const inviteUsers = async (id, email, members, slug) => {
         html: inviteHtml({ code: workspace.inviteCode, name: workspace.name }),
         subject: `[Nextacular] You have been invited to join ${workspace.name} workspace`,
         text: inviteText({ code: workspace.inviteCode, name: workspace.name }),
+        from: process.env.EMAIL_FROM,
         to: members.map((member) => member.email),
       }),
     ]);

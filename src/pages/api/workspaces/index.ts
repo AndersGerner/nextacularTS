@@ -1,5 +1,5 @@
-import { validateSession } from '@/config/api-validation';
-import { getWorkspaces } from '@/prisma/services/workspace';
+import { getWorkspaces } from '../../../../prisma/services/workspace';
+import { validateSession } from '../../../config/api-validation';
 
 const handler = async (req, res) => {
   const { method } = req;

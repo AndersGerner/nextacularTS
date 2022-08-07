@@ -2,11 +2,14 @@ import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import NextAuth from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
 
-import prisma from '@/prisma/index';
-import { html, text } from '@/config/email-templates/signin';
-import { emailConfig, sendMail } from '@/lib/server/mail';
-import { createPaymentAccount, getPayment } from '@/prisma/services/customer';
-import { log } from '@/lib/server/logsnag';
+import prisma from '../../../../prisma/index';
+import {
+  createPaymentAccount,
+  getPayment,
+} from '../../../../prisma/services/customer';
+import { html, text } from '../../../config/email-templates/signin';
+import { log } from '../../../lib/server/logsnag';
+import { emailConfig, sendMail } from '../../../lib/server/mail';
 
 export default NextAuth({
   adapter: PrismaAdapter(prisma),
@@ -51,6 +54,7 @@ export default NextAuth({
           html: html({ email, url }),
           subject: `[Nextacular] Sign in to ${host}`,
           text: text({ email, url }),
+          from: process.env.EMAIL_FROM,
           to: email,
         });
       },

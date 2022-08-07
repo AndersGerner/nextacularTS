@@ -1,14 +1,13 @@
-import { Fragment, useState } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, PlusIcon, SelectorIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
+import { Fragment, useState } from 'react';
 import toast from 'react-hot-toast';
-
-import Button from '@/components/Button/index';
-import Modal from '@/components/Modal/index';
-import { useWorkspaces } from '@/hooks/data/index';
-import api from '@/lib/common/api';
-import { useWorkspace } from '@/providers/workspace';
+import useWorkspaces from '../../hooks/data/useWorkspaces';
+import api from '../../lib/common/api';
+import { useWorkspace } from '../../providers/workspace';
+import Button from '../Button';
+import Modal from '../Modal';
 
 const Actions = () => {
   const { data, isLoading } = useWorkspaces();

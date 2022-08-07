@@ -1,6 +1,6 @@
 import { InvitationStatus } from '@prisma/client';
 
-import { validateSession } from '@/config/api-validation';
+import { validateSession } from '../../../../config/api-validation';
 
 const handler = async (req, res) => {
   const { method } = req;

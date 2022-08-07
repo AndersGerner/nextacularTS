@@ -1,6 +1,6 @@
-import { html, text } from '@/config/email-templates/email-update';
-import { sendMail } from '@/lib/server/mail';
-import prisma from '@/prisma/index';
+import { html, text } from '../../src/config/email-templates/email-update';
+import { sendMail } from '../../src/lib/server/mail';
+import prisma from '../index';
 
 export const deactivate = async (id) =>
   await prisma.user.update({
@@ -30,6 +30,7 @@ export const updateEmail = async (id, email, previousEmail) => {
     html: html({ email }),
     subject: `[Nextacular] Email address updated`,
     text: text({ email }),
+    from: process.env.EMAIL_FROM,
     to: [email, previousEmail],
   });
 };

@@ -1,12 +1,12 @@
-import { useState } from 'react';
 import Link from 'next/link';
+import { useState } from 'react';
 
+import { MenuIcon } from '@heroicons/react/outline';
+import sidebarMenu from '../../config/menu/sidebar-static';
+import useWorkspaces from '../../hooks/data/useWorkspaces';
+import { useWorkspace } from '../../providers/workspace';
 import Actions from './actions';
 import Menu from './menu';
-import sidebarMenu from '@/config/menu/sidebar-static';
-import { useWorkspaces } from '@/hooks/data';
-import { useWorkspace } from '@/providers/workspace';
-import { MenuIcon } from '@heroicons/react/outline';
 
 const staticMenu = sidebarMenu();
 

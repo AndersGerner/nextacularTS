@@ -1,5 +1,5 @@
-import { getDomains } from '@/prisma/services/domain';
-import { validateSession } from '@/config/api-validation';
+import { getDomains } from '../../../../../prisma/services/domain';
+import { validateSession } from '../../../../config/api-validation';
 
 const handler = async (req, res) => {
   const { method } = req;

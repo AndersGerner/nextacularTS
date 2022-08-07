@@ -1,17 +1,20 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import Button from '@/components/Button/index';
-import Meta from '@/components/Meta/index';
-import Modal from '@/components/Modal/index';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { useWorkspace } from '@/providers/workspace';
 import { getSession } from 'next-auth/react';
-import { getWorkspace, isWorkspaceCreator } from '@/prisma/services/workspace';
+import {
+  getWorkspace,
+  isWorkspaceCreator,
+} from '../../../../../prisma/services/workspace';
+import Button from '../../../../components/Button/index';
+import Card from '../../../../components/Card/index';
+import Content from '../../../../components/Content/index';
+import Meta from '../../../../components/Meta/index';
+import Modal from '../../../../components/Modal/index';
+import { AccountLayout } from '../../../../layouts/index';
+import api from '../../../../lib/common/api';
+import { useWorkspace } from '../../../../providers/workspace';
 
 const Advanced = ({ isCreator }) => {
   const { setWorkspace, workspace } = useWorkspace();

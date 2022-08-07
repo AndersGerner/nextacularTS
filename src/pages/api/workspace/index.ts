@@ -1,10 +1,10 @@
 import slugify from 'slugify';
 
+import { createWorkspace } from '../../../../prisma/services/workspace';
 import {
   validateCreateWorkspace,
   validateSession,
-} from '@/config/api-validation/index';
-import { createWorkspace } from '@/prisma/services/workspace';
+} from '../../../config/api-validation/index';
 
 const handler = async (req, res) => {
   const { method } = req;

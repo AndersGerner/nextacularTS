@@ -1,8 +1,8 @@
+import { inviteUsers } from '../../../../../prisma/services/workspace';
 import {
-  validateWorkspaceInvite,
   validateSession,
-} from '@/config/api-validation/index';
-import { inviteUsers } from '@/prisma/services/workspace';
+  validateWorkspaceInvite,
+} from '../../../../config/api-validation/index';
 
 const handler = async (req, res) => {
   const { method } = req;

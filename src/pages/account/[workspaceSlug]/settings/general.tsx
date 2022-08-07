@@ -1,20 +1,23 @@
-import { useEffect, useState } from 'react';
 import { DocumentDuplicateIcon } from '@heroicons/react/outline';
-import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
 import isAlphanumeric from 'validator/lib/isAlphanumeric';
 import isSlug from 'validator/lib/isSlug';
 
-import Button from '@/components/Button/index';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import Meta from '@/components/Meta/index';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { useWorkspace } from '@/providers/workspace';
-import { getWorkspace, isWorkspaceOwner } from '@/prisma/services/workspace';
+import {
+  getWorkspace,
+  isWorkspaceOwner,
+} from '../../../../../prisma/services/workspace';
+import Button from '../../../../components/Button/index';
+import Card from '../../../../components/Card/index';
+import Content from '../../../../components/Content/index';
+import Meta from '../../../../components/Meta/index';
+import { AccountLayout } from '../../../../layouts/index';
+import api from '../../../../lib/common/api';
+import { useWorkspace } from '../../../../providers/workspace';
 
 const General = ({ isTeamOwner, workspace }) => {
   const router = useRouter();

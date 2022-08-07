@@ -1,20 +1,23 @@
-import { useState } from 'react';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { mutate } from 'swr';
 import isFQDN from 'validator/lib/isFQDN';
+import {
+  getWorkspace,
+  isWorkspaceOwner,
+} from '../../../../../prisma/services/workspace';
 
-import Button from '@/components/Button/index';
-import DomainCard from '@/components/Card/domain';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import Meta from '@/components/Meta/index';
-import { useDomains } from '@/hooks/data';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { getWorkspace, isWorkspaceOwner } from '@/prisma/services/workspace';
+import Button from '../../../../components/Button/index';
+import DomainCard from '../../../../components/Card/domain';
+import Card from '../../../../components/Card/index';
+import Content from '../../../../components/Content/index';
+import Meta from '../../../../components/Meta/index';
+import useDomains from '../../../../hooks/data/useDomains';
+import { AccountLayout } from '../../../../layouts/index';
+import api from '../../../../lib/common/api';
 
 const Domain = ({ isTeamOwner, workspace }) => {
   const { data, isLoading } = useDomains(workspace.slug);

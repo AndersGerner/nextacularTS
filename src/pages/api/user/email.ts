@@ -1,7 +1,8 @@
 import {
-  validateUpdateEmail,
   validateSession,
-} from '@/config/api-validation/index';
+  validateUpdateEmail,
+} from '../../../config/api-validation/index';
+import updateEmail from '../../../config/api-validation/update-email';
 
 const handler = async (req, res) => {
   const { method } = req;

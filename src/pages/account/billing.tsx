@@ -1,19 +1,19 @@
-import { useState } from 'react';
 import formatDistance from 'date-fns/formatDistance';
-import Link from 'next/link';
 import { getSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { getPayment } from '../../../prisma/services/customer';
 
-import Button from '@/components/Button/index';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import Meta from '@/components/Meta/index';
-import Modal from '@/components/Modal/index';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { redirectToCheckout } from '@/lib/client/stripe';
-import { getInvoices, getProducts } from '@/lib/server/stripe';
-import { getPayment } from '@/prisma/services/customer';
+import Button from '../../components/Button/index';
+import Card from '../../components/Card/index';
+import Content from '../../components/Content/index';
+import Meta from '../../components/Meta/index';
+import Modal from '../../components/Modal/index';
+import { AccountLayout } from '../../layouts/index';
+import { redirectToCheckout } from '../../lib/client/stripe';
+import api from '../../lib/common/api';
+import { getInvoices, getProducts } from '../../lib/server/stripe';
 
 const Billing = ({ invoices, products }) => {
   const [isSubmitting, setSubmittingState] = useState(false);

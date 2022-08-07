@@ -1,10 +1,13 @@
-import { validateAddDomain, validateSession } from '@/config/api-validation';
-import api from '@/lib/common/api';
 import {
   createDomain,
   deleteDomain,
   verifyDomain,
-} from '@/prisma/services/domain';
+} from '../../../../../prisma/services/domain';
+import {
+  validateAddDomain,
+  validateSession,
+} from '../../../../config/api-validation';
+import api from '../../../../lib/common/api';
 
 const handler = async (req, res) => {
   const { method } = req;

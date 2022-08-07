@@ -1,5 +1,5 @@
-import { createCustomer } from '@/lib/server/stripe';
-import prisma from '@/prisma/index';
+import { createCustomer } from '../../src/lib/server/stripe';
+import prisma from '../index';
 
 export const createPaymentAccount = async (email, customerId) => {
   const paymentAccount = await createCustomer(email);

@@ -1,8 +1,8 @@
 import { buffer } from 'micro';
+import prisma from '../../../../prisma';
+import { updateSubscription } from '../../../../prisma/services/customer';
 
-import stripe from '@/lib/server/stripe';
-import { updateSubscription } from '@/prisma/services/customer';
-import prisma from '@/prisma/index';
+import stripe from '../../../lib/server/stripe';
 
 export const config = { api: { bodyParser: false } };
 

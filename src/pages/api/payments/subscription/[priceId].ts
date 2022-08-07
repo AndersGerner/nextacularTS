@@ -1,6 +1,6 @@
-import { validateSession } from '@/config/api-validation';
-import stripe from '@/lib/server/stripe';
-import { getPayment } from '@/prisma/services/customer';
+import { getPayment } from '../../../../../prisma/services/customer';
+import { validateSession } from '../../../../config/api-validation';
+import stripe from '../../../../lib/server/stripe';
 
 const handler = async (req, res) => {
   const { method } = req;

@@ -1,11 +1,10 @@
-import { useState } from 'react';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
-
-import Button from '@/components/Button/index';
-import Card from '@/components/Card/index';
-import { useDomain } from '@/hooks/data';
+import { useState } from 'react';
+import useDomain from '../../hooks/data/useDomain';
+import Button from '../Button';
+import Card from './index';
 
 const DomainCard = ({ apex, cname, domain, isLoading, refresh, remove }) => {
   const { name, subdomain, value, verified } = domain || {};

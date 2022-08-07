@@ -1,8 +1,8 @@
+import { updateSlug } from '../../../../../prisma/services/workspace';
 import {
-  validateUpdateWorkspaceSlug,
   validateSession,
-} from '@/config/api-validation/index';
-import { updateSlug } from '@/prisma/services/workspace';
+  validateUpdateWorkspaceSlug,
+} from '../../../../config/api-validation/index';
 
 const handler = async (req, res) => {
   const { method } = req;

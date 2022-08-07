@@ -1,5 +1,5 @@
 import { InvitationStatus } from '@prisma/client';
-import prisma from '@/prisma/index';
+import prisma from '../index';
 
 export const getMember = async (id) =>
   await prisma.member.findFirst({

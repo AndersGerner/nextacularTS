@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
-import Meta from '@/components/Meta/index';
-import { PublicLayout } from '@/layouts/index';
+import Meta from '../../components/Meta/index';
+import { PublicLayout } from '../../layouts/index';
 
 const Payment = () => {
   const { query } = useRouter();

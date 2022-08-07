@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-import Card from '@/components/Card/index';
-import Button from '@/components/Button';
-import api from '@/lib/common/api';
-import { getInvitation } from '@/prisma/services/workspace';
+import { getInvitation } from '../../../prisma/services/workspace';
+import Button from '../../components/Button';
+import Card from '../../components/Card/index';
+import api from '../../lib/common/api';
 
 const Invite = ({ workspace }) => {
   const { data } = useSession();
