@@ -1,7 +1,7 @@
-import { InvitationStatus } from '@prisma/client';
+import { InvitationStatus, Member } from '@prisma/client';
 import prisma from '../index';
 
-export const getMember = async (id) =>
+export const getMember = async (id): Promise<Member> =>
   await prisma.member.findFirst({
     select: { teamRole: true },
     where: { id },

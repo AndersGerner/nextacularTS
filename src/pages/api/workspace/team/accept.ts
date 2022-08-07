@@ -1,5 +1,6 @@
 import { InvitationStatus } from '@prisma/client';
 import { unstable_getServerSession } from 'next-auth';
+import { updateStatus } from '../../../../../prisma/services/membership';
 
 import { authOptions } from '../../auth/[...nextauth]';
 

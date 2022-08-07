@@ -13,7 +13,7 @@ const handler = async (req, res) => {
   if (method === 'PUT') {
     await unstable_getServerSession(req, res, authOptions);
     const { memberId } = req.body;
-    const member = getMember(memberId);
+    const member = await getMember(memberId);
     await toggleRole(
       memberId,
       member.teamRole === TeamRole.MEMBER ? TeamRole.OWNER : TeamRole.MEMBER

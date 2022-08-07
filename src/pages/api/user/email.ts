@@ -1,6 +1,6 @@
 import { unstable_getServerSession } from 'next-auth';
+import { updateEmail } from '../../../../prisma/services/user';
 import { validateUpdateEmail } from '../../../config/api-validation/index';
-import updateEmail from '../../../config/api-validation/update-email';
 import { authOptions } from '../auth/[...nextauth]';
 
 const handler = async (req, res) => {

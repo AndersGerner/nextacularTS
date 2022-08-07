@@ -6,6 +6,8 @@ const handler = async (req, res) => {
 
   if (method === 'GET') {
     const session = await unstable_getServerSession(req, res, authOptions);
+    console.log(session.user);
+
     const workspaces = await getWorkspaces(
       session.user.userId,
       session.user.email
