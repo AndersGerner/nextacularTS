@@ -1,7 +1,8 @@
+import type { NextApiRequest, NextApiResponse } from 'next';
 import { getSession } from 'next-auth/react';
 
 const validateMiddleware = () => {
-  return async (req, res, next) => {
+  return async (req: NextApiRequest, res: NextApiResponse, next) => {
     const session = await getSession({ req });
     const errors = [];
 

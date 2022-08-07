@@ -1,7 +1,8 @@
 import { validationResult } from 'express-validator';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
-const validate = (validations) => {
-  return async (req, res, next) => {
+const validate = (validations: any) => {
+  return async (req: NextApiRequest, res: NextApiResponse, next) => {
     if (!validations) {
       return next();
     } else {

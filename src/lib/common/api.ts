@@ -1,4 +1,4 @@
-const api = async (url, options) => {
+const api = async (url: string, options: any) => {
   const { body, headers, ...opts } = options;
   const requestBody = JSON.stringify(body);
   const response = await fetch(url, {

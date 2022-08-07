@@ -10,7 +10,21 @@ export const emailConfig = {
 
 const transporter = nodemailer.createTransport(emailConfig);
 
-export const sendMail = async ({ from, html, subject, text, to }) => {
+type MailProps = {
+  from: string;
+  to: string;
+  subject: string;
+  text: string;
+  html: any;
+};
+
+export const sendMail = async ({
+  from,
+  to,
+  subject,
+  html,
+  text,
+}: MailProps) => {
   const data = {
     from: from ?? process.env.EMAIL_FROM,
     to,
@@ -18,10 +32,10 @@ export const sendMail = async ({ from, html, subject, text, to }) => {
     text,
     html,
   };
-
-  process.env.NODE_ENV === 'production'
-    ? await transporter.sendMail(data)
-    : console.log(data);
+  if (process.env.NODE_ENV === 'development') {
+    console.log(data);
+  }
+  await transporter.sendMail(data);
 };
 
 export default transporter;
