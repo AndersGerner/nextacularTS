@@ -2,9 +2,9 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { Toaster } from 'react-hot-toast';
-import Content from '../components/Content/index';
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
+import Content from '../components/Content/Content';
+import Header from '../components/Header/Header';
+import Sidebar from '../components/Sidebar/Sidebar';
 import menu from '../config/menu';
 import { useWorkspace } from '../providers/workspace';
 

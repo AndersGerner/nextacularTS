@@ -1,7 +1,7 @@
 import ContentContainer from '../../../components/Content/ContentContainer';
 import ContentDivider from '../../../components/Content/ContentDivider';
 import ContentTitle from '../../../components/Content/ContentTitle';
-import Meta from '../../../components/Meta/index';
+import Meta from '../../../components/Meta/Meta';
 import { AccountLayout } from '../../../layouts/index';
 import { useWorkspace } from '../../../providers/workspace';
 

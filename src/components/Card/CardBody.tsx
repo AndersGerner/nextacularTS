@@ -1,10 +1,10 @@
-export type ICardBody = {
+export type CardBodyProps = {
   children?: any;
   subtitle?: string;
   title?: string;
 };
 
-const CardBody: React.FC<ICardBody> = ({ children, subtitle, title }) => {
+const CardBody: React.FC<CardBodyProps> = ({ children, subtitle, title }) => {
   return (
     <div className="flex flex-col p-5 space-y-3 overflow-auto">
       {title ? (

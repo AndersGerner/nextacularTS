@@ -5,8 +5,8 @@ import { MenuIcon } from '@heroicons/react/outline';
 import sidebarMenu from '../../config/menu/sidebar-static';
 import useWorkspaces from '../../hooks/data/useWorkspaces';
 import { useWorkspace } from '../../providers/workspace';
-import Actions from './actions';
-import Menu from './menu';
+import Actions from './Actions';
+import Menu from './Menu';
 
 const staticMenu = sidebarMenu();
 

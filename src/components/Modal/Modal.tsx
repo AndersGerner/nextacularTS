@@ -1,8 +1,20 @@
-import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
+import { Fragment } from 'react';
 
-const Modal = ({ children, show, title, toggle }) => {
+type ModalProps = {
+  children: any;
+  show: boolean;
+  title: string;
+  toggle: any;
+};
+
+const Modal: React.FC<ModalProps> = ({
+  children,
+  show,
+  title = '',
+  toggle = false,
+}) => {
   return (
     <Transition appear as={Fragment} show={show}>
       <Dialog
@@ -50,13 +62,6 @@ const Modal = ({ children, show, title, toggle }) => {
       </Dialog>
     </Transition>
   );
-};
-
-Modal.defaultProps = {
-  show: false,
-  subtitle: '',
-  title: '',
-  toggle: null,
 };
 
 export default Modal;

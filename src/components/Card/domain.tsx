@@ -3,12 +3,12 @@ import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
 import { useState } from 'react';
 import useDomain from '../../hooks/data/useDomain';
-import Button from '../Button';
+import Button from '../Button/Button';
 import CardBody from './CardBody';
 import CardFooter from './CardFooter';
-import Card from './index';
+import Card from './Card';
 
-type IDomainCard = {
+type DomainCardProps = {
   apex?: string;
   cname?: string;
   domain?: any;
@@ -17,7 +17,7 @@ type IDomainCard = {
   remove?: (arg0: string) => void;
 };
 
-const DomainCard: React.FC<IDomainCard> = ({
+const DomainCard: React.FC<DomainCardProps> = ({
   apex = '',
   cname = '',
   domain = '',

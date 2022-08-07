@@ -6,15 +6,15 @@ import toast from 'react-hot-toast';
 import isEmail from 'validator/lib/isEmail';
 
 import { getUser } from '../../../prisma/services/user';
-import Button from '../../components/Button/index';
+import Button from '../../components/Button/Button';
+import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
 import CardFooter from '../../components/Card/CardFooter';
-import Card from '../../components/Card/index';
 import ContentContainer from '../../components/Content/ContentContainer';
 import ContentDivider from '../../components/Content/ContentDivider';
 import ContentTitle from '../../components/Content/ContentTitle';
-import Meta from '../../components/Meta';
-import Modal from '../../components/Modal/index';
+import Meta from '../../components/Meta/Meta';
+import Modal from '../../components/Modal/Modal';
 import { AccountLayout } from '../../layouts/index';
 import api from '../../lib/common/api';
 
@@ -108,7 +108,13 @@ const Settings = ({ user }) => {
 
   return (
     <AccountLayout>
-      <Meta title="Nextacular - Account Settings" />
+      <Meta
+        title="Nextacular - Account Settings"
+        author=""
+        description=""
+        keywords=""
+        noIndex={false}
+      />
       <ContentTitle
         title="Account Settings"
         subtitle="Manage your profile, preferences, and account settings"

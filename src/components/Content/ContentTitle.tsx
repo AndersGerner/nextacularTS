@@ -1,9 +1,9 @@
-type IContentTitle = {
+type ContentTitleProps = {
   subtitle: string;
   title: string;
 };
 
-const ContentTitle: React.FC<IContentTitle> = ({ subtitle, title }) => {
+const ContentTitle: React.FC<ContentTitleProps> = ({ subtitle, title }) => {
   return (
     <div>
       <h1 className="text-3xl font-bold md:text-4xl">{title}</h1>

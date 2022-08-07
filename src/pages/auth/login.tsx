@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import isEmail from 'validator/lib/isEmail';
 
-import Meta from '../../components/Meta/index';
+import Meta from '../../components/Meta/Meta';
 import { AuthLayout } from '../../layouts/index';
 
 const Login = () => {

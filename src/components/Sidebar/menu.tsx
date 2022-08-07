@@ -1,6 +1,16 @@
 import Item from './item';
 
-const Menu = ({ data, isLoading, showMenu }) => {
+type MenuProps = {
+  data: any;
+  isLoading?: boolean;
+  showMenu: boolean;
+};
+
+const Menu: React.FC<MenuProps> = ({
+  data,
+  isLoading = false,
+  showMenu = false,
+}) => {
   return showMenu ? (
     <div className="space-y-2">
       <h5 className="text-sm font-bold text-gray-400">{data.name}</h5>
@@ -11,11 +21,6 @@ const Menu = ({ data, isLoading, showMenu }) => {
       </ul>
     </div>
   ) : null;
-};
-
-Menu.defaultProps = {
-  isLoading: false,
-  showMenu: false,
 };
 
 export default Menu;

@@ -1,6 +1,11 @@
 import Link from 'next/link';
 
-const Item = ({ data, isLoading }) => {
+type ItemProps = {
+  data: any;
+  isLoading: boolean;
+};
+
+const Item: React.FC<ItemProps> = ({ data = null, isLoading = false }) => {
   return isLoading ? (
     <div className="h-6 mb-3 bg-gray-600 rounded animate-pulse" />
   ) : (
@@ -10,11 +15,6 @@ const Item = ({ data, isLoading }) => {
       </Link>
     </li>
   );
-};
-
-Item.defaultProps = {
-  data: null,
-  isLoading: false,
 };
 
 export default Item;

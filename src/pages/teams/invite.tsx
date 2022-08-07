@@ -5,10 +5,10 @@ import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 import { getInvitation } from '../../../prisma/services/workspace';
-import Button from '../../components/Button';
+import Button from '../../components/Button/Button';
 import CardBody from '../../components/Card/CardBody';
 import CardFooter from '../../components/Card/CardFooter';
-import Card from '../../components/Card/index';
+import Card from '../../components/Card/Card';
 import api from '../../lib/common/api';
 
 const Invite = ({ workspace }) => {

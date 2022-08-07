@@ -10,16 +10,16 @@ import {
   isWorkspaceOwner,
 } from '../../../../../prisma/services/workspace';
 
-import Button from '../../../../components/Button/index';
+import Button from '../../../../components/Button/Button';
 import CardBody from '../../../../components/Card/CardBody';
 import CardFooter from '../../../../components/Card/CardFooter';
 import DomainCard from '../../../../components/Card/domain';
-import Card from '../../../../components/Card/index';
+import Card from '../../../../components/Card/Card';
 import ContentContainer from '../../../../components/Content/ContentContainer';
 import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentEmpty from '../../../../components/Content/ContentEmpty';
 import ContentTitle from '../../../../components/Content/ContentTitle';
-import Meta from '../../../../components/Meta/index';
+import Meta from '../../../../components/Meta/Meta';
 import useDomains from '../../../../hooks/data/useDomains';
 import { AccountLayout } from '../../../../layouts/index';
 import api from '../../../../lib/common/api';

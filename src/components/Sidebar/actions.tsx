@@ -6,8 +6,8 @@ import toast from 'react-hot-toast';
 import useWorkspaces from '../../hooks/data/useWorkspaces';
 import api from '../../lib/common/api';
 import { useWorkspace } from '../../providers/workspace';
-import Button from '../Button';
-import Modal from '../Modal';
+import Button from '../Button/Button';
+import Modal from '../Modal/Modal';
 
 const Actions = () => {
   const { data, isLoading } = useWorkspaces();

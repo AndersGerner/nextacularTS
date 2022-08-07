@@ -7,7 +7,7 @@ import {
   getWorkspacePaths,
 } from '../../../../prisma/services/workspace';
 
-import Meta from '../../../components/Meta';
+import Meta from '../../../components/Meta/Meta';
 
 const Site = ({ workspace }) => {
   const router = useRouter();

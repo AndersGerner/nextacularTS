@@ -1,8 +1,8 @@
-type IContentDivider = {
+type ContentDividerProps = {
   thick?: boolean;
 };
 
-const ContentDivider: React.FC<IContentDivider> = ({ thick }) => {
+const ContentDivider: React.FC<ContentDividerProps> = ({ thick }) => {
   return thick ? (
     <hr className="border-2 dark:border-gray-600" />
   ) : (

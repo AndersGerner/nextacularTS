@@ -2,15 +2,15 @@ import { useRouter } from 'next/router';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import Button from '../..//components/Button/index';
+import Button from '../../components/Button/Button';
+import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
 import CardEmpty from '../../components/Card/CardEmpty';
 import CardFooter from '../../components/Card/CardFooter';
-import Card from '../../components/Card/index';
 import ContentContainer from '../../components/Content/ContentContainer';
 import ContentDivider from '../../components/Content/ContentDivider';
 import ContentTitle from '../../components/Content/ContentTitle';
-import Meta from '../../components/Meta/index';
+import Meta from '../../components/Meta/Meta';
 import useInvitations from '../../hooks/data/useInvitations';
 import useWorkspaces from '../../hooks/data/useWorkspaces';
 import { AccountLayout } from '../../layouts/index';
@@ -69,7 +69,13 @@ const Welcome = () => {
 
   return (
     <AccountLayout>
-      <Meta title="Nextacular - Dashboard" />
+      <Meta
+        title="Nextacular - Dashboard"
+        author=""
+        description=""
+        keywords=""
+        noIndex={false}
+      />
       <ContentTitle
         title="Nextacular Dashboard"
         subtitle="Start building SaaS platforms in a day"
