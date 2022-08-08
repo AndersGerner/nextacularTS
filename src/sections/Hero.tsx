@@ -1,20 +1,27 @@
-import { useState } from 'react';
-import { MenuIcon, XIcon } from '@heroicons/react/outline';
+import { MenuIcon, MoonIcon, SunIcon, XIcon } from '@heroicons/react/outline';
 import { useSession } from 'next-auth/react';
+import { useTheme } from 'next-themes';
 import Link from 'next/link';
+import { useState } from 'react';
 
 const Hero = () => {
   const { status: sessionStatus } = useSession();
   const [showMenu, setMenuVisibility] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   const toggleMenu = () => setMenuVisibility(!showMenu);
+
+  const toggleTheme = (event) => {
+    event.preventDefault();
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   return (
     <div className="w-full py-10">
       <div className="relative flex flex-col px-10 mx-auto space-y-5 md:w-3/4">
         <header className="flex items-center justify-between space-x-3">
           <Link href="/">
-            <a className="text-2xl font-bold">Nextacular</a>
+            <a className="text-2xl font-bold dark:text-white">Nextacular</a>
           </Link>
           <button className="md:hidden" onClick={toggleMenu}>
             {!showMenu ? (
@@ -32,10 +39,17 @@ const Hero = () => {
             ].join(' ')}
           >
             <nav className="flex flex-col w-full space-x-0 space-y-3 text-center md:space-y-0 md:space-x-3 md:flex-row">
-              <a className="px-5 py-2 rounded hover:bg-gray-100">Guides</a>
-              <a className="px-5 py-2 rounded hover:bg-gray-100">Pricing</a>
-              <a className="px-5 py-2 rounded hover:bg-gray-100">Blog</a>
+              <a className="px-5 py-2 rounded cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white">
+                Guides
+              </a>
+              <a className="px-5 py-2 rounded cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white">
+                Pricing
+              </a>
+              <a className="px-5 py-2 rounded cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white">
+                Blog
+              </a>
             </nav>
+
             <Link
               href={
                 sessionStatus === 'authenticated' ? '/account' : '/auth/login'
@@ -47,14 +61,24 @@ const Hero = () => {
                   : 'Login'}
               </a>
             </Link>
+            <button
+              className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 rounded hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white group"
+              onClick={toggleTheme}
+            >
+              {theme === 'dark' ? (
+                <SunIcon className="w-5 h-5" />
+              ) : (
+                <MoonIcon className="w-5 h-5" />
+              )}
+            </button>
           </div>
         </header>
         <div className="flex flex-col items-center justify-center pt-10 mx-auto md:w-3/5">
           <h1 className="text-6xl font-extrabold text-center">
-            <span className="block">Build SaaS platforms</span>
+            <span className="block dark:text-white">Build SaaS platforms</span>
             <span className="block text-blue-600">like never before</span>
           </h1>
-          <p className="mt-5 text-center text-gray-600">
+          <p className="mt-5 text-center text-gray-600 dark:text-gray-200">
             Quickly build landing pages that will help you get results fast
           </p>
         </div>
