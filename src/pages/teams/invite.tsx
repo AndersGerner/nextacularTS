@@ -6,9 +6,9 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import { getInvitation } from '../../../prisma/services/workspace';
 import Button from '../../components/Button/Button';
+import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
 import CardFooter from '../../components/Card/CardFooter';
-import Card from '../../components/Card/Card';
 import api from '../../lib/common/api';
 
 const Invite = ({ workspace }) => {
@@ -40,7 +40,7 @@ const Invite = ({ workspace }) => {
 
   return (
     <main className="relative flex flex-col items-center justify-center h-screen space-y-10">
-      <Toaster position="bottom-center" toastOptions={{ duration: 10000 }} />
+      <Toaster position="bottom-center" toastOptions={{ duration: 5000 }} />
       <div className="w-full py-5">
         <div className="relative flex flex-col mx-auto space-y-5">
           <div className="flex flex-col items-center justify-center mx-auto">

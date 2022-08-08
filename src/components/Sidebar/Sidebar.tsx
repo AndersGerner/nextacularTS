@@ -57,8 +57,8 @@ const Sidebar = ({ menu }) => {
       >
         <Actions />
         <div className="flex flex-col p-5 space-y-10">
-          {renderStaticMenu()}
           {renderMenu()}
+          {renderStaticMenu()}
         </div>
       </div>
     </aside>
