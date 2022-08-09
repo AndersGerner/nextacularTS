@@ -1,12 +1,4 @@
 import { Menu, Transition } from '@headlessui/react';
-import {
-  CreditCardIcon,
-  DesktopComputerIcon,
-  LogoutIcon,
-  MoonIcon,
-  SunIcon,
-  UserCircleIcon,
-} from '@heroicons/react/outline';
 import { signOut, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image';
@@ -66,20 +58,18 @@ const Header = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-40 mt-2 origin-top-right bg-white dark:bg-gray-900 border dark:border-0 divide-y divide-gray-100 rounded shadow-xl">
+          <Menu.Items className="absolute right-0 w-40 mt-2 origin-top-right bg-white dark:bg-gray-900 border dark:border-0 divide-y divide-gray-100 dark:divide-gray-700 rounded shadow-xl">
             <div className="p-2">
               <Menu.Item>
                 <Link href="/account/settings">
-                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 group">
-                    <UserCircleIcon aria-hidden="true" className="w-5 h-5" />
+                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white group">
                     <span>Account</span>
                   </a>
                 </Link>
               </Menu.Item>
               <Menu.Item>
                 <Link href="/account/billing">
-                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 group">
-                    <CreditCardIcon aria-hidden="true" className="w-5 h-5" />
+                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white group">
                     <span>Billing</span>
                   </a>
                 </Link>
@@ -88,28 +78,22 @@ const Header = () => {
             <div className="p-2">
               <Menu.Item>
                 <Link href="/">
-                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 group">
-                    <DesktopComputerIcon
-                      aria-hidden="true"
-                      className="w-5 h-5"
-                    />
+                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white group">
                     <span>Landing Page</span>
                   </a>
                 </Link>
               </Menu.Item>
               <Menu.Item>
                 <button
-                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 group"
+                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white group"
                   onClick={toggleTheme}
                 >
                   {theme === 'dark' ? (
                     <>
-                      <SunIcon className="w-5 h-5" />
                       <span>Light Mode</span>
                     </>
                   ) : (
                     <>
-                      <MoonIcon className="w-5 h-5" />
                       <span>Dark Mode</span>
                     </>
                   )}
@@ -119,10 +103,9 @@ const Header = () => {
             <div className="p-2">
               <Menu.Item>
                 <button
-                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 group"
+                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-white group"
                   onClick={logOut}
                 >
-                  <LogoutIcon aria-hidden="true" className="w-5 h-5" />
                   <span>Logout</span>
                 </button>
               </Menu.Item>
