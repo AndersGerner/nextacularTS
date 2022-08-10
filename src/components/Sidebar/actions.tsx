@@ -89,8 +89,8 @@ const Actions = () => {
       </Modal>
       <Listbox value={workspace} onChange={handleWorkspaceChange}>
         <div className="relative">
-          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white rounded-lg shadow-md cursor-default">
-            <span className="block text-gray-600 truncate">
+          <Listbox.Button className="relative w-full py-2 pl-3 pr-10 text-left bg-white dark:bg-zinc-800 rounded-lg shadow-md cursor-default">
+            <span className="block text-gray-600 dark:text-gray-200 truncate">
               {isLoading
                 ? 'Fetching workspaces...'
                 : data?.workspaces.length === 0
