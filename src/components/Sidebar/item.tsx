@@ -11,7 +11,7 @@ const Item: React.FC<ItemProps> = ({ data = null, isLoading = false }) => {
   ) : (
     <li>
       <Link href={data.path}>
-        <a className="flex w-full px-3 rounded text-gray-300 hover:text-white dark:hover:bg-neutral-800 dark:hover:bg-neutral-800">
+        <a className="flex w-full px-3 rounded text-gray-800 hover:bg-gray-100 dark:text-gray-300 dark:hover:text-white dark:hover:bg-neutral-800 dark:hover:bg-neutral-800">
           {data.name}
         </a>
       </Link>

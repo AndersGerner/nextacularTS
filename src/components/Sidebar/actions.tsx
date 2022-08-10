@@ -113,12 +113,16 @@ const Actions = () => {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60">
+              <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white dark:bg-zinc-900 rounded-md shadow-lg max-h-60">
                 {data?.workspaces.map((workspace, index) => (
                   <Listbox.Option
                     key={index}
                     className={({ active }) =>
-                      `${active ? 'text-blue-800 bg-blue-200' : 'text-gray-800'}
+                      `${
+                        active
+                          ? 'text-gray-800 dark:text-gray-200 hover:bg-gray-100 dark:bg-zinc-900 dark:hover:bg-neutral-800 dark:hover:text-white rounded'
+                          : 'text-gray-800 dark:text-gray-200 rounded'
+                      }
                           cursor-pointer select-none relative py-2 pl-10 pr-4`
                     }
                     value={workspace}
@@ -134,9 +138,7 @@ const Actions = () => {
                         </span>
                         {selected ? (
                           <span
-                            className={`${
-                              active ? 'text-blue-600' : 'text-blue-600'
-                            }
+                            className={`${active ? 'text-fold' : 'text-normal'}
                                 absolute inset-y-0 left-0 flex items-center pl-3`}
                           >
                             <CheckIcon className="w-5 h-5" aria-hidden="true" />
