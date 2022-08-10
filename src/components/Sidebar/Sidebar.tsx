@@ -38,7 +38,7 @@ const Sidebar = ({ menu }) => {
   const toggleMenu = () => setMenuVisibility(!showMenu);
 
   return (
-    <aside className="sticky z-40 flex flex-col space-y-5 text-white bg-white dark:bg-neutral-900 md:overflow-y-auto md:w-1/5 md:h-screen overscroll-contain">
+    <aside className="sticky z-40 flex flex-col space-y-5 text-white bg-white dark:bg-black md:overflow-y-auto md:w-1/5 md:h-screen overscroll-contain">
       <div className="relative flex items-center justify-center p-5 border-b border-b-gray-900">
         <Link href="/">
           <a className="flex-grow text-gray-800 dark:text-gray-200 text-2xl font-bold">

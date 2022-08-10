@@ -140,7 +140,7 @@ const Settings = ({ user }) => {
               subtitle="Please enter your full name, or a display name you are comfortable with"
             >
               <input
-                className="px-3 py-2 border rounded md:w-1/2"
+                className="px-3 py-2 h-9 text-sm border rounded md:w-1/2 dark:bg-black dark:border-gray-700 dark:focus:outline-none dark:focus:border-gray-400"
                 disabled={isSubmitting}
                 onChange={handleNameChange}
                 type="text"
@@ -150,7 +150,7 @@ const Settings = ({ user }) => {
             <CardFooter>
               <small>Please use 32 characters at maximum</small>
               <Button
-                className="text-xs text-white bg-black hover:bg-transparent hover:text-gray-800 hover:border-black dark:bg-white dark:hover:bg-neutral-900 dark:hover:border-white dark:text-gray-800 border dark:hover:text-white"
+                className="h-8 text-xs font-bold text-white bg-black hover:bg-transparent hover:text-gray-800 hover:border-black dark:bg-white dark:hover:bg-neutral-900 dark:hover:border-white dark:text-gray-800 border dark:hover:text-white"
                 disabled={!validName || isSubmitting}
                 onClick={changeName}
               >
@@ -167,7 +167,7 @@ const Settings = ({ user }) => {
               Nextacular"
             >
               <input
-                className="px-3 py-2 border rounded md:w-1/2"
+                className="px-3 py-2 h-9 text-sm border rounded md:w-1/2 dark:bg-black dark:border-gray-700 dark:focus:outline-none dark:focus:border-gray-400"
                 disabled={isSubmitting}
                 onChange={handleEmailChange}
                 type="email"
@@ -177,7 +177,7 @@ const Settings = ({ user }) => {
             <CardFooter>
               <small>We will email you to verify the change</small>
               <Button
-                className="text-xs text-white bg-black hover:bg-transparent hover:text-gray-800 hover:border-black dark:bg-white dark:hover:bg-neutral-900 dark:hover:border-white dark:text-gray-800 border dark:hover:text-white"
+                className="h-8 text-xs font-bold text-white bg-black hover:bg-transparent hover:text-gray-800 hover:border-black dark:bg-white dark:hover:bg-neutral-900 dark:hover:border-white dark:text-gray-800 border dark:hover:text-white"
                 disabled={!validEmail || isSubmitting}
                 onClick={changeEmail}
               >
@@ -191,7 +191,7 @@ const Settings = ({ user }) => {
             title="Personal Account ID"
             subtitle="Used when interacting with APIs"
           >
-            <div className="flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border rounded md:w-1/2">
+            <div className="text-xs flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border dark:bg-black dark:border-gray-700 rounded md:w-1/2">
               <span className="overflow-x-auto">{userCode}</span>
               <CopyToClipboard onCopy={copyToClipboard} text={userCode}>
                 <DocumentDuplicateIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
