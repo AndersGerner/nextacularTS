@@ -19,6 +19,7 @@ import ContentContainer from '../../../../components/Content/ContentContainer';
 import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/Meta';
+import SuccessToast from '../../../../components/Taosts/SuccessToast';
 import AccountLayout from '../../../../layouts/AccountLayout';
 import api from '../../../../lib/common/api';
 import { useWorkspace } from '../../../../providers/workspace';
@@ -50,7 +51,12 @@ const General = ({ isTeamOwner, workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Workspace name successfully updated!');
+        toast.custom(
+          () => <SuccessToast text="Workspace name successfully updated!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };
@@ -70,13 +76,21 @@ const General = ({ isTeamOwner, workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Workspace slug successfully updated!');
+        toast.custom(
+          () => <SuccessToast text="Workspace slug successfully updated!" />,
+          {
+            position: 'top-right',
+          }
+        );
         router.replace(`/account/${slug}/settings/general`);
       }
     });
   };
 
-  const copyToClipboard = () => toast.success('Copied to clipboard!');
+  const copyToClipboard = () =>
+    toast.custom(() => <SuccessToast text="Copied to clipboard" />, {
+      position: 'top-right',
+    });
 
   const handleNameChange = (event) => setName(event.target.value);
 

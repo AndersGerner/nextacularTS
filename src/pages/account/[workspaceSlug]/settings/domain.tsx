@@ -11,18 +11,19 @@ import {
 } from '../../../../../prisma/services/workspace';
 
 import Button from '../../../../components/Button/Button';
+import Card from '../../../../components/Card/Card';
 import CardBody from '../../../../components/Card/CardBody';
 import CardFooter from '../../../../components/Card/CardFooter';
 import DomainCard from '../../../../components/Card/domain';
-import Card from '../../../../components/Card/Card';
 import ContentContainer from '../../../../components/Content/ContentContainer';
 import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentEmpty from '../../../../components/Content/ContentEmpty';
 import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/Meta';
+import SuccessToast from '../../../../components/Taosts/SuccessToast';
 import useDomains from '../../../../hooks/data/useDomains';
-import api from '../../../../lib/common/api';
 import AccountLayout from '../../../../layouts/AccountLayout';
+import api from '../../../../lib/common/api';
 
 const Domain = ({ isTeamOwner, workspace }) => {
   const { data, isLoading } = useDomains(workspace.slug);
@@ -45,7 +46,12 @@ const Domain = ({ isTeamOwner, workspace }) => {
         );
       } else {
         setDomain('');
-        toast.success('Domain successfully added to workspace!');
+        toast.custom(
+          () => <SuccessToast text="Domain successfully added to workspace!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };
@@ -71,7 +77,12 @@ const Domain = ({ isTeamOwner, workspace }) => {
             toast.error(response.errors[error].msg)
           );
         } else {
-          toast.success('Domain successfully verified!');
+          toast.custom(
+            () => <SuccessToast text="Domain successfully verified!" />,
+            {
+              position: 'top-right',
+            }
+          );
         }
       });
     }
@@ -89,7 +100,14 @@ const Domain = ({ isTeamOwner, workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Domain successfully deleted from workspace!');
+        toast.custom(
+          () => (
+            <SuccessToast text="Domain successfully deleted from workspace!" />
+          ),
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };

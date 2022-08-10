@@ -8,6 +8,7 @@ import api from '../../lib/common/api';
 import { useWorkspace } from '../../providers/workspace';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
+import SuccessToast from '../Taosts/SuccessToast';
 
 const Actions = () => {
   const { data, isLoading } = useWorkspaces();
@@ -34,7 +35,12 @@ const Actions = () => {
       } else {
         toggleModal();
         setName('');
-        toast.success('Workspace successfully created!');
+        toast.custom(
+          () => <SuccessToast text="Workspace successfully created!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };

@@ -8,17 +8,18 @@ import {
   isWorkspaceCreator,
 } from '../../../../../prisma/services/workspace';
 import Button from '../../../../components/Button/Button';
+import Card from '../../../../components/Card/Card';
 import CardBody from '../../../../components/Card/CardBody';
 import CardFooter from '../../../../components/Card/CardFooter';
-import Card from '../../../../components/Card/Card';
 import ContentContainer from '../../../../components/Content/ContentContainer';
 import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/Meta';
 import Modal from '../../../../components/Modal/Modal';
+import AccountLayout from '../../../../layouts/AccountLayout';
 import api from '../../../../lib/common/api';
 import { useWorkspace } from '../../../../providers/workspace';
-import AccountLayout from '../../../../layouts/AccountLayout';
+import SuccessToast from '../../../../components/Taosts/SuccessToast';
 
 const Advanced = ({ isCreator }) => {
   const { setWorkspace, workspace } = useWorkspace();
@@ -46,7 +47,12 @@ const Advanced = ({ isCreator }) => {
         toggleModal();
         setWorkspace(null);
         router.replace('/account');
-        toast.success('Workspace has been deleted!');
+        toast.custom(
+          () => <SuccessToast text="Workspace has been deleted!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };

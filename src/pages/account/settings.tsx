@@ -15,6 +15,7 @@ import ContentDivider from '../../components/Content/ContentDivider';
 import ContentTitle from '../../components/Content/ContentTitle';
 import Meta from '../../components/Meta/Meta';
 import Modal from '../../components/Modal/Modal';
+import SuccessToast from '../../components/Taosts/SuccessToast';
 import AccountLayout from '../../layouts/AccountLayout';
 import api from '../../lib/common/api';
 
@@ -29,7 +30,10 @@ const Settings = ({ user }) => {
   const validEmail = isEmail(email);
   const verifiedEmail = verifyEmail === email;
 
-  const copyToClipboard = () => toast.success('Copied to clipboard!');
+  const copyToClipboard = () =>
+    toast.custom(() => <SuccessToast text="Copied to clipboard!" />, {
+      position: 'top-right',
+    });
 
   const changeName = (event) => {
     event.preventDefault();
@@ -45,7 +49,9 @@ const Settings = ({ user }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Name successfully updated!');
+        toast.custom(() => <SuccessToast text="Name successfully updated!" />, {
+          position: 'top-right',
+        });
       }
     });
   };
@@ -69,7 +75,14 @@ const Settings = ({ user }) => {
             toast.error(response.errors[error].msg)
           );
         } else {
-          toast.success('Email successfully updated and signing you out!');
+          toast.custom(
+            () => (
+              <SuccessToast text="Email successfully updated and signing you out!" />
+            ),
+            {
+              position: 'top-right',
+            }
+          );
           setTimeout(() => signOut({ callbackUrl: '/auth/login' }), 2000);
         }
       });
@@ -90,7 +103,12 @@ const Settings = ({ user }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Account has been deactivated!');
+        toast.custom(
+          () => <SuccessToast text="Account has been deactivated!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };

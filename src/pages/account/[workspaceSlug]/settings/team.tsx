@@ -25,6 +25,7 @@ import ContentContainer from '../../../../components/Content/ContentContainer';
 import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/Meta';
+import SuccessToast from '../../../../components/Taosts/SuccessToast';
 import useMembers from '../../../../hooks/data/useMembers';
 import AccountLayout from '../../../../layouts/AccountLayout';
 import api from '../../../../lib/common/api';
@@ -53,12 +54,17 @@ const Team = ({ isTeamOwner, workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Updated team member role!');
+        toast.custom(() => <SuccessToast text="Updated team member role!" />, {
+          position: 'top-right',
+        });
       }
     });
   };
 
-  const copyToClipboard = () => toast.success('Copied to clipboard!');
+  const copyToClipboard = () =>
+    toast.custom(() => <SuccessToast text="Copied to clipboard!" />, {
+      position: 'top-right',
+    });
 
   const handleEmailChange = (event, index) => {
     const member = members[index];
@@ -87,7 +93,9 @@ const Team = ({ isTeamOwner, workspace }) => {
       } else {
         const members = [{ ...MEMBERS_TEMPLATE }];
         setMembers([...members]);
-        toast.success('Invited team members!');
+        toast.custom(() => <SuccessToast text="Invited team members!" />, {
+          position: 'top-right',
+        });
       }
     });
   };
@@ -107,7 +115,12 @@ const Team = ({ isTeamOwner, workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Removed team member from workspace!');
+        toast.custom(
+          () => <SuccessToast text="Removed team member from workspace!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };

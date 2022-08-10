@@ -9,6 +9,7 @@ import Button from '../../components/Button/Button';
 import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
 import CardFooter from '../../components/Card/CardFooter';
+import SuccessToast from '../../components/Taosts/SuccessToast';
 import api from '../../lib/common/api';
 
 const Invite = ({ workspace }) => {
@@ -33,7 +34,9 @@ const Invite = ({ workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Accepted invitation!');
+        toast.custom(() => <SuccessToast text="Accepted invitiation!" />, {
+          position: 'top-right',
+        });
       }
     });
   };

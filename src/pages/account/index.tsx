@@ -11,6 +11,7 @@ import ContentContainer from '../../components/Content/ContentContainer';
 import ContentDivider from '../../components/Content/ContentDivider';
 import ContentTitle from '../../components/Content/ContentTitle';
 import Meta from '../../components/Meta/Meta';
+import SuccessToast from '../../components/Taosts/SuccessToast';
 import useInvitations from '../../hooks/data/useInvitations';
 import useWorkspaces from '../../hooks/data/useWorkspaces';
 import AccountLayout from '../../layouts/AccountLayout';
@@ -39,7 +40,9 @@ const Welcome = () => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Accepted invitation!');
+        toast.custom(() => <SuccessToast text="Accepted invit=ation!" />, {
+          position: 'top-right',
+        });
       }
     });
   };
@@ -57,7 +60,9 @@ const Welcome = () => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Declined invitation!');
+        toast.custom(() => <SuccessToast text="Declined invitation!" />, {
+          position: 'top-right',
+        });
       }
     });
   };

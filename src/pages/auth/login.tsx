@@ -1,9 +1,11 @@
 import { getProviders, signIn, useSession } from 'next-auth/react';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import isEmail from 'validator/lib/isEmail';
 import Meta from '../../components/Meta/Meta';
+import SuccessToast from '../../components/Taosts/SuccessToast';
 import AuthLayout from '../../layouts/AuthLayout';
 
 const SignIn: React.FC = () => {
@@ -21,9 +23,16 @@ const SignIn: React.FC = () => {
     const response = await signIn('email', { email, redirect: false });
 
     if (response.error === null) {
-      toast.success(`Please check your email (${email}) for the login link.`, {
-        duration: 5000,
-      });
+      toast.custom(
+        () => (
+          <SuccessToast
+            text={`Please check your email (${email}) for the login link.`}
+          />
+        ),
+        {
+          position: 'top-right',
+        }
+      );
       setEmail('');
     }
 
@@ -55,11 +64,16 @@ const SignIn: React.FC = () => {
       />
       <div className="min-h-full md:w-1/2 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
-          <img
-            className="mx-auto h-12 w-auto"
-            src="https://tailwindui.com/img/logos/workflow-mark-blue-600.svg"
-            alt="Workflow"
-          />
+          <div className="flex justify-center">
+            <Image
+              className="rounded-full"
+              height={50}
+              width={50}
+              src={require('../../../public/images/default-logo.jpeg')}
+              alt="Workflow"
+            />
+          </div>
+
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Sign in to your account
           </h2>

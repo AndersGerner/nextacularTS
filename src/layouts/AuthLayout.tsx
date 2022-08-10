@@ -15,7 +15,7 @@ const AuthLayout = ({ children }) => {
     if (data) {
       router.push('/account');
     }
-  }, [data, router]);
+  }, [data, router, setTheme]);
 
   return (
     <main className="relative flex flex-col items-center justify-center h-screen p-10 space-y-10">
