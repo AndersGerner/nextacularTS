@@ -9,7 +9,7 @@ import Button from '../../components/Button/Button';
 import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
 import CardFooter from '../../components/Card/CardFooter';
-import SuccessToast from '../../components/Taosts/SuccessToast';
+import SuccessToast from '../../components/Toasts/SuccessToast';
 import api from '../../lib/common/api';
 
 const Invite = ({ workspace }) => {

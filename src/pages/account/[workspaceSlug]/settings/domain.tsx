@@ -20,7 +20,7 @@ import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentEmpty from '../../../../components/Content/ContentEmpty';
 import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/Meta';
-import SuccessToast from '../../../../components/Taosts/SuccessToast';
+import SuccessToast from '../../../../components/Toasts/SuccessToast';
 import useDomains from '../../../../hooks/data/useDomains';
 import AccountLayout from '../../../../layouts/AccountLayout';
 import api from '../../../../lib/common/api';

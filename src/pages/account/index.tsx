@@ -11,7 +11,7 @@ import ContentContainer from '../../components/Content/ContentContainer';
 import ContentDivider from '../../components/Content/ContentDivider';
 import ContentTitle from '../../components/Content/ContentTitle';
 import Meta from '../../components/Meta/Meta';
-import SuccessToast from '../../components/Taosts/SuccessToast';
+import SuccessToast from '../../components/Toasts/SuccessToast';
 import useInvitations from '../../hooks/data/useInvitations';
 import useWorkspaces from '../../hooks/data/useWorkspaces';
 import AccountLayout from '../../layouts/AccountLayout';

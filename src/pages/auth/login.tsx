@@ -1,18 +1,18 @@
-import { getProviders, signIn, useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { FaGithub, FaGoogle } from 'react-icons/fa';
 import isEmail from 'validator/lib/isEmail';
 import Meta from '../../components/Meta/Meta';
-import SuccessToast from '../../components/Taosts/SuccessToast';
+import ErrorToast from '../../components/Toasts/ErrorToast';
+import SuccessToast from '../../components/Toasts/SuccessToast';
 import AuthLayout from '../../layouts/AuthLayout';
 
 const SignIn: React.FC = () => {
   const { status } = useSession();
   const [email, setEmail] = useState('');
   const [isSubmitting, setSubmittingState] = useState(false);
-  const [socialProviders, setSocialProviders] = useState([]);
   const validate = isEmail(email);
 
   const handleEmailChange = (event) => setEmail(event.target.value);
@@ -34,6 +34,12 @@ const SignIn: React.FC = () => {
         }
       );
       setEmail('');
+    } else {
+      setSubmittingState(false);
+      console.log('ERROR ', response.error);
+      toast.custom(() => <ErrorToast text={response.error} />, {
+        position: 'top-right',
+      });
     }
 
     setSubmittingState(false);
@@ -42,19 +48,6 @@ const SignIn: React.FC = () => {
   const signInWithSocial = (socialId) => {
     signIn(socialId);
   };
-
-  useEffect(() => {
-    (async () => {
-      const socialProviders = [];
-      const { email, ...providers } = await getProviders();
-
-      for (const provider in providers) {
-        socialProviders.push(providers[provider]);
-      }
-
-      setSocialProviders([...socialProviders]);
-    })();
-  }, []);
 
   return (
     <AuthLayout>

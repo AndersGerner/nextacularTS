@@ -19,7 +19,7 @@ import ContentContainer from '../../../../components/Content/ContentContainer';
 import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/Meta';
-import SuccessToast from '../../../../components/Taosts/SuccessToast';
+import SuccessToast from '../../../../components/Toasts/SuccessToast';
 import AccountLayout from '../../../../layouts/AccountLayout';
 import api from '../../../../lib/common/api';
 import { useWorkspace } from '../../../../providers/workspace';

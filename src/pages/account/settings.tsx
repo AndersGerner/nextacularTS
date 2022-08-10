@@ -15,7 +15,7 @@ import ContentDivider from '../../components/Content/ContentDivider';
 import ContentTitle from '../../components/Content/ContentTitle';
 import Meta from '../../components/Meta/Meta';
 import Modal from '../../components/Modal/Modal';
-import SuccessToast from '../../components/Taosts/SuccessToast';
+import SuccessToast from '../../components/Toasts/SuccessToast';
 import AccountLayout from '../../layouts/AccountLayout';
 import api from '../../lib/common/api';
 
@@ -150,7 +150,7 @@ const Settings = ({ user }) => {
             <CardFooter>
               <small>Please use 32 characters at maximum</small>
               <Button
-                className="text-white bg-blue-600 hover:bg-blue-500"
+                className="text-xs text-white bg-black hover:bg-transparent hover:text-gray-800 hover:border-black dark:bg-white dark:hover:bg-neutral-900 dark:hover:border-white dark:text-gray-800 border dark:hover:text-white"
                 disabled={!validName || isSubmitting}
                 onClick={changeName}
               >
@@ -177,7 +177,7 @@ const Settings = ({ user }) => {
             <CardFooter>
               <small>We will email you to verify the change</small>
               <Button
-                className="text-white bg-blue-600 hover:bg-blue-500"
+                className="text-xs text-white bg-black hover:bg-transparent hover:text-gray-800 hover:border-black dark:bg-white dark:hover:bg-neutral-900 dark:hover:border-white dark:text-gray-800 border dark:hover:text-white"
                 disabled={!validEmail || isSubmitting}
                 onClick={changeEmail}
               >

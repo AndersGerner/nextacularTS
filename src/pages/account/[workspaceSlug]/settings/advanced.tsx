@@ -19,7 +19,7 @@ import Modal from '../../../../components/Modal/Modal';
 import AccountLayout from '../../../../layouts/AccountLayout';
 import api from '../../../../lib/common/api';
 import { useWorkspace } from '../../../../providers/workspace';
-import SuccessToast from '../../../../components/Taosts/SuccessToast';
+import SuccessToast from '../../../../components/Toasts/SuccessToast';
 
 const Advanced = ({ isCreator }) => {
   const { setWorkspace, workspace } = useWorkspace();

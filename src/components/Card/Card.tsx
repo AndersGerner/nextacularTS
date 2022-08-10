@@ -9,7 +9,7 @@ const Card: React.FC<CardProps> = ({ children, danger }) => {
       {children}
     </div>
   ) : (
-    <div className="flex flex-col justify-between border rounded dark:border-gray-600">
+    <div className="flex flex-col justify-between border rounded dark:border-gray-700">
       {children}
     </div>
   );

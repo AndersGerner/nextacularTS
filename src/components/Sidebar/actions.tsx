@@ -8,7 +8,7 @@ import api from '../../lib/common/api';
 import { useWorkspace } from '../../providers/workspace';
 import Button from '../Button/Button';
 import Modal from '../Modal/Modal';
-import SuccessToast from '../Taosts/SuccessToast';
+import SuccessToast from '../Toasts/SuccessToast';
 
 const Actions = () => {
   const { data, isLoading } = useWorkspaces();
