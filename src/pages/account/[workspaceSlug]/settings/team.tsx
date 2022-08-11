@@ -139,7 +139,7 @@ const Team = ({ isTeamOwner, workspace }) => {
             title="Invite Link"
             subtitle="Allow other people to join your team through the link below"
           >
-            <div className="flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border rounded">
+            <div className="text-xs flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border dark:bg-black dark:border-gray-700 rounded md:w-1/2">
               <span className="overflow-x-auto">{workspace.inviteLink}</span>
               <CopyToClipboard
                 onCopy={copyToClipboard}
@@ -232,7 +232,7 @@ const Team = ({ isTeamOwner, workspace }) => {
           </Card>
         )}
       </ContentContainer>
-      <ContentDivider thick />
+      <ContentDivider />
       <ContentTitle
         title="Team Members"
         subtitle="View team members and pending invites"

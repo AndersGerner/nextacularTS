@@ -18,6 +18,7 @@ import CardFooter from '../../../../components/Card/CardFooter';
 import ContentContainer from '../../../../components/Content/ContentContainer';
 import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentTitle from '../../../../components/Content/ContentTitle';
+import DefaultInput from '../../../../components/Input/DefaultInput';
 import Meta from '../../../../components/Meta/Meta';
 import SuccessToast from '../../../../components/Toasts/SuccessToast';
 import AccountLayout from '../../../../layouts/AccountLayout';
@@ -116,10 +117,10 @@ const General = ({ isTeamOwner, workspace }) => {
             title="Workspace Name"
             subtitle="Used to identify your Workspace on the Dashboard"
           >
-            <input
-              className="px-3 py-2 h-9 text-sm border rounded md:w-1/2 dark:bg-black dark:border-gray-700 dark:focus:outline-none dark:focus:border-gray-400"
+            <DefaultInput
               disabled={isSubmitting || !isTeamOwner}
               onChange={handleNameChange}
+              placeholder="Workspace Name"
               type="text"
               value={name}
             />
@@ -130,8 +131,7 @@ const General = ({ isTeamOwner, workspace }) => {
               <PrimaryButton
                 title="Save"
                 action={changeName}
-                validationProp={!validName}
-                isSubmitting={isSubmitting}
+                disabled={!validName || isSubmitting}
               />
             )}
           </CardFooter>
@@ -142,10 +142,10 @@ const General = ({ isTeamOwner, workspace }) => {
             subtitle="Used to identify your Workspace on the Dashboard"
           >
             <div className="flex items-center space-x-3">
-              <input
-                className="px-3 py-2 h-9 text-sm border rounded md:w-1/2 dark:bg-black dark:border-gray-700 dark:focus:outline-none dark:focus:border-gray-400"
+              <DefaultInput
                 disabled={isSubmitting || !isTeamOwner}
                 onChange={handleSlugChange}
+                placeholder="Workspace Slug"
                 type="text"
                 value={slug}
               />
@@ -163,8 +163,7 @@ const General = ({ isTeamOwner, workspace }) => {
               <PrimaryButton
                 title="Save"
                 action={changeSlug}
-                validationProp={!validSlug}
-                isSubmitting={isSubmitting}
+                disabled={!validSlug || isSubmitting}
               />
             )}
           </CardFooter>

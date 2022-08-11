@@ -1,13 +1,7 @@
-type ContentDividerProps = {
-  thick?: boolean;
-};
+type ContentDividerProps = {};
 
-const ContentDivider: React.FC<ContentDividerProps> = ({ thick }) => {
-  return thick ? (
-    <hr className="border-2 dark:border-gray-600" />
-  ) : (
-    <hr className="border dark:border-gray-700" />
-  );
+const ContentDivider: React.FC<ContentDividerProps> = () => {
+  return <hr className="border-0.5 border-gray-100 dark:border-zinc-800" />;
 };
 
 export default ContentDivider;

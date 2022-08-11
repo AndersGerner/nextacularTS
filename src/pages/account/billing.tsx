@@ -106,7 +106,7 @@ const Billing = ({ invoices, products }) => {
           </div>
         </Modal>
       </ContentContainer>
-      <ContentDivider thick />
+      <ContentDivider />
       <ContentTitle
         title="Invoices"
         subtitle="View and download invoices you may need"

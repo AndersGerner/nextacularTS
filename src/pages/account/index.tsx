@@ -106,7 +106,7 @@ const Welcome = () => {
           )}
         </div>
       </ContentContainer>
-      <ContentDivider thick />
+      <ContentDivider />
       <ContentTitle
         title="Workspace Invitations"
         subtitle="Listed here are the invitations received by your account"

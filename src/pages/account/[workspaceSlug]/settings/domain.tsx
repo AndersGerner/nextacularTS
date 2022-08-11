@@ -19,6 +19,7 @@ import ContentContainer from '../../../../components/Content/ContentContainer';
 import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentEmpty from '../../../../components/Content/ContentEmpty';
 import ContentTitle from '../../../../components/Content/ContentTitle';
+import DefaultInput from '../../../../components/Input/DefaultInput';
 import Meta from '../../../../components/Meta/Meta';
 import SuccessToast from '../../../../components/Toasts/SuccessToast';
 import useDomains from '../../../../hooks/data/useDomains';
@@ -142,7 +143,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
       </ContentContainer>
       {isTeamOwner && (
         <>
-          <ContentDivider thick />
+          <ContentDivider />
           <ContentTitle
             title="Domain Configuration"
             subtitle="Manage your subdomain and domain names"
@@ -155,8 +156,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
                   title="Add Your Domain"
                   subtitle="This domain is assigned to your current workspace"
                 >
-                  <input
-                    className="px-3 py-2 h-9 text-sm border rounded md:w-1/2 dark:bg-black dark:border-gray-700 dark:focus:outline-none dark:focus:border-gray-400"
+                  <DefaultInput
                     disabled={isSubmitting}
                     onChange={handleDomainChange}
                     placeholder="mydomain.com"
@@ -169,8 +169,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
                   <PrimaryButton
                     title="Add"
                     action={addDomain}
-                    validationProp={!validDomainName}
-                    isSubmitting={isSubmitting}
+                    disabled={!validDomainName || isSubmitting}
                   />
                 </CardFooter>
               </form>

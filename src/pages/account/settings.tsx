@@ -14,6 +14,7 @@ import CardFooter from '../../components/Card/CardFooter';
 import ContentContainer from '../../components/Content/ContentContainer';
 import ContentDivider from '../../components/Content/ContentDivider';
 import ContentTitle from '../../components/Content/ContentTitle';
+import DefaultInput from '../../components/Input/DefaultInput';
 import Meta from '../../components/Meta/Meta';
 import Modal from '../../components/Modal/Modal';
 import SuccessToast from '../../components/Toasts/SuccessToast';
@@ -140,10 +141,10 @@ const Settings = ({ user }) => {
               title="Your Name"
               subtitle="Please enter your full name, or a display name you are comfortable with"
             >
-              <input
-                className="px-3 py-2 h-9 text-sm border rounded md:w-1/2 dark:bg-black dark:border-gray-700 dark:focus:outline-none dark:focus:border-gray-400"
+              <DefaultInput
                 disabled={isSubmitting}
                 onChange={handleNameChange}
+                placeholder="Your Name"
                 type="text"
                 value={name}
               />
@@ -153,8 +154,7 @@ const Settings = ({ user }) => {
               <PrimaryButton
                 title="Save"
                 action={changeName}
-                validationProp={!changeName}
-                isSubmitting={isSubmitting}
+                disabled={!changeName || isSubmitting}
               />
             </CardFooter>
           </form>
@@ -166,10 +166,10 @@ const Settings = ({ user }) => {
               subtitle="Please enter the email address you want to use to log in with
               Nextacular"
             >
-              <input
-                className="px-3 py-2 h-9 text-sm border rounded md:w-1/2 dark:bg-black dark:border-gray-700 dark:focus:outline-none dark:focus:border-gray-400"
+              <DefaultInput
                 disabled={isSubmitting}
                 onChange={handleEmailChange}
+                placeholder="your@email.com"
                 type="email"
                 value={email}
               />
@@ -179,8 +179,7 @@ const Settings = ({ user }) => {
               <PrimaryButton
                 title="Save"
                 action={changeEmail}
-                validationProp={!validEmail}
-                isSubmitting={isSubmitting}
+                disabled={!validEmail || isSubmitting}
               />
             </CardFooter>
           </form>
