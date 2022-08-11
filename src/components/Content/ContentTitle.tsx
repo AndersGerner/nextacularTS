@@ -6,8 +6,10 @@ type ContentTitleProps = {
 const ContentTitle: React.FC<ContentTitleProps> = ({ subtitle, title }) => {
   return (
     <div>
-      <h1 className="text-3xl font-bold md:text-4xl">{title}</h1>
-      <h3 className="text-gray-400">{subtitle}</h3>
+      <h1 className="dark:text-white text-2xl font-bold md:text-2xl">
+        {title}
+      </h1>
+      <h3 className="dark:text-gray-200 md:text:lg">{subtitle}</h3>
     </div>
   );
 };
