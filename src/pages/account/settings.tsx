@@ -7,6 +7,7 @@ import isEmail from 'validator/lib/isEmail';
 
 import { getUser } from '../../../prisma/services/user';
 import Button from '../../components/Button/Button';
+import PrimaryButton from '../../components/Button/PrimaryButton';
 import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
 import CardFooter from '../../components/Card/CardFooter';
@@ -149,13 +150,12 @@ const Settings = ({ user }) => {
             </CardBody>
             <CardFooter>
               <small>Please use 32 characters at maximum</small>
-              <Button
-                className="h-8 text-xs font-bold text-white bg-black hover:bg-transparent hover:text-gray-800 hover:border-black dark:bg-white dark:hover:bg-neutral-900 dark:hover:border-white dark:text-gray-800 border dark:hover:text-white"
-                disabled={!validName || isSubmitting}
-                onClick={changeName}
-              >
-                Save
-              </Button>
+              <PrimaryButton
+                title="Save"
+                action={changeName}
+                validationProp={!changeName}
+                isSubmitting={isSubmitting}
+              />
             </CardFooter>
           </form>
         </Card>
@@ -176,13 +176,12 @@ const Settings = ({ user }) => {
             </CardBody>
             <CardFooter>
               <small>We will email you to verify the change</small>
-              <Button
-                className="h-8 text-xs font-bold text-white bg-black hover:bg-transparent hover:text-gray-800 hover:border-black dark:bg-white dark:hover:bg-neutral-900 dark:hover:border-white dark:text-gray-800 border dark:hover:text-white"
-                disabled={!validEmail || isSubmitting}
-                onClick={changeEmail}
-              >
-                Save
-              </Button>
+              <PrimaryButton
+                title="Save"
+                action={changeEmail}
+                validationProp={!validEmail}
+                isSubmitting={isSubmitting}
+              />
             </CardFooter>
           </form>
         </Card>

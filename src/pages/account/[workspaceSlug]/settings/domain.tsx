@@ -10,7 +10,7 @@ import {
   isWorkspaceOwner,
 } from '../../../../../prisma/services/workspace';
 
-import Button from '../../../../components/Button/Button';
+import PrimaryButton from '../../../../components/Button/PrimaryButton';
 import Card from '../../../../components/Card/Card';
 import CardBody from '../../../../components/Card/CardBody';
 import CardFooter from '../../../../components/Card/CardFooter';
@@ -126,7 +126,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
             title="Subdomain"
             subtitle="Your subdomain depends on your workspace slug"
           >
-            <div className="flex items-center justify-between px-3 py-2 font-mono text-sm border rounded md:w-1/2">
+            <div className="text-xs flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border dark:bg-black dark:border-gray-700 rounded md:w-1/2">
               <div>
                 <strong>{workspace.slug}</strong>
                 <span className="pr-3">.{workspace.host}</span>
@@ -156,7 +156,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
                   subtitle="This domain is assigned to your current workspace"
                 >
                   <input
-                    className="px-3 py-2 border rounded md:w-1/2"
+                    className="px-3 py-2 h-9 text-sm border rounded md:w-1/2 dark:bg-black dark:border-gray-700 dark:focus:outline-none dark:focus:border-gray-400"
                     disabled={isSubmitting}
                     onChange={handleDomainChange}
                     placeholder="mydomain.com"
@@ -166,13 +166,12 @@ const Domain = ({ isTeamOwner, workspace }) => {
                 </CardBody>
                 <CardFooter>
                   <span />
-                  <Button
-                    className="text-white bg-blue-600 hover:bg-blue-500"
-                    disabled={!validDomainName || isSubmitting}
-                    onClick={addDomain}
-                  >
-                    Add
-                  </Button>
+                  <PrimaryButton
+                    title="Add"
+                    action={addDomain}
+                    validationProp={!validDomainName}
+                    isSubmitting={isSubmitting}
+                  />
                 </CardFooter>
               </form>
             </Card>
