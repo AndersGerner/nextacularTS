@@ -64,20 +64,20 @@ const Actions = () => {
         <span className="text-sm">Create Workspace</span>
       </Button>
       <Modal show={showModal} title="Create a Workspace" toggle={toggleModal}>
-        <div className="space-y-0 text-sm text-gray-600">
+        <div className="space-y-0 text-sm text-gray-600 dark:text-gray-200">
           <p>
             Create a workspace to keep your team&apos;s content in one place.
           </p>
           <p>You&apos;ll be able to invite everyone later!</p>
         </div>
         <div className="space-y-1">
-          <h3 className="text-xl font-bold">Workspace Name</h3>
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-gray-400 mb-2">
             Name your workspace. Keep it simple.
           </p>
           <input
-            className="w-full px-3 py-2 border rounded"
+            className="w-full px-3 py-2 h-9 border rounded text-sm dark:text-white focus:outline-none focus:border-gray-800 dark:bg-neutral-900  dark:border-gray-700 dark:focus:border-gray-400"
             disabled={isSubmitting}
+            placeholder="Workspace Name"
             onChange={handleNameChange}
             type="text"
             value={name}
@@ -85,7 +85,7 @@ const Actions = () => {
         </div>
         <div className="flex flex-col items-stretch">
           <Button
-            className="text-white bg-blue-600 hover:bg-blue-500"
+            className="text-white text-sm h-9 bg-blue-600 hover:bg-blue-500"
             disabled={!validName || isSubmitting}
             onClick={createWorkspace}
           >

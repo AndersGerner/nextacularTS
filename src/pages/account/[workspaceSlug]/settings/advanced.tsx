@@ -97,10 +97,10 @@ const Advanced = ({ isCreator }) => {
             toggle={toggleModal}
           >
             <p className="flex flex-col">
-              <span className="text-sm">
+              <span className="text-sm text-gray-600 dark:text-gray-200">
                 Your workspace will be deleted, along with all of its contents.
               </span>
-              <span className="text-sm">
+              <span className="text-sm text-gray-600 dark:text-gray-200">
                 Data associated with this workspace can&apos;t be accessed by
                 team members.
               </span>
@@ -110,7 +110,7 @@ const Advanced = ({ isCreator }) => {
               certain.
             </p>
             <div className="flex flex-col">
-              <label className="text-sm text-gray-400 mb-2">
+              <label className="text-sm text-gray-600 dark:text-gray-200 mb-2">
                 Enter <strong>{workspace?.slug}</strong> to continue:
               </label>
               <input
