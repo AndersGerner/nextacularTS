@@ -8,6 +8,7 @@ import {
   isWorkspaceCreator,
 } from '../../../../../prisma/services/workspace';
 import Button from '../../../../components/Button/Button';
+import RedButton from '../../../../components/Button/RedButton';
 import Card from '../../../../components/Card/Card';
 import CardBody from '../../../../components/Card/CardBody';
 import CardFooter from '../../../../components/Card/CardFooter';
@@ -16,10 +17,10 @@ import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentTitle from '../../../../components/Content/ContentTitle';
 import Meta from '../../../../components/Meta/Meta';
 import Modal from '../../../../components/Modal/Modal';
+import SuccessToast from '../../../../components/Toasts/SuccessToast';
 import AccountLayout from '../../../../layouts/AccountLayout';
 import api from '../../../../lib/common/api';
 import { useWorkspace } from '../../../../providers/workspace';
-import SuccessToast from '../../../../components/Toasts/SuccessToast';
 
 const Advanced = ({ isCreator }) => {
   const { setWorkspace, workspace } = useWorkspace();
@@ -83,13 +84,11 @@ const Advanced = ({ isCreator }) => {
                 : 'Please contact your team creator for the deletion of your workspace.'}
             </small>
             {isCreator && (
-              <Button
-                className="text-white bg-red-600 hover:bg-red-500"
-                disabled={isSubmitting}
+              <RedButton
+                title={isSubmitting ? 'Deleting' : 'Delete'}
                 onClick={toggleModal}
-              >
-                {isSubmitting ? 'Deleting' : 'Delete'}
-              </Button>
+                disabled={isSubmitting}
+              />
             )}
           </CardFooter>
           <Modal
@@ -98,24 +97,24 @@ const Advanced = ({ isCreator }) => {
             toggle={toggleModal}
           >
             <p className="flex flex-col">
-              <span>
+              <span className="text-sm">
                 Your workspace will be deleted, along with all of its contents.
               </span>
-              <span>
+              <span className="text-sm">
                 Data associated with this workspace can&apos;t be accessed by
                 team members.
               </span>
             </p>
-            <p className="px-3 py-2 text-red-600 border border-red-600 rounded">
+            <p className="px-3 py-2 text-sm text-red-600 border border-red-600 rounded">
               <strong>Warning:</strong> This action is not reversible. Please be
               certain.
             </p>
             <div className="flex flex-col">
-              <label className="text-sm text-gray-400">
+              <label className="text-sm text-gray-400 mb-2">
                 Enter <strong>{workspace?.slug}</strong> to continue:
               </label>
               <input
-                className="px-3 py-2 border rounded"
+                className="px-3 py-2 h-9 border rounded text-sm focus:outline-none focus:border-gray-800 dark:bg-black dark:border-gray-700 dark:focus:border-gray-400"
                 disabled={isSubmitting}
                 onChange={handleVerifyWorkspaceChange}
                 type="email"
@@ -124,7 +123,7 @@ const Advanced = ({ isCreator }) => {
             </div>
             <div className="flex flex-col items-stretch">
               <Button
-                className="text-white bg-red-600 hover:bg-red-500"
+                className="text-white text-sm bg-red-600 border border-red-500 hover:bg-transparent hover:text-red-500"
                 disabled={!verifiedWorkspace || isSubmitting}
                 onClick={deleteWorkspace}
               >

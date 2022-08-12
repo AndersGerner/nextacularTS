@@ -8,6 +8,7 @@ import isEmail from 'validator/lib/isEmail';
 import { getUser } from '../../../prisma/services/user';
 import Button from '../../components/Button/Button';
 import PrimaryButton from '../../components/Button/PrimaryButton';
+import RedButton from '../../components/Button/RedButton';
 import Card from '../../components/Card/Card';
 import CardBody from '../../components/Card/CardBody';
 import CardFooter from '../../components/Card/CardFooter';
@@ -207,12 +208,10 @@ const Settings = ({ user }) => {
             <small>
               This action is not reversible, so please continue with caution
             </small>
-            <Button
-              className="text-white bg-red-600 hover:bg-red-500"
+            <RedButton
+              title="Deactivate Personal Account"
               onClick={toggleModal}
-            >
-              Deactivate Personal Account
-            </Button>
+            />
           </CardFooter>
           <Modal
             show={showModal}

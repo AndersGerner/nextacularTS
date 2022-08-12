@@ -283,7 +283,7 @@ const Team = ({ isTeamOwner, workspace }) => {
                                 className="relative inline-block text-left"
                               >
                                 <div>
-                                  <Menu.Button className="flex items-center justify-center p-3 space-x-3 rounded hover:bg-gray-100">
+                                  <Menu.Button className="flex items-center justify-center p-3 space-x-3 rounded">
                                     <DotsVerticalIcon className="w-5 h-5" />
                                   </Menu.Button>
                                 </div>
@@ -296,11 +296,11 @@ const Team = ({ isTeamOwner, workspace }) => {
                                   leaveFrom="transform opacity-100 scale-100"
                                   leaveTo="transform opacity-0 scale-95"
                                 >
-                                  <Menu.Items className="absolute right-0 z-20 mt-2 origin-top-right bg-white border divide-y divide-gray-100 rounded w-60">
+                                  <Menu.Items className="absolute w-60 right-0 z-20 mt-2 origin-top-right bg-white dark:bg-neutral-900 border dark:border-0 divide-y divide-gray-100 dark:divide-gray-700 rounded shadow-xl">
                                     <div className="p-2">
                                       <Menu.Item>
                                         <button
-                                          className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 rounded hover:bg-blue-600 hover:text-white"
+                                          className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group"
                                           onClick={() => changeRole(member.id)}
                                         >
                                           <span>
