@@ -18,12 +18,14 @@ import {
 } from '../../../../../prisma/services/workspace';
 
 import Button from '../../../../components/Button/Button';
+import PrimaryButton from '../../../../components/Button/PrimaryButton';
 import Card from '../../../../components/Card/Card';
 import CardBody from '../../../../components/Card/CardBody';
 import CardFooter from '../../../../components/Card/CardFooter';
 import ContentContainer from '../../../../components/Content/ContentContainer';
 import ContentDivider from '../../../../components/Content/ContentDivider';
 import ContentTitle from '../../../../components/Content/ContentTitle';
+import DefaultInput from '../../../../components/Input/DefaultInput';
 import Meta from '../../../../components/Meta/Meta';
 import SuccessToast from '../../../../components/Toasts/SuccessToast';
 import useMembers from '../../../../hooks/data/useMembers';
@@ -171,17 +173,16 @@ const Team = ({ isTeamOwner, workspace }) => {
                 </div>
                 {members.map((member, index) => (
                   <div key={index} className="flex flex-row space-x-5">
-                    <input
-                      className="w-1/2 px-3 py-2 border rounded"
+                    <DefaultInput
                       disabled={isSubmitting}
                       onChange={(event) => handleEmailChange(event, index)}
                       placeholder="name@email.com"
                       type="text"
                       value={member.email}
                     />
-                    <div className="relative inline-block w-1/2 border rounded md:w-1/4 ">
+                    <div className="relative inline-block w-1/2 border rounded md:w-1/4 dark:border-gray-700">
                       <select
-                        className="w-full px-3 py-2 capitalize rounded appearance-none"
+                        className="w-full h-8 px-3 py-2 text-sm capitalize rounded appearance-none focus:outline-none dark:bg-black"
                         disabled={isSubmitting}
                         onChange={(event) => handleRoleChange(event, index)}
                       >
@@ -191,7 +192,7 @@ const Team = ({ isTeamOwner, workspace }) => {
                           </option>
                         ))}
                       </select>
-                      <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                      <div className="absolute h-8 inset-y-0 right-0 flex items-center px-2 pointer-events-none focus:outline-none dark:bg-black">
                         <ChevronDownIcon className="w-5 h-5" />
                       </div>
                     </div>
@@ -207,11 +208,11 @@ const Team = ({ isTeamOwner, workspace }) => {
                 ))}
                 <div>
                   <Button
-                    className="text-sm border hover:border-black disabled:opacity-75"
+                    className="text-sm h-8 px-2 border hover:border-black disabled:opacity-75"
                     disabled={members.length === 3 || isSubmitting}
                     onClick={addEmail}
                   >
-                    <PlusCircleIcon className="w-5 h-5" />
+                    <PlusCircleIcon className="w-4 h-4" />
                     <span>Add more</span>
                   </Button>
                 </div>
@@ -221,13 +222,11 @@ const Team = ({ isTeamOwner, workspace }) => {
               <small>
                 All invited team members will be set to <strong>Pending</strong>
               </small>
-              <Button
-                className="text-white bg-blue-600 hover:bg-blue-500"
+              <PrimaryButton
+                title="Invite"
                 disabled={validateEmails || isSubmitting}
-                onClick={invite}
-              >
-                Invite
-              </Button>
+                action={invite}
+              />
             </CardFooter>
           </Card>
         )}
@@ -242,7 +241,7 @@ const Team = ({ isTeamOwner, workspace }) => {
         <Card>
           <CardBody title="Manage Team Members">
             <table className="table-fixed">
-              <thead className="text-gray-400 border-b">
+              <thead className="text-gray-400 dark:text-gray-500 border-b border-0.5 border-gray-100 dark:border-zinc-800">
                 <tr>
                   <th className="py-3 text-left">Member Name</th>
                   <th className="text-right" />

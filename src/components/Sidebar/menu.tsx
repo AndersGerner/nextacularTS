@@ -13,7 +13,9 @@ const Menu: React.FC<MenuProps> = ({
 }) => {
   return showMenu ? (
     <div className="space-y-2">
-      <h5 className="text-sm font-bold text-gray-400">{data.name}</h5>
+      <h5 className="text-sm font-bold text-gray-400 dark:text-gray-500">
+        {data.name}
+      </h5>
       <ul className="leading-10">
         {data.menuItems.map((entry, index) => (
           <Item key={index} data={entry} isLoading={isLoading} />
