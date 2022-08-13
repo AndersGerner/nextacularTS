@@ -159,5 +159,6 @@ enum SubscriptionType {
 
 enum TeamRole {
   MEMBER
+  ADMIN
   OWNER
 }

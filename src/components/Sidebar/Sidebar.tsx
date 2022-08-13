@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import { MenuIcon } from '@heroicons/react/outline';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
 import sidebarMenu from '../../config/menu/sidebar-static';
 import useWorkspaces from '../../hooks/data/useWorkspaces';
 import { useWorkspace } from '../../providers/workspace';
@@ -14,6 +16,9 @@ const Sidebar = ({ menu }) => {
   const [showMenu, setMenuVisibility] = useState(false);
   const { data, isLoading } = useWorkspaces();
   const { workspace } = useWorkspace();
+  const { theme } = useTheme();
+  const logo = require('../../../public/images/logo.png');
+  const logoDark = require('../../../public/images/logo-dark.png');
 
   const renderMenu = () => {
     return (
@@ -39,12 +44,18 @@ const Sidebar = ({ menu }) => {
 
   return (
     <aside className="sticky z-40 flex flex-col space-y-5 text-white bg-white dark:bg-black md:overflow-y-auto md:w-1/5 md:h-screen overscroll-contain">
-      <div className="relative flex items-center justify-center p-5">
+      <div className="relative flexflex-start p-5">
         <Link href="/">
-          <a className="flex-grow text-gray-800 dark:text-gray-200 text-2xl font-bold">
-            Nextacular
+          <a>
+            <Image
+              src={theme === 'dark' ? logoDark : logo}
+              alt=""
+              height={50}
+              width={140}
+            />
           </a>
         </Link>
+
         <button className="absolute right-0 p-5 md:hidden" onClick={toggleMenu}>
           <MenuIcon className="w-6 h-6" />
         </button>

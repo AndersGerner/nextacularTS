@@ -58,7 +58,7 @@ const Header = () => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-40 mt-2 origin-top-right bg-white dark:bg-neutral-900 border dark:border-0 divide-y divide-gray-100 dark:divide-gray-700 rounded shadow-xl">
+          <Menu.Items className="absolute right-0 w-40 mt-2 origin-top-right bg-white dark:bg-neutral-900 divide-y divide-gray-100 dark:divide-gray-700 rounded shadow-xl">
             <div className="p-2">
               <Menu.Item>
                 <Link href="/account/settings">
