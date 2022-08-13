@@ -35,7 +35,14 @@ export const updateEmail = async (
     subject: `[Nextacular] Email address updated`,
     text: text({ email }),
     from: process.env.EMAIL_FROM,
-    to: [email, previousEmail],
+    to: email,
+  });
+  await sendMail({
+    html: html({ email }),
+    subject: `[Nextacular] Email address updated`,
+    text: text({ email }),
+    from: process.env.EMAIL_FROM,
+    to: previousEmail,
   });
 };
 
