@@ -55,7 +55,7 @@ const Hero = () => {
                 sessionStatus === 'authenticated' ? '/account' : '/auth/login'
               }
             >
-              <a className="w-full px-5 py-2 text-center text-white bg-blue-600 rounded shadow hover:bg-blue-500">
+              <a className="w-full px-6 py-2 text-center text-white bg-blue-600 rounded shadow hover:bg-blue-700">
                 {sessionStatus === 'authenticated'
                   ? 'Go to Dashboard'
                   : 'Login'}
@@ -83,9 +83,11 @@ const Hero = () => {
           </p>
         </div>
         <div className="flex items-center justify-center space-x-5">
-          <a className="px-10 py-3 text-center text-white bg-blue-600 rounded shadow hover:bg-blue-500">
-            Get Started
-          </a>
+          <Link href="/auth/login">
+            <a className="px-10 py-3 text-center text-white bg-blue-600 rounded shadow hover:bg-blue-700">
+              Get Started
+            </a>
+          </Link>
           <a className="px-10 py-3 text-center text-blue-600 rounded shadow hover:bg-blue-50">
             Live Demo
           </a>

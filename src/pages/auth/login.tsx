@@ -125,7 +125,7 @@ const SignIn: React.FC = () => {
             <div className="mt-6">
               <div className="relative">
                 <div className="relative flex justify-center text-sm">
-                  <span className="px-2 text-gray-600 dark:text-gray-400">
+                  <span className="px-2 text-gray-500 dark:text-gray-400">
                     Or continue with
                   </span>
                 </div>
@@ -134,7 +134,7 @@ const SignIn: React.FC = () => {
               <div className="mt-6 grid grid-cols-2 gap-3">
                 <div>
                   <button
-                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-sm font-medium text-gray-500 "
+                    className="w-full inline-flex justify-center py-2 px-4 border dark:border-gray-800 rounded-md shadow-sm bg-white hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-sm font-medium text-gray-500 "
                     disabled={status === 'loading'}
                     onClick={() => signInWithSocial('google')}
                   >
@@ -145,7 +145,7 @@ const SignIn: React.FC = () => {
 
                 <div>
                   <button
-                    className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-sm font-medium text-gray-500 "
+                    className="w-full inline-flex justify-center py-2 px-4 border dark:border-gray-800 rounded-md shadow-sm bg-white hover:bg-gray-100 dark:bg-neutral-800 dark:hover:bg-neutral-700 text-sm font-medium text-gray-500 "
                     disabled={status === 'loading'}
                     onClick={() => signInWithSocial('github')}
                   >
