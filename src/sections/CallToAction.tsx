@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 const CallToAction = () => {
   return (
     <div className="flex items-center justify-center w-full h-screen bg-blue-600">
@@ -11,13 +13,16 @@ const CallToAction = () => {
           </h2>
         </div>
         <div className="flex items-center justify-center">
-          <a className="px-10 py-3 text-xl text-center text-blue-600 bg-white rounded shadow hover:bg-blue-50">
+          <Link
+            href=""
+            className="px-10 py-3 text-xl text-center text-blue-600 bg-white rounded shadow hover:bg-blue-50"
+          >
             Subscribe Now
-          </a>
+          </Link>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default CallToAction;
+export default CallToAction

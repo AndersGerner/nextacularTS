@@ -39,15 +39,24 @@ const Hero = () => {
             ].join(' ')}
           >
             <nav className="flex flex-col w-full space-x-0 space-y-3 text-center md:space-y-0 md:space-x-3 md:flex-row">
-              <a className="px-5 py-2 rounded cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white">
+              <Link
+                href=""
+                className="px-5 py-2 rounded cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white"
+              >
                 Guides
-              </a>
-              <a className="px-5 py-2 rounded cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white">
+              </Link>
+              <Link
+                href=""
+                className="px-5 py-2 rounded cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white"
+              >
                 Pricing
-              </a>
-              <a className="px-5 py-2 rounded cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white">
+              </Link>
+              <Link
+                href=""
+                className="px-5 py-2 rounded cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white"
+              >
                 Blog
-              </a>
+              </Link>
             </nav>
 
             <Link
@@ -81,13 +90,19 @@ const Hero = () => {
         </div>
         <div className="flex items-center justify-center space-x-5">
           <Link href="/auth/login">
-            <a className="px-10 py-3 text-center text-white bg-blue-600 rounded shadow hover:bg-blue-700">
+            <Link
+              href=""
+              className="px-10 py-3 text-center text-white bg-blue-600 rounded shadow hover:bg-blue-700"
+            >
               Get Started
-            </a>
+            </Link>
           </Link>
-          <a className="px-10 py-3 text-center text-blue-600 rounded shadow hover:bg-blue-50">
+          <Link
+            href=""
+            className="px-10 py-3 text-center text-blue-600 rounded shadow hover:bg-blue-50"
+          >
             Live Demo
-          </a>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,28 +1,28 @@
-import { signIn, useSession } from 'next-auth/react';
-import { useTheme } from 'next-themes';
-import Image from 'next/image';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { FaGithub, FaGoogle } from 'react-icons/fa';
-import isEmail from 'validator/lib/isEmail';
-import Meta from '../../components/Meta/Meta';
-import ErrorToast from '../../components/Toasts/ErrorToast';
-import SuccessToast from '../../components/Toasts/SuccessToast';
-import AuthLayout from '../../layouts/AuthLayout';
+import { signIn, useSession } from 'next-auth/react'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { FaGithub, FaGoogle } from 'react-icons/fa'
+import isEmail from 'validator/lib/isEmail'
+import Meta from '../../components/Meta/Meta'
+import ErrorToast from '../../components/Toasts/ErrorToast'
+import SuccessToast from '../../components/Toasts/SuccessToast'
+import AuthLayout from '../../layouts/AuthLayout'
 
 const SignIn: React.FC = () => {
-  const { status } = useSession();
-  const { theme } = useTheme();
-  const [email, setEmail] = useState('');
-  const [isSubmitting, setSubmittingState] = useState(false);
-  const validate = isEmail(email);
+  const { status } = useSession()
+  const [email, setEmail] = useState('')
+  const [isSubmitting, setSubmittingState] = useState(false)
+  const validate = isEmail(email)
 
-  const handleEmailChange = (event) => setEmail(event.target.value);
+  const handleEmailChange = (event) => setEmail(event.target.value)
 
   const signInWithEmail = async (event) => {
-    event.preventDefault();
-    setSubmittingState(true);
-    const response = await signIn('email', { email, redirect: false });
+    event.preventDefault()
+    setSubmittingState(true)
+    const response = await signIn('email', { email, redirect: false })
 
     if (response.error === null) {
       toast.custom(
@@ -34,22 +34,22 @@ const SignIn: React.FC = () => {
         {
           position: 'top-right',
         }
-      );
-      setEmail('');
+      )
+      setEmail('')
     } else {
-      setSubmittingState(false);
-      console.log('ERROR ', response.error);
+      setSubmittingState(false)
+      console.log('ERROR ', response.error)
       toast.custom(() => <ErrorToast text={response.error} />, {
         position: 'top-right',
-      });
+      })
     }
 
-    setSubmittingState(false);
-  };
+    setSubmittingState(false)
+  }
 
   const signInWithSocial = (socialId) => {
-    signIn(socialId);
-  };
+    signIn(socialId)
+  }
 
   return (
     <AuthLayout>
@@ -74,12 +74,12 @@ const SignIn: React.FC = () => {
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
             Or{' '}
-            <a
+            <Link
               href="#"
               className="font-medium text-blue-600 hover:text-blue-500"
             >
               start your 14-day free trial
-            </a>
+            </Link>
           </p>
         </div>
 
@@ -159,7 +159,7 @@ const SignIn: React.FC = () => {
         </div>
       </div>
     </AuthLayout>
-  );
-};
+  )
+}
 
-export default SignIn;
+export default SignIn

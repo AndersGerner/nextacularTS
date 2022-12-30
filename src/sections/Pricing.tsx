@@ -1,4 +1,5 @@
-import { CheckIcon } from '@heroicons/react/outline';
+import { CheckIcon } from '@heroicons/react/outline'
+import Link from 'next/link'
 
 const Pricing = () => {
   return (
@@ -30,12 +31,12 @@ const Pricing = () => {
               </h2>
             </div>
             <div className="flex flex-col w-full h-full p-10 space-y-5 bg-gray-100 border-t">
-              <a
+              <Link
                 className="px-10 py-3 text-lg text-center text-blue-600 bg-white rounded shadow hover:bg-blue-50"
                 href="#!"
               >
                 Get Started with Hobby
-              </a>
+              </Link>
               <div className="space-y-5">
                 <h6 className="uppercase">What&apos;s Included</h6>
                 <ul className="leading-10 list-none list-inside">
@@ -70,12 +71,12 @@ const Pricing = () => {
               </h2>
             </div>
             <div className="flex flex-col w-full h-full p-10 space-y-5 bg-gray-100 border-t">
-              <a
+              <Link
                 className="px-10 py-3 text-lg text-center text-blue-600 bg-white rounded shadow hover:bg-blue-50"
                 href="#!"
               >
                 Get Started with Premium
-              </a>
+              </Link>
               <div className="space-y-5">
                 <h6 className="uppercase">What&apos;s Included</h6>
                 <ul className="leading-10 list-disc list-inside">
@@ -114,7 +115,7 @@ const Pricing = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Pricing;
+export default Pricing

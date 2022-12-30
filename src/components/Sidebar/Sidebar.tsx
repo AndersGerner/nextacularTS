@@ -18,7 +18,9 @@ const Sidebar = ({ menu }) => {
   const { data, isLoading } = useWorkspaces()
   const { workspace } = useWorkspace()
   const { theme } = useTheme()
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const logo = require('../../../public/images/logo.png')
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const logoDark = require('../../../public/images/logo-dark.png')
 
   const renderMenu = () => {

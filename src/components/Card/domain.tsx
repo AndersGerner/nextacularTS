@@ -13,7 +13,7 @@ type DomainCardProps = {
   cname?: string
   domain?: any
   isLoading: boolean
-  refresh?: (arg0: string, arg1: boolean) => {}
+  refresh?: (arg0: string, arg1: boolean) => boolean
   remove?: (arg0: string) => void
 }
 

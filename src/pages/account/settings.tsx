@@ -1,82 +1,82 @@
-import { DocumentDuplicateIcon } from '@heroicons/react/outline';
-import { getSession, signOut } from 'next-auth/react';
-import { useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import toast from 'react-hot-toast';
-import isEmail from 'validator/lib/isEmail';
+import { DocumentDuplicateIcon } from '@heroicons/react/outline'
+import { getSession, signOut } from 'next-auth/react'
+import { useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import toast from 'react-hot-toast'
+import isEmail from 'validator/lib/isEmail'
 
-import { getUser } from '../../../prisma/services/user';
-import Button from '../../components/Button/Button';
-import PrimaryButton from '../../components/Button/PrimaryButton';
-import RedButton from '../../components/Button/RedButton';
-import Card from '../../components/Card/Card';
-import CardBody from '../../components/Card/CardBody';
-import CardFooter from '../../components/Card/CardFooter';
-import ContentContainer from '../../components/Content/ContentContainer';
-import ContentDivider from '../../components/Content/ContentDivider';
-import ContentTitle from '../../components/Content/ContentTitle';
-import DefaultInput from '../../components/Input/DefaultInput';
-import Meta from '../../components/Meta/Meta';
-import Modal from '../../components/Modal/Modal';
-import SuccessToast from '../../components/Toasts/SuccessToast';
-import AccountLayout from '../../layouts/AccountLayout';
-import api from '../../lib/common/api';
+import { getUser } from '../../../prisma/services/user'
+import Button from '../../components/Button/Button'
+import PrimaryButton from '../../components/Button/PrimaryButton'
+import RedButton from '../../components/Button/RedButton'
+import Card from '../../components/Card/Card'
+import CardBody from '../../components/Card/CardBody'
+import CardFooter from '../../components/Card/CardFooter'
+import ContentContainer from '../../components/Content/ContentContainer'
+import ContentDivider from '../../components/Content/ContentDivider'
+import ContentTitle from '../../components/Content/ContentTitle'
+import DefaultInput from '../../components/Input/DefaultInput'
+import Meta from '../../components/Meta/Meta'
+import Modal from '../../components/Modal/Modal'
+import SuccessToast from '../../components/Toasts/SuccessToast'
+import AccountLayout from '../../layouts/AccountLayout'
+import api from '../../lib/common/api'
 
 const Settings = ({ user }) => {
-  const [email, setEmail] = useState(user.email || '');
-  const [isSubmitting, setSubmittingState] = useState(false);
-  const [name, setName] = useState(user.name || '');
-  const [showModal, setModalState] = useState(false);
-  const [userCode] = useState(user.userCode);
-  const [verifyEmail, setVerifyEmail] = useState('');
-  const validName = name.length > 0 && name.length <= 32;
-  const validEmail = isEmail(email);
-  const verifiedEmail = verifyEmail === email;
+  const [email, setEmail] = useState(user.email || '')
+  const [isSubmitting, setSubmittingState] = useState(false)
+  const [name, setName] = useState(user.name || '')
+  const [showModal, setModalState] = useState(false)
+  const [userCode] = useState(user.userCode)
+  const [verifyEmail, setVerifyEmail] = useState('')
+  //const validName = name.length > 0 && name.length <= 32;
+  const validEmail = isEmail(email)
+  const verifiedEmail = verifyEmail === email
 
   const copyToClipboard = () =>
     toast.custom(() => <SuccessToast text="Copied to clipboard!" />, {
       position: 'top-right',
-    });
+    })
 
   const changeName = (event) => {
-    event.preventDefault();
-    setSubmittingState(true);
+    event.preventDefault()
+    setSubmittingState(true)
     api('/api/user/name', {
       body: { name },
       method: 'PUT',
     }).then((response) => {
-      setSubmittingState(false);
+      setSubmittingState(false)
 
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
         toast.custom(() => <SuccessToast text="Name successfully updated!" />, {
           position: 'top-right',
-        });
+        })
       }
-    });
-  };
+    })
+  }
 
   const changeEmail = (event) => {
-    event.preventDefault();
+    event.preventDefault()
     const result = confirm(
       'Are you sure you want to update your email address?'
-    );
+    )
 
     if (result) {
-      setSubmittingState(true);
+      setSubmittingState(true)
       api('/api/user/email', {
         body: { email },
         method: 'PUT',
       }).then((response) => {
-        setSubmittingState(false);
+        setSubmittingState(false)
 
         if (response.errors) {
           Object.keys(response.errors).forEach((error) =>
             toast.error(response.errors[error].msg)
-          );
+          )
         } else {
           toast.custom(
             () => (
@@ -85,47 +85,47 @@ const Settings = ({ user }) => {
             {
               position: 'top-right',
             }
-          );
-          setTimeout(() => signOut({ callbackUrl: '/auth/login' }), 2000);
+          )
+          setTimeout(() => signOut({ callbackUrl: '/auth/login' }), 2000)
         }
-      });
+      })
     }
-  };
+  }
 
   const deactivateAccount = (event) => {
-    event.preventDefault();
-    setSubmittingState(true);
+    event.preventDefault()
+    setSubmittingState(true)
     api('/api/user', {
       method: 'DELETE',
     }).then((response) => {
-      setSubmittingState(false);
-      toggleModal();
+      setSubmittingState(false)
+      toggleModal()
 
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
         toast.custom(
           () => <SuccessToast text="Account has been deactivated!" />,
           {
             position: 'top-right',
           }
-        );
+        )
       }
-    });
-  };
+    })
+  }
 
-  const handleEmailChange = (event) => setEmail(event.target.value);
+  const handleEmailChange = (event) => setEmail(event.target.value)
 
-  const handleNameChange = (event) => setName(event.target.value);
+  const handleNameChange = (event) => setName(event.target.value)
 
-  const handleVerifyEmailChange = (event) => setVerifyEmail(event.target.value);
+  const handleVerifyEmailChange = (event) => setVerifyEmail(event.target.value)
 
   const toggleModal = () => {
-    setVerifyEmail('');
-    setModalState(!showModal);
-  };
+    setVerifyEmail('')
+    setModalState(!showModal)
+  }
 
   return (
     <AccountLayout>
@@ -251,12 +251,12 @@ const Settings = ({ user }) => {
         </Card>
       </ContentContainer>
     </AccountLayout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-  const { email, name, userCode } = await getUser(session.user?.userId);
+  const session = await getSession(context)
+  const { email, name, userCode } = await getUser(session.user?.userId)
   return {
     props: {
       user: {
@@ -265,7 +265,7 @@ export const getServerSideProps = async (context) => {
         userCode,
       },
     },
-  };
-};
+  }
+}
 
-export default Settings;
+export default Settings
