@@ -9,7 +9,6 @@ export const emailConfig = {
   port: process.env.EMAIL_SERVER_PORT,
   service: process.env.EMAIL_SERVICE,
 }
-console.log('🚀 ~ file: mail.ts:12 ~ emailConfig', emailConfig)
 
 const transporter = nodemailer.createTransport(emailConfig)
 
