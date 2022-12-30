@@ -1,27 +1,27 @@
-import { MenuIcon, MoonIcon, SunIcon, XIcon } from '@heroicons/react/outline';
-import { useSession } from 'next-auth/react';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import { useState } from 'react';
+import { MenuIcon, MoonIcon, SunIcon, XIcon } from '@heroicons/react/outline'
+import { useSession } from 'next-auth/react'
+import { useTheme } from 'next-themes'
+import Link from 'next/link'
+import { useState } from 'react'
 
 const Hero = () => {
-  const { status: sessionStatus } = useSession();
-  const [showMenu, setMenuVisibility] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { status: sessionStatus } = useSession()
+  const [showMenu, setMenuVisibility] = useState(false)
+  const { theme, setTheme } = useTheme()
 
-  const toggleMenu = () => setMenuVisibility(!showMenu);
+  const toggleMenu = () => setMenuVisibility(!showMenu)
 
   const toggleTheme = (event) => {
-    event.preventDefault();
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
+    event.preventDefault()
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
 
   return (
     <div className="w-full py-10">
       <div className="relative flex flex-col px-10 mx-auto space-y-5 md:w-3/4">
         <header className="flex items-center justify-between space-x-3">
-          <Link href="/">
-            <a className="text-2xl font-bold dark:text-white">Nextacular</a>
+          <Link href="/" className="text-2xl font-bold dark:text-white">
+            Nextacular
           </Link>
           <button className="md:hidden" onClick={toggleMenu}>
             {!showMenu ? (
@@ -54,12 +54,9 @@ const Hero = () => {
               href={
                 sessionStatus === 'authenticated' ? '/account' : '/auth/login'
               }
+              className="w-full px-6 py-2 text-center text-white bg-blue-600 rounded shadow hover:bg-blue-700"
             >
-              <a className="w-full px-6 py-2 text-center text-white bg-blue-600 rounded shadow hover:bg-blue-700">
-                {sessionStatus === 'authenticated'
-                  ? 'Go to Dashboard'
-                  : 'Login'}
-              </a>
+              {sessionStatus === 'authenticated' ? 'Go to Dashboard' : 'Login'}
             </Link>
             <button
               className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 rounded hover:bg-gray-100 hover:dark:bg-gray-800 dark:text-white group"
@@ -94,7 +91,7 @@ const Hero = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero

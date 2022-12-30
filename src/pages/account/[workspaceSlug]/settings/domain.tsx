@@ -1,95 +1,95 @@
-import { ExternalLinkIcon } from '@heroicons/react/outline';
-import { getSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { mutate } from 'swr';
-import isFQDN from 'validator/lib/isFQDN';
+import { ExternalLinkIcon } from '@heroicons/react/outline'
+import { getSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { mutate } from 'swr'
+import isFQDN from 'validator/lib/isFQDN'
 import {
   getWorkspace,
   isWorkspaceOwner,
-} from '../../../../../prisma/services/workspace';
+} from '../../../../../prisma/services/workspace'
 
-import PrimaryButton from '../../../../components/Button/PrimaryButton';
-import Card from '../../../../components/Card/Card';
-import CardBody from '../../../../components/Card/CardBody';
-import CardFooter from '../../../../components/Card/CardFooter';
-import DomainCard from '../../../../components/Card/domain';
-import ContentContainer from '../../../../components/Content/ContentContainer';
-import ContentDivider from '../../../../components/Content/ContentDivider';
-import ContentEmpty from '../../../../components/Content/ContentEmpty';
-import ContentTitle from '../../../../components/Content/ContentTitle';
-import DefaultInput from '../../../../components/Input/DefaultInput';
-import Meta from '../../../../components/Meta/Meta';
-import SuccessToast from '../../../../components/Toasts/SuccessToast';
-import useDomains from '../../../../hooks/data/useDomains';
-import AccountLayout from '../../../../layouts/AccountLayout';
-import api from '../../../../lib/common/api';
+import PrimaryButton from '../../../../components/Button/PrimaryButton'
+import Card from '../../../../components/Card/Card'
+import CardBody from '../../../../components/Card/CardBody'
+import CardFooter from '../../../../components/Card/CardFooter'
+import DomainCard from '../../../../components/Card/domain'
+import ContentContainer from '../../../../components/Content/ContentContainer'
+import ContentDivider from '../../../../components/Content/ContentDivider'
+import ContentEmpty from '../../../../components/Content/ContentEmpty'
+import ContentTitle from '../../../../components/Content/ContentTitle'
+import DefaultInput from '../../../../components/Input/DefaultInput'
+import Meta from '../../../../components/Meta/Meta'
+import SuccessToast from '../../../../components/Toasts/SuccessToast'
+import useDomains from '../../../../hooks/data/useDomains'
+import AccountLayout from '../../../../layouts/AccountLayout'
+import api from '../../../../lib/common/api'
 
 const Domain = ({ isTeamOwner, workspace }) => {
-  const { data, isLoading } = useDomains(workspace.slug);
-  const [domain, setDomain] = useState('');
-  const [isSubmitting, setSubmittingState] = useState(false);
-  const validDomainName = isFQDN(domain);
+  const { data, isLoading } = useDomains(workspace.slug)
+  const [domain, setDomain] = useState('')
+  const [isSubmitting, setSubmittingState] = useState(false)
+  const validDomainName = isFQDN(domain)
 
   const addDomain = (event) => {
-    event.preventDefault();
-    setSubmittingState(true);
+    event.preventDefault()
+    setSubmittingState(true)
     api(`/api/workspace/${workspace.slug}/domain`, {
       body: { domainName: domain },
       method: 'POST',
     }).then((response) => {
-      setSubmittingState(false);
+      setSubmittingState(false)
 
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
-        setDomain('');
+        setDomain('')
         toast.custom(
           () => <SuccessToast text="Domain successfully added to workspace!" />,
           {
             position: 'top-right',
           }
-        );
+        )
       }
-    });
-  };
+    })
+  }
 
-  const handleDomainChange = (event) => setDomain(event.target.value);
+  const handleDomainChange = (event) => setDomain(event.target.value)
 
   const refresh = (domain: string, verified: boolean) => {
-    setSubmittingState(true);
+    setSubmittingState(true)
 
     if (verified) {
       mutate(`/api/workspace/domain/check?domain=${domain}`).then(() =>
         setSubmittingState(false)
-      );
+      )
     } else {
       api(`/api/workspace/${workspace.slug}/domain`, {
         body: { domainName: domain },
         method: 'PUT',
       }).then((response) => {
-        setSubmittingState(false);
+        setSubmittingState(false)
 
         if (response.errors) {
           Object.keys(response.errors).forEach((error) =>
             toast.error(response.errors[error].msg)
-          );
+          )
         } else {
           toast.custom(
             () => <SuccessToast text="Domain successfully verified!" />,
             {
               position: 'top-right',
             }
-          );
+          )
         }
-      });
+      })
     }
 
-    return verified;
-  };
+    return verified
+  }
 
   const remove = (domain: string) => {
     api(`/api/workspace/${workspace.slug}/domain`, {
@@ -99,7 +99,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
         toast.custom(
           () => (
@@ -108,10 +108,10 @@ const Domain = ({ isTeamOwner, workspace }) => {
           {
             position: 'top-right',
           }
-        );
+        )
       }
-    });
-  };
+    })
+  }
 
   return (
     <AccountLayout>
@@ -132,10 +132,8 @@ const Domain = ({ isTeamOwner, workspace }) => {
                 <strong>{workspace.slug}</strong>
                 <span className="pr-3">.{workspace.host}</span>
               </div>
-              <Link href={`http://${workspace.hostname}`}>
-                <a target="_blank">
-                  <ExternalLinkIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
-                </a>
+              <Link href={`http://${workspace.hostname}`} target="_blank">
+                <ExternalLinkIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
               </Link>
             </div>
           </CardBody>
@@ -198,26 +196,26 @@ const Domain = ({ isTeamOwner, workspace }) => {
         </>
       )}
     </AccountLayout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-  let isTeamOwner = false;
-  let workspace = null;
+  const session = await getSession(context)
+  let isTeamOwner = false
+  let workspace = null
 
   if (session) {
     workspace = await getWorkspace(
       session.user.userId,
       session.user.email,
       context.params.workspaceSlug
-    );
+    )
 
     if (workspace) {
-      const { host } = new URL(process.env.APP_URL);
-      isTeamOwner = isWorkspaceOwner(session.user.email, workspace);
-      workspace.host = host;
-      workspace.hostname = `${workspace.slug}.${host}`;
+      const { host } = new URL(process.env.APP_URL)
+      isTeamOwner = isWorkspaceOwner(session.user.email, workspace)
+      workspace.host = host
+      workspace.hostname = `${workspace.slug}.${host}`
     }
   }
 
@@ -226,7 +224,7 @@ export const getServerSideProps = async (context) => {
       isTeamOwner,
       workspace,
     },
-  };
-};
+  }
+}
 
-export default Domain;
+export default Domain

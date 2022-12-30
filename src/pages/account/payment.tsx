@@ -1,11 +1,11 @@
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-import Meta from '../../components/Meta/Meta';
-import PublicLayout from '../../layouts/PublicLayout';
+import Meta from '../../components/Meta/Meta'
+import PublicLayout from '../../layouts/PublicLayout'
 
 const Payment = () => {
-  const { query } = useRouter();
+  const { query } = useRouter()
 
   return (
     <PublicLayout>
@@ -30,16 +30,17 @@ const Payment = () => {
             </p>
           </div>
           <div className="flex flex-row items-center justify-center space-x-5">
-            <Link href="/account/billing">
-              <a className="px-10 py-3 text-white bg-blue-600 rounded shadow hover:bg-blue-500">
-                Go Back
-              </a>
+            <Link
+              href="/account/billing"
+              className="px-10 py-3 text-white bg-blue-600 rounded shadow hover:bg-blue-500"
+            >
+              Go Back
             </Link>
           </div>
         </div>
       </div>
     </PublicLayout>
-  );
-};
+  )
+}
 
-export default Payment;
+export default Payment

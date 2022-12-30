@@ -88,6 +88,7 @@ Check out these amazing projects built with Nextacular:
 2. [Livebic](https://livebic.com/) by Shadrach
 3. [Vixion Pro Blogging](https://vixion.pro) by Mina
 4. [Living Pupil Homeschool Solutions](https://livingpupilhomeschool.com) by Living Pupil
+5. [MyWS](https://myws.dev) by @monoxruyi
 
 > If you have a project built with Nextacular and want to be listed, feel free to reach out to us through our Discord server.
 
@@ -132,7 +133,7 @@ Show some love and support, and be a backer of our project
 
 [![Open Collective](https://www.vectorlogo.zone/logos/opencollective/opencollective-ar21.svg)](https://opencollective.com/nextacular)
 
-Brian Roach, Cien Lim, Fred Guth ([@fredguth](https://twitter.com/fredguth)), Sandeep Kumar ([@deepsand](https://twitter.com/deepsand)), Justin Harr ([@DasBeasto](https://twitter.com/dasbeasto)), Saket Tawde ([@SaketCodes](https://twitter.com/SaketCodes)), Corey Kellgren, Adarsh Tadimari, Altamir Meister, Abhi Ksinha
+Brian Roach, Cien Lim, Chris Moutsos, Fred Guth ([@fredguth](https://twitter.com/fredguth)), Sandeep Kumar ([@deepsand](https://twitter.com/deepsand)), Justin Harr ([@DasBeasto](https://twitter.com/dasbeasto)), Saket Tawde ([@SaketCodes](https://twitter.com/SaketCodes)), Corey Kellgren, Adarsh Tadimari, Altamir Meister, Abhi Ksinha
 
 ## Acknowledgement
 

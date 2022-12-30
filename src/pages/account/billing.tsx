@@ -1,47 +1,47 @@
-import formatDistance from 'date-fns/formatDistance';
-import { getSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { getPayment } from '../../../prisma/services/customer';
+import formatDistance from 'date-fns/formatDistance'
+import { getSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { getPayment } from '../../../prisma/services/customer'
 
-import Button from '../../components/Button/Button';
-import Card from '../../components/Card/Card';
-import CardBody from '../../components/Card/CardBody';
-import CardFooter from '../../components/Card/CardFooter';
-import ContentContainer from '../../components/Content/ContentContainer';
-import ContentDivider from '../../components/Content/ContentDivider';
-import ContentEmpty from '../../components/Content/ContentEmpty';
-import ContentTitle from '../../components/Content/ContentTitle';
-import Meta from '../../components/Meta/Meta';
-import Modal from '../../components/Modal/Modal';
-import AccountLayout from '../../layouts/AccountLayout';
-import { redirectToCheckout } from '../../lib/client/stripe';
-import api from '../../lib/common/api';
-import { getInvoices, getProducts } from '../../lib/server/stripe';
+import Button from '../../components/Button/Button'
+import Card from '../../components/Card/Card'
+import CardBody from '../../components/Card/CardBody'
+import CardFooter from '../../components/Card/CardFooter'
+import ContentContainer from '../../components/Content/ContentContainer'
+import ContentDivider from '../../components/Content/ContentDivider'
+import ContentEmpty from '../../components/Content/ContentEmpty'
+import ContentTitle from '../../components/Content/ContentTitle'
+import Meta from '../../components/Meta/Meta'
+import Modal from '../../components/Modal/Modal'
+import AccountLayout from '../../layouts/AccountLayout'
+import { redirectToCheckout } from '../../lib/client/stripe'
+import api from '../../lib/common/api'
+import { getInvoices, getProducts } from '../../lib/server/stripe'
 
 const Billing = ({ invoices, products }) => {
-  const [isSubmitting, setSubmittingState] = useState(false);
-  const [showModal, setModalVisibility] = useState(false);
+  const [isSubmitting, setSubmittingState] = useState(false)
+  const [showModal, setModalVisibility] = useState(false)
 
   const subscribe = (priceId) => {
-    setSubmittingState(true);
+    setSubmittingState(true)
     api(`/api/payments/subscription/${priceId}`, {
       method: 'POST',
     }).then((response) => {
-      setSubmittingState(false);
+      setSubmittingState(false)
 
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
-        (async () => redirectToCheckout(response.data.sessionId))();
+        ;(async () => redirectToCheckout(response.data.sessionId))()
       }
-    });
-  };
+    })
+  }
 
-  const toggleModal = () => setModalVisibility(!showModal);
+  const toggleModal = () => setModalVisibility(!showModal)
 
   return (
     <AccountLayout>
@@ -127,10 +127,12 @@ const Billing = ({ invoices, products }) => {
               {invoices.map((invoice, index) => (
                 <tr key={index} className="text-sm hover:bg-gray-100">
                   <td className="px-3 py-5">
-                    <Link href={invoice.hosted_invoice_url}>
-                      <a className="text-blue-600" target="_blank">
-                        {invoice.number}
-                      </a>
+                    <Link
+                      href={invoice.hosted_invoice_url}
+                      className="text-blue-600"
+                      target="_blank"
+                    >
+                      {invoice.number}
                     </Link>
                   </td>
                   <td className="py-5">
@@ -144,10 +146,12 @@ const Billing = ({ invoices, products }) => {
                   </td>
                   <td className="py-5">{invoice.status}</td>
                   <td className="py-5">
-                    <Link href={invoice.hosted_invoice_url}>
-                      <a className="text-blue-600" target="_blank">
-                        &rarr;
-                      </a>
+                    <Link
+                      href={invoice.hosted_invoice_url}
+                      className="text-blue-600"
+                      target="_blank"
+                    >
+                      &rarr;
                     </Link>
                   </td>
                 </tr>
@@ -162,22 +166,22 @@ const Billing = ({ invoices, products }) => {
         </ContentEmpty>
       )}
     </AccountLayout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-  const customerPayment = await getPayment(session.user?.email);
+  const session = await getSession(context)
+  const customerPayment = await getPayment(session.user?.email)
   const [invoices, products] = await Promise.all([
     getInvoices(customerPayment?.paymentId),
     getProducts(),
-  ]);
+  ])
   return {
     props: {
       invoices,
       products,
     },
-  };
-};
+  }
+}
 
-export default Billing;
+export default Billing

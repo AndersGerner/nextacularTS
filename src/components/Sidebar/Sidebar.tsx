@@ -1,24 +1,24 @@
-import Link from 'next/link';
-import { useState } from 'react';
+import Link from 'next/link'
+import { useState } from 'react'
 
-import { MenuIcon } from '@heroicons/react/outline';
-import { useTheme } from 'next-themes';
-import Image from 'next/image';
-import sidebarMenu from '../../config/menu/sidebar-static';
-import useWorkspaces from '../../hooks/data/useWorkspaces';
-import { useWorkspace } from '../../providers/workspace';
-import Actions from './Actions';
-import Menu from './Menu';
+import { MenuIcon } from '@heroicons/react/outline'
+import { useTheme } from 'next-themes'
+import Image from 'next/image'
+import sidebarMenu from '../../config/menu/sidebar-static'
+import useWorkspaces from '../../hooks/data/useWorkspaces'
+import { useWorkspace } from '../../providers/workspace'
+import Actions from './Actions'
+import Menu from './Menu'
 
-const staticMenu = sidebarMenu();
+const staticMenu = sidebarMenu()
 
 const Sidebar = ({ menu }) => {
-  const [showMenu, setMenuVisibility] = useState(false);
-  const { data, isLoading } = useWorkspaces();
-  const { workspace } = useWorkspace();
-  const { theme } = useTheme();
-  const logo = require('../../../public/images/logo.png');
-  const logoDark = require('../../../public/images/logo-dark.png');
+  const [showMenu, setMenuVisibility] = useState(false)
+  const { data, isLoading } = useWorkspaces()
+  const { workspace } = useWorkspace()
+  const { theme } = useTheme()
+  const logo = require('../../../public/images/logo.png')
+  const logoDark = require('../../../public/images/logo-dark.png')
 
   const renderMenu = () => {
     return (
@@ -31,29 +31,27 @@ const Sidebar = ({ menu }) => {
           showMenu={data?.workspaces.length > 0 || isLoading}
         />
       ))
-    );
-  };
+    )
+  }
 
   const renderStaticMenu = () => {
     return staticMenu.map((item, index) => (
       <Menu key={index} data={item} showMenu={true} />
-    ));
-  };
+    ))
+  }
 
-  const toggleMenu = () => setMenuVisibility(!showMenu);
+  const toggleMenu = () => setMenuVisibility(!showMenu)
 
   return (
     <aside className="sticky z-40 flex flex-col space-y-5 text-white bg-white dark:bg-black md:overflow-y-auto md:w-1/5 md:h-screen overscroll-contain">
       <div className="relative flexflex-start p-5">
         <Link href="/">
-          <a>
-            <Image
-              src={theme === 'dark' ? logoDark : logo}
-              alt=""
-              height={50}
-              width={140}
-            />
-          </a>
+          <Image
+            src={theme === 'dark' ? logoDark : logo}
+            alt=""
+            height={50}
+            width={140}
+          />
         </Link>
 
         <button className="absolute right-0 p-5 md:hidden" onClick={toggleMenu}>
@@ -75,7 +73,7 @@ const Sidebar = ({ menu }) => {
         </div>
       </div>
     </aside>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

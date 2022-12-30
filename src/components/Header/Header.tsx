@@ -1,34 +1,34 @@
-import { Menu, Transition } from '@headlessui/react';
-import { signOut, useSession } from 'next-auth/react';
-import { useTheme } from 'next-themes';
-import Image from 'next/image';
-import Link from 'next/link';
-import { Fragment } from 'react';
+import { Menu, Transition } from '@headlessui/react'
+import { signOut, useSession } from 'next-auth/react'
+import { useTheme } from 'next-themes'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Fragment } from 'react'
 
 const Header = () => {
-  const { data } = useSession();
-  const { theme, setTheme } = useTheme();
+  const { data } = useSession()
+  const { theme, setTheme } = useTheme()
 
   const logOut = () => {
-    const result = confirm('Are you sure you want to logout?');
+    const result = confirm('Are you sure you want to logout?')
 
     if (result) {
-      signOut({ callbackUrl: '/' });
+      signOut({ callbackUrl: '/' })
     }
-  };
+  }
 
   const toggleTheme = (event) => {
-    event.preventDefault();
-    setTheme(theme === 'dark' ? 'light' : 'dark');
-  };
+    event.preventDefault()
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
 
   const getUserImage = () => {
     if (data && data.user.image) {
-      return data.user.image;
+      return data.user.image
     } else {
-      return require('../../../public/images/user-image.webp');
+      return require('../../../public/images/user-image.webp')
     }
-  };
+  }
 
   return (
     <div className="flex flex-row items-center justify-between">
@@ -61,26 +61,29 @@ const Header = () => {
           <Menu.Items className="absolute right-0 w-40 mt-2 origin-top-right bg-white dark:bg-neutral-900 divide-y divide-gray-100 dark:divide-gray-700 rounded shadow-xl">
             <div className="p-2">
               <Menu.Item>
-                <Link href="/account/settings">
-                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group">
-                    <span>Account</span>
-                  </a>
+                <Link
+                  href="/account/settings"
+                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group"
+                >
+                  <span>Account</span>
                 </Link>
               </Menu.Item>
               <Menu.Item>
-                <Link href="/account/billing">
-                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group">
-                    <span>Billing</span>
-                  </a>
+                <Link
+                  href="/account/billing"
+                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group"
+                >
+                  <span>Billing</span>
                 </Link>
               </Menu.Item>
             </div>
             <div className="p-2">
               <Menu.Item>
-                <Link href="/">
-                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group">
-                    <span>Landing Page</span>
-                  </a>
+                <Link
+                  href="/"
+                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group"
+                >
+                  <span>Landing Page</span>
                 </Link>
               </Menu.Item>
               <Menu.Item>
@@ -114,7 +117,7 @@ const Header = () => {
         </Transition>
       </Menu>
     </div>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

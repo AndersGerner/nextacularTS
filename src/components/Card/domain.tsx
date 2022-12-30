@@ -1,21 +1,21 @@
-import { ExternalLinkIcon } from '@heroicons/react/outline';
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid';
-import Link from 'next/link';
-import { useState } from 'react';
-import useDomain from '../../hooks/data/useDomain';
-import Button from '../Button/Button';
-import CardBody from './CardBody';
-import CardFooter from './CardFooter';
-import Card from './Card';
+import { ExternalLinkIcon } from '@heroicons/react/outline'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid'
+import Link from 'next/link'
+import { useState } from 'react'
+import useDomain from '../../hooks/data/useDomain'
+import Button from '../Button/Button'
+import CardBody from './CardBody'
+import CardFooter from './CardFooter'
+import Card from './Card'
 
 type DomainCardProps = {
-  apex?: string;
-  cname?: string;
-  domain?: any;
-  isLoading: boolean;
-  refresh?: (arg0: string, arg1: boolean) => {};
-  remove?: (arg0: string) => void;
-};
+  apex?: string
+  cname?: string
+  domain?: any
+  isLoading: boolean
+  refresh?: (arg0: string, arg1: boolean) => {}
+  remove?: (arg0: string) => void
+}
 
 const DomainCard: React.FC<DomainCardProps> = ({
   apex = '',
@@ -25,33 +25,33 @@ const DomainCard: React.FC<DomainCardProps> = ({
   refresh,
   remove,
 }) => {
-  const { name, subdomain, value, verified } = domain || {};
-  const { data, isLoading: isChecking } = useDomain(name);
-  const [display, setDisplay] = useState(verified ? 'cname' : 'txt');
+  const { name, subdomain, value, verified } = domain || {}
+  const { data, isLoading: isChecking } = useDomain(name)
+  const [display, setDisplay] = useState(verified ? 'cname' : 'txt')
 
   const handleRefresh = (name, isVerified) => {
-    const verified = refresh(name, isVerified);
+    const verified = refresh(name, isVerified)
 
     if (verified) {
-      setDisplay('cname');
+      setDisplay('cname')
     }
-  };
+  }
 
   const onRemove = () => {
     const result = confirm(
       `Are you sure you want to delete this domain: ${name}?`
-    );
+    )
 
     if (result) {
-      remove(name);
+      remove(name)
     }
-  };
+  }
 
-  const showApex = () => setDisplay('apex');
+  const showApex = () => setDisplay('apex')
 
-  const showCName = () => setDisplay('cname');
+  const showCName = () => setDisplay('cname')
 
-  const showTxt = () => setDisplay('txt');
+  const showTxt = () => setDisplay('txt')
 
   return (
     <Card>
@@ -61,14 +61,13 @@ const DomainCard: React.FC<DomainCardProps> = ({
         <>
           <CardBody title={name}>
             <div className="flex items-center mb-5 space-x-3">
-              <Link href={`https://${name}`}>
-                <a
-                  className="flex items-center space-x-2 text-blue-600 hover:underline"
-                  target="_blank"
-                >
-                  <span>Visit {name}</span>
-                  <ExternalLinkIcon className="w-5 h-5" />
-                </a>
+              <Link
+                href={`https://${name}`}
+                className="flex items-center space-x-2 text-blue-600 hover:underline"
+                target="_blank"
+              >
+                <span>Visit {name}</span>
+                <ExternalLinkIcon className="w-5 h-5" />
               </Link>
               {!data?.valid || !verified ? (
                 <h3 className="flex items-center space-x-1 text-red-600">
@@ -195,7 +194,7 @@ const DomainCard: React.FC<DomainCardProps> = ({
         </>
       )}
     </Card>
-  );
-};
+  )
+}
 
-export default DomainCard;
+export default DomainCard

@@ -1,45 +1,45 @@
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { useSession } from 'next-auth/react'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import toast, { Toaster } from 'react-hot-toast'
 
-import { getInvitation } from '../../../prisma/services/workspace';
-import Button from '../../components/Button/Button';
-import Card from '../../components/Card/Card';
-import CardBody from '../../components/Card/CardBody';
-import CardFooter from '../../components/Card/CardFooter';
-import SuccessToast from '../../components/Toasts/SuccessToast';
-import api from '../../lib/common/api';
+import { getInvitation } from '../../../prisma/services/workspace'
+import Button from '../../components/Button/Button'
+import Card from '../../components/Card/Card'
+import CardBody from '../../components/Card/CardBody'
+import CardFooter from '../../components/Card/CardFooter'
+import SuccessToast from '../../components/Toasts/SuccessToast'
+import api from '../../lib/common/api'
 
 const Invite = ({ workspace }) => {
-  const { data } = useSession();
-  const router = useRouter();
-  const [isSubmitting, setSubmittingState] = useState(false);
+  const { data } = useSession()
+  const router = useRouter()
+  const [isSubmitting, setSubmittingState] = useState(false)
 
   const join = () => {
-    setSubmittingState(true);
+    setSubmittingState(true)
     api(`/api/workspace/team/join`, {
       body: { workspaceCode: workspace.workspaceCode },
       method: 'POST',
     }).then((response) => {
-      setSubmittingState(false);
+      setSubmittingState(false)
 
       if (response.errors) {
         if (response.status === 422) {
-          router.replace('/account');
+          router.replace('/account')
         }
 
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
         toast.custom(() => <SuccessToast text="Accepted invitiation!" />, {
           position: 'top-right',
-        });
+        })
       }
-    });
-  };
+    })
+  }
 
   return (
     <main className="relative flex flex-col items-center justify-center h-screen space-y-10">
@@ -62,10 +62,11 @@ const Invite = ({ workspace }) => {
                     Join Workspace
                   </Button>
                 ) : (
-                  <Link href="/auth/login">
-                    <a className="flex items-center justify-center px-5 py-2 space-x-3 text-white bg-blue-600 rounded hover:bg-blue-500">
-                      Create an account
-                    </a>
+                  <Link
+                    href="/auth/login"
+                    className="flex items-center justify-center px-5 py-2 space-x-3 text-white bg-blue-600 rounded hover:bg-blue-500"
+                  >
+                    Create an account
                   </Link>
                 )}
               </CardFooter>
@@ -74,13 +75,13 @@ const Invite = ({ workspace }) => {
         </div>
       </div>
     </main>
-  );
-};
+  )
+}
 
 export const getServerSideProps = async (context) => {
-  const { code } = context.query;
-  const workspace = await getInvitation(code);
-  return { props: { workspace } };
-};
+  const { code } = context.query
+  const workspace = await getInvitation(code)
+  return { props: { workspace } }
+}
 
-export default Invite;
+export default Invite
