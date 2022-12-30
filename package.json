@@ -18,7 +18,7 @@
     "@stripe/stripe-js": "^1.46.0",
     "date-fns": "^2.29.3",
     "express-validator": "^6.14.2",
-    "logsnag": "^0.0.6",
+    "logsnag": "^0.1.6",
     "micro": "^9.3.4",
     "next": "^13.1.0",
     "next-auth": "^4.10.3",

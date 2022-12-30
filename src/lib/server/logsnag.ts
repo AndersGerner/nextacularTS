@@ -1,6 +1,9 @@
-import { LogSnag } from 'logsnag';
+import { LogSnag } from 'logsnag'
 
-const logsnag = new LogSnag(process.env.LOGSNAG_API_TOKEN);
+const logsnag = new LogSnag({
+  token: process.env.LOGSNAG_API_TOKEN,
+  project: 'nextacular',
+})
 
 export const log = (
   channel: string,
@@ -9,10 +12,9 @@ export const log = (
   icon: string
 ) =>
   logsnag.publish({
-    project: 'nextacular',
     channel,
     event,
     description,
     icon: icon || '🔥',
     notify: true,
-  });
+  })
