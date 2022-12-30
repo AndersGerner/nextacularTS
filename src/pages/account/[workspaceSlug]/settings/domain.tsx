@@ -1,4 +1,4 @@
-import { ExternalLinkIcon } from '@heroicons/react/outline'
+import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
 import { getSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -133,7 +133,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
                 <span className="pr-3">.{workspace.host}</span>
               </div>
               <Link href={`http://${workspace.hostname}`} target="_blank">
-                <ExternalLinkIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
+                <ArrowTopRightOnSquareIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
               </Link>
             </div>
           </CardBody>

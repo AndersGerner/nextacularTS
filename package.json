@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.7.7",
-    "@heroicons/react": "^1.0.5",
+    "@heroicons/react": "^2.0.13",
     "@next-auth/prisma-adapter": "^1.0.5",
     "@prisma/client": "^4.2.1",
     "@stripe/stripe-js": "^1.46.0",
@@ -32,7 +32,7 @@
     "react-icons": "^4.4.0",
     "react-topbar-progress-indicator": "^4.1.0",
     "slugify": "^1.6.5",
-    "stripe": "^8.203.0",
+    "stripe": "^11.5.0",
     "swr": "^2.0.0",
     "validator": "^13.7.0"
   },

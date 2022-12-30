@@ -1,13 +1,13 @@
-import { Dialog, Transition } from '@headlessui/react';
-import { XIcon } from '@heroicons/react/outline';
-import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react'
+import { XCircleIcon } from '@heroicons/react/24/outline'
+import { Fragment } from 'react'
 
 type ModalProps = {
-  children: any;
-  show: boolean;
-  title: string;
-  toggle: any;
-};
+  children: any
+  show: boolean
+  title: string
+  toggle: any
+}
 
 const Modal: React.FC<ModalProps> = ({
   children,
@@ -57,14 +57,14 @@ const Modal: React.FC<ModalProps> = ({
                 className="absolute top-0 outline-none right-5 dark:text-gray-400"
                 onClick={toggle}
               >
-                <XIcon className="w-6 h-6" />
+                <XCircleIcon className="w-6 h-6" />
               </button>
             </div>
           </Transition.Child>
         </div>
       </Dialog>
     </Transition>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal

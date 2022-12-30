@@ -1,50 +1,50 @@
-import { Menu, Transition } from '@headlessui/react';
+import { Menu, Transition } from '@headlessui/react'
 import {
   ChevronDownIcon,
   DocumentDuplicateIcon,
-  DotsVerticalIcon,
+  EllipsisVerticalIcon,
   PlusCircleIcon,
-  XIcon,
-} from '@heroicons/react/outline';
-import { InvitationStatus, TeamRole } from '@prisma/client';
-import { getSession } from 'next-auth/react';
-import { Fragment, useState } from 'react';
-import CopyToClipboard from 'react-copy-to-clipboard';
-import toast from 'react-hot-toast';
-import isEmail from 'validator/lib/isEmail';
+  XCircleIcon,
+} from '@heroicons/react/24/outline'
+import { InvitationStatus, TeamRole } from '@prisma/client'
+import { getSession } from 'next-auth/react'
+import { Fragment, useState } from 'react'
+import CopyToClipboard from 'react-copy-to-clipboard'
+import toast from 'react-hot-toast'
+import isEmail from 'validator/lib/isEmail'
 import {
   getWorkspace,
   isWorkspaceOwner,
-} from '../../../../../prisma/services/workspace';
+} from '../../../../../prisma/services/workspace'
 
-import Button from '../../../../components/Button/Button';
-import PrimaryButton from '../../../../components/Button/PrimaryButton';
-import Card from '../../../../components/Card/Card';
-import CardBody from '../../../../components/Card/CardBody';
-import CardFooter from '../../../../components/Card/CardFooter';
-import ContentContainer from '../../../../components/Content/ContentContainer';
-import ContentDivider from '../../../../components/Content/ContentDivider';
-import ContentTitle from '../../../../components/Content/ContentTitle';
-import DefaultInput from '../../../../components/Input/DefaultInput';
-import Meta from '../../../../components/Meta/Meta';
-import SuccessToast from '../../../../components/Toasts/SuccessToast';
-import useMembers from '../../../../hooks/data/useMembers';
-import AccountLayout from '../../../../layouts/AccountLayout';
-import api from '../../../../lib/common/api';
+import Button from '../../../../components/Button/Button'
+import PrimaryButton from '../../../../components/Button/PrimaryButton'
+import Card from '../../../../components/Card/Card'
+import CardBody from '../../../../components/Card/CardBody'
+import CardFooter from '../../../../components/Card/CardFooter'
+import ContentContainer from '../../../../components/Content/ContentContainer'
+import ContentDivider from '../../../../components/Content/ContentDivider'
+import ContentTitle from '../../../../components/Content/ContentTitle'
+import DefaultInput from '../../../../components/Input/DefaultInput'
+import Meta from '../../../../components/Meta/Meta'
+import SuccessToast from '../../../../components/Toasts/SuccessToast'
+import useMembers from '../../../../hooks/data/useMembers'
+import AccountLayout from '../../../../layouts/AccountLayout'
+import api from '../../../../lib/common/api'
 
-const MEMBERS_TEMPLATE = { email: '', role: TeamRole.MEMBER };
+const MEMBERS_TEMPLATE = { email: '', role: TeamRole.MEMBER }
 
 const Team = ({ isTeamOwner, workspace }) => {
-  const { data, isLoading } = useMembers(workspace.slug);
-  const [isSubmitting, setSubmittingState] = useState(false);
-  const [members, setMembers] = useState([{ ...MEMBERS_TEMPLATE }]);
+  const { data, isLoading } = useMembers(workspace.slug)
+  const [isSubmitting, setSubmittingState] = useState(false)
+  const [members, setMembers] = useState([{ ...MEMBERS_TEMPLATE }])
   const validateEmails =
-    members.filter((member) => !isEmail(member.email)).length !== 0;
+    members.filter((member) => !isEmail(member.email)).length !== 0
 
   const addEmail = () => {
-    members.push({ ...MEMBERS_TEMPLATE });
-    setMembers([...members]);
-  };
+    members.push({ ...MEMBERS_TEMPLATE })
+    setMembers([...members])
+  }
 
   const changeRole = (memberId) => {
     api(`/api/workspace/team/role`, {
@@ -54,58 +54,58 @@ const Team = ({ isTeamOwner, workspace }) => {
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
         toast.custom(() => <SuccessToast text="Updated team member role!" />, {
           position: 'top-right',
-        });
+        })
       }
-    });
-  };
+    })
+  }
 
   const copyToClipboard = () =>
     toast.custom(() => <SuccessToast text="Copied to clipboard!" />, {
       position: 'top-right',
-    });
+    })
 
   const handleEmailChange = (event, index) => {
-    const member = members[index];
-    member.email = event.target.value;
-    setMembers([...members]);
-  };
+    const member = members[index]
+    member.email = event.target.value
+    setMembers([...members])
+  }
 
   const handleRoleChange = (event, index) => {
-    const member = members[index];
-    member.role = event.target.value;
-    setMembers([...members]);
-  };
+    const member = members[index]
+    member.role = event.target.value
+    setMembers([...members])
+  }
 
   const invite = () => {
-    setSubmittingState(true);
+    setSubmittingState(true)
     api(`/api/workspace/${workspace.slug}/invite`, {
       body: { members },
       method: 'POST',
     }).then((response) => {
-      setSubmittingState(false);
+      setSubmittingState(false)
 
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
-        const members = [{ ...MEMBERS_TEMPLATE }];
-        setMembers([...members]);
+        const members = [{ ...MEMBERS_TEMPLATE }]
+        setMembers([...members])
         toast.custom(() => <SuccessToast text="Invited team members!" />, {
           position: 'top-right',
-        });
+        })
       }
-    });
-  };
+    })
+  }
 
   const remove = (index) => {
-    members.splice(index, 1);
-    setMembers([...members]);
-  };
+    members.splice(index, 1)
+    setMembers([...members])
+  }
 
   const removeMember = (memberId) => {
     api(`/api/workspace/team/member`, {
@@ -115,17 +115,17 @@ const Team = ({ isTeamOwner, workspace }) => {
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
         toast.custom(
           () => <SuccessToast text="Removed team member from workspace!" />,
           {
             position: 'top-right',
           }
-        );
+        )
       }
-    });
-  };
+    })
+  }
 
   return (
     <AccountLayout>
@@ -201,7 +201,7 @@ const Team = ({ isTeamOwner, workspace }) => {
                         className="text-red-600"
                         onClick={() => remove(index)}
                       >
-                        <XIcon className="w-5 h-5" />
+                        <XCircleIcon className="w-5 h-5" />
                       </button>
                     )}
                   </div>
@@ -284,7 +284,7 @@ const Team = ({ isTeamOwner, workspace }) => {
                               >
                                 <div>
                                   <Menu.Button className="flex items-center justify-center p-3 space-x-3 rounded">
-                                    <DotsVerticalIcon className="w-5 h-5" />
+                                    <EllipsisVerticalIcon className="w-5 h-5" />
                                   </Menu.Button>
                                 </div>
                                 <Transition
@@ -344,26 +344,26 @@ const Team = ({ isTeamOwner, workspace }) => {
         </Card>
       </ContentContainer>
     </AccountLayout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-  let isTeamOwner = false;
-  let workspace = null;
+  const session = await getSession(context)
+  let isTeamOwner = false
+  let workspace = null
 
   if (session) {
     workspace = await getWorkspace(
       session.user.userId,
       session.user.email,
       context.params.workspaceSlug
-    );
+    )
 
     if (workspace) {
-      isTeamOwner = isWorkspaceOwner(session.user.email, workspace);
+      isTeamOwner = isWorkspaceOwner(session.user.email, workspace)
       workspace.inviteLink = `${
         process.env.APP_URL
-      }/teams/invite?code=${encodeURI(workspace.inviteCode)}`;
+      }/teams/invite?code=${encodeURI(workspace.inviteCode)}`
     }
   }
 
@@ -372,7 +372,7 @@ export const getServerSideProps = async (context) => {
       isTeamOwner,
       workspace,
     },
-  };
-};
+  }
+}
 
-export default Team;
+export default Team

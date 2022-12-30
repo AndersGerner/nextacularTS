@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
-import { MenuIcon } from '@heroicons/react/outline'
+import { Bars3Icon } from '@heroicons/react/24/outline'
 import { useTheme } from 'next-themes'
 import Image from 'next/image'
 import sidebarMenu from '../../config/menu/sidebar-static'
@@ -58,7 +58,7 @@ const Sidebar = ({ menu }) => {
         </Link>
 
         <button className="absolute right-0 p-5 md:hidden" onClick={toggleMenu}>
-          <MenuIcon className="w-6 h-6" />
+          <Bars3Icon className="w-6 h-6" />
         </button>
       </div>
       <div

@@ -1,5 +1,5 @@
-import { ExternalLinkIcon } from '@heroicons/react/outline'
-import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid'
+import { ArrowTopRightOnSquareIcon as ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
+import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link'
 import { useState } from 'react'
 import useDomain from '../../hooks/data/useDomain'
@@ -67,7 +67,7 @@ const DomainCard: React.FC<DomainCardProps> = ({
                 target="_blank"
               >
                 <span>Visit {name}</span>
-                <ExternalLinkIcon className="w-5 h-5" />
+                <ArrowTopRightOnSquareIcon className="w-5 h-5" />
               </Link>
               {!data?.valid || !verified ? (
                 <h3 className="flex items-center space-x-1 text-red-600">

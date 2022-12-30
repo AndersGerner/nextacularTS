@@ -1,107 +1,107 @@
-import { DocumentDuplicateIcon } from '@heroicons/react/outline';
-import { getSession } from 'next-auth/react';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import toast from 'react-hot-toast';
-import isAlphanumeric from 'validator/lib/isAlphanumeric';
-import isSlug from 'validator/lib/isSlug';
+import { DocumentDuplicateIcon } from '@heroicons/react/24/outline'
+import { getSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
+import toast from 'react-hot-toast'
+import isAlphanumeric from 'validator/lib/isAlphanumeric'
+import isSlug from 'validator/lib/isSlug'
 
 import {
   getWorkspace,
   isWorkspaceOwner,
-} from '../../../../../prisma/services/workspace';
-import PrimaryButton from '../../../../components/Button/PrimaryButton';
-import Card from '../../../../components/Card/Card';
-import CardBody from '../../../../components/Card/CardBody';
-import CardFooter from '../../../../components/Card/CardFooter';
-import ContentContainer from '../../../../components/Content/ContentContainer';
-import ContentDivider from '../../../../components/Content/ContentDivider';
-import ContentTitle from '../../../../components/Content/ContentTitle';
-import DefaultInput from '../../../../components/Input/DefaultInput';
-import Meta from '../../../../components/Meta/Meta';
-import SuccessToast from '../../../../components/Toasts/SuccessToast';
-import AccountLayout from '../../../../layouts/AccountLayout';
-import api from '../../../../lib/common/api';
-import { useWorkspace } from '../../../../providers/workspace';
+} from '../../../../../prisma/services/workspace'
+import PrimaryButton from '../../../../components/Button/PrimaryButton'
+import Card from '../../../../components/Card/Card'
+import CardBody from '../../../../components/Card/CardBody'
+import CardFooter from '../../../../components/Card/CardFooter'
+import ContentContainer from '../../../../components/Content/ContentContainer'
+import ContentDivider from '../../../../components/Content/ContentDivider'
+import ContentTitle from '../../../../components/Content/ContentTitle'
+import DefaultInput from '../../../../components/Input/DefaultInput'
+import Meta from '../../../../components/Meta/Meta'
+import SuccessToast from '../../../../components/Toasts/SuccessToast'
+import AccountLayout from '../../../../layouts/AccountLayout'
+import api from '../../../../lib/common/api'
+import { useWorkspace } from '../../../../providers/workspace'
 
 const General = ({ isTeamOwner, workspace }) => {
-  const router = useRouter();
-  const { setWorkspace } = useWorkspace();
-  const [isSubmitting, setSubmittingState] = useState(false);
-  const [name, setName] = useState(workspace.name || '');
-  const [slug, setSlug] = useState(workspace.slug || '');
-  const validName = name.length > 0 && name.length <= 16;
+  const router = useRouter()
+  const { setWorkspace } = useWorkspace()
+  const [isSubmitting, setSubmittingState] = useState(false)
+  const [name, setName] = useState(workspace.name || '')
+  const [slug, setSlug] = useState(workspace.slug || '')
+  const validName = name.length > 0 && name.length <= 16
   const validSlug =
     slug.length > 0 &&
     slug.length <= 16 &&
     isSlug(slug) &&
-    isAlphanumeric(slug, undefined, { ignore: '-' });
+    isAlphanumeric(slug, undefined, { ignore: '-' })
 
   const changeName = (event) => {
-    event.preventDefault();
-    setSubmittingState(true);
+    event.preventDefault()
+    setSubmittingState(true)
     api(`/api/workspace/${workspace.slug}/name`, {
       body: { name },
       method: 'PUT',
     }).then((response) => {
-      setSubmittingState(false);
+      setSubmittingState(false)
 
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
         toast.custom(
           () => <SuccessToast text="Workspace name successfully updated!" />,
           {
             position: 'top-right',
           }
-        );
+        )
       }
-    });
-  };
+    })
+  }
 
   const changeSlug = (event) => {
-    event.preventDefault();
-    setSubmittingState(true);
+    event.preventDefault()
+    setSubmittingState(true)
     api(`/api/workspace/${workspace.slug}/slug`, {
       body: { slug },
       method: 'PUT',
     }).then((response) => {
-      setSubmittingState(false);
-      const slug = response?.data?.slug;
+      setSubmittingState(false)
+      const slug = response?.data?.slug
 
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
         toast.custom(
           () => <SuccessToast text="Workspace slug successfully updated!" />,
           {
             position: 'top-right',
           }
-        );
-        router.replace(`/account/${slug}/settings/general`);
+        )
+        router.replace(`/account/${slug}/settings/general`)
       }
-    });
-  };
+    })
+  }
 
   const copyToClipboard = () =>
     toast.custom(() => <SuccessToast text="Copied to clipboard" />, {
       position: 'top-right',
-    });
+    })
 
-  const handleNameChange = (event) => setName(event.target.value);
+  const handleNameChange = (event) => setName(event.target.value)
 
-  const handleSlugChange = (event) => setSlug(event.target.value);
+  const handleSlugChange = (event) => setSlug(event.target.value)
 
   useEffect(() => {
-    setName(workspace.name);
-    setSlug(workspace.slug);
-    setWorkspace(workspace);
-  }, [workspace, setWorkspace]);
+    setName(workspace.name)
+    setSlug(workspace.slug)
+    setWorkspace(workspace)
+  }, [workspace, setWorkspace])
 
   return (
     <AccountLayout>
@@ -186,23 +186,23 @@ const General = ({ isTeamOwner, workspace }) => {
         </Card>
       </ContentContainer>
     </AccountLayout>
-  );
-};
+  )
+}
 
 export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-  let isTeamOwner = false;
-  let workspace = null;
+  const session = await getSession(context)
+  let isTeamOwner = false
+  let workspace = null
 
   if (session) {
     workspace = await getWorkspace(
       session.user.userId,
       session.user.email,
       context.params.workspaceSlug
-    );
+    )
 
     if (workspace) {
-      isTeamOwner = isWorkspaceOwner(session.user.email, workspace);
+      isTeamOwner = isWorkspaceOwner(session.user.email, workspace)
     }
   }
 
@@ -211,7 +211,7 @@ export const getServerSideProps = async (context) => {
       isTeamOwner,
       workspace,
     },
-  };
-};
+  }
+}
 
-export default General;
+export default General

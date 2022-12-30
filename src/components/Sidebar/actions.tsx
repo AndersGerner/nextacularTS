@@ -1,58 +1,58 @@
-import { Listbox, Transition } from '@headlessui/react';
-import { CheckIcon, PlusIcon, SelectorIcon } from '@heroicons/react/solid';
-import { useRouter } from 'next/router';
-import { Fragment, useState } from 'react';
-import toast from 'react-hot-toast';
-import useWorkspaces from '../../hooks/data/useWorkspaces';
-import api from '../../lib/common/api';
-import { useWorkspace } from '../../providers/workspace';
-import Button from '../Button/Button';
-import Modal from '../Modal/Modal';
-import SuccessToast from '../Toasts/SuccessToast';
+import { Listbox, Transition } from '@headlessui/react'
+import { CheckIcon, PlusIcon, ChevronUpIcon } from '@heroicons/react/20/solid'
+import { useRouter } from 'next/router'
+import { Fragment, useState } from 'react'
+import toast from 'react-hot-toast'
+import useWorkspaces from '../../hooks/data/useWorkspaces'
+import api from '../../lib/common/api'
+import { useWorkspace } from '../../providers/workspace'
+import Button from '../Button/Button'
+import Modal from '../Modal/Modal'
+import SuccessToast from '../Toasts/SuccessToast'
 
 const Actions = () => {
-  const { data, isLoading } = useWorkspaces();
-  const { workspace, setWorkspace } = useWorkspace();
-  const router = useRouter();
-  const [isSubmitting, setSubmittingState] = useState(false);
-  const [name, setName] = useState('');
-  const [showModal, setModalState] = useState(false);
-  const validName = name.length > 0 && name.length <= 16;
+  const { data, isLoading } = useWorkspaces()
+  const { workspace, setWorkspace } = useWorkspace()
+  const router = useRouter()
+  const [isSubmitting, setSubmittingState] = useState(false)
+  const [name, setName] = useState('')
+  const [showModal, setModalState] = useState(false)
+  const validName = name.length > 0 && name.length <= 16
 
   const createWorkspace = (event) => {
-    event.preventDefault();
-    setSubmittingState(true);
+    event.preventDefault()
+    setSubmittingState(true)
     api('/api/workspace', {
       body: { name },
       method: 'POST',
     }).then((response) => {
-      setSubmittingState(false);
+      setSubmittingState(false)
 
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
-        toggleModal();
-        setName('');
+        toggleModal()
+        setName('')
         toast.custom(
           () => <SuccessToast text="Workspace successfully created!" />,
           {
             position: 'top-right',
           }
-        );
+        )
       }
-    });
-  };
+    })
+  }
 
-  const handleNameChange = (event) => setName(event.target.value);
+  const handleNameChange = (event) => setName(event.target.value)
 
   const handleWorkspaceChange = (workspace) => {
-    setWorkspace(workspace);
-    router.replace(`/account/${workspace?.slug}`);
-  };
+    setWorkspace(workspace)
+    router.replace(`/account/${workspace?.slug}`)
+  }
 
-  const toggleModal = () => setModalState(!showModal);
+  const toggleModal = () => setModalState(!showModal)
 
   return (
     <div className="flex flex-col items-stretch justify-center px-5 space-y-3">
@@ -106,7 +106,7 @@ const Actions = () => {
                 : workspace.name}
             </span>
             <span className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-              <SelectorIcon
+              <ChevronUpIcon
                 className="w-5 h-5 text-gray-400"
                 aria-hidden="true"
               />
@@ -160,7 +160,7 @@ const Actions = () => {
         </div>
       </Listbox>
     </div>
-  );
-};
+  )
+}
 
-export default Actions;
+export default Actions

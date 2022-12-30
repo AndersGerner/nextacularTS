@@ -1,4 +1,9 @@
-import { MenuIcon, MoonIcon, SunIcon, XIcon } from '@heroicons/react/outline'
+import {
+  Bars3Icon,
+  MoonIcon,
+  SunIcon,
+  XCircleIcon,
+} from '@heroicons/react/24/outline'
 import { useSession } from 'next-auth/react'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
@@ -25,9 +30,9 @@ const Hero = () => {
           </Link>
           <button className="md:hidden" onClick={toggleMenu}>
             {!showMenu ? (
-              <MenuIcon className="w-8 h-8" />
+              <Bars3Icon className="w-8 h-8" />
             ) : (
-              <XIcon className="w-8 h-8" />
+              <XCircleIcon className="w-8 h-8" />
             )}
           </button>
           <div

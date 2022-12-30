@@ -39,10 +39,10 @@
   dependencies:
     client-only "^0.0.1"
 
-"@heroicons/react@^1.0.5":
-  version "1.0.6"
-  resolved "https://registry.npmjs.org/@heroicons/react/-/react-1.0.6.tgz"
-  integrity sha512-JJCXydOFWMDpCP4q13iEplA503MQO3xLoZiKum+955ZCtHINWnx26CUxVxxFQu/uLb4LW3ge15ZpzIkXKkJ8oQ==
+"@heroicons/react@^2.0.13":
+  version "2.0.13"
+  resolved "https://registry.npmjs.org/@heroicons/react/-/react-2.0.13.tgz#9b1cc54ff77d6625c9565efdce0054a4bcd9074c"
+  integrity sha512-iSN5XwmagrnirWlYEWNPdCDj9aRYVD/lnK3JlsC9/+fqGF80k8C7rl+1HCvBX0dBoagKqOFBs6fMhJJ1hOg1EQ==
 
 "@humanwhocodes/config-array@^0.11.8":
   version "0.11.8"
@@ -2021,10 +2021,10 @@ punycode@^2.1.0:
   resolved "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
   integrity sha512-XRsRjdf+j5ml+y/6GKHPZbrF/8p2Yga0JPtdqTIY2Xe5ohJPD9saDJJLPvp9+NSBprVvevdXZybnj2cv8OEd0A==
 
-qs@^6.10.3:
-  version "6.10.3"
-  resolved "https://registry.npmjs.org/qs/-/qs-6.10.3.tgz"
-  integrity sha512-wr7M2E0OFRfIfJZjKGieI8lBKb7fRCH4Fv5KNPEs7gJ8jadvotdsS08PzOKR7opXhZ/Xkjtt3WF9g38drmyRqQ==
+qs@^6.11.0:
+  version "6.11.0"
+  resolved "https://registry.npmjs.org/qs/-/qs-6.11.0.tgz#fd0d963446f7a65e1367e01abd85429453f0c37a"
+  integrity sha512-MvjoMCJwEarSbUYk5O+nmoSzSutSsTwF85zcHPQ9OrlFoZOYIjaqBAJIqIXjptyD5vThxGq52Xu/MaJzRkIk4Q==
   dependencies:
     side-channel "^1.0.4"
 
@@ -2308,13 +2308,13 @@ strip-json-comments@^3.1.0, strip-json-comments@^3.1.1:
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
 
-stripe@^8.203.0:
-  version "8.220.0"
-  resolved "https://registry.npmjs.org/stripe/-/stripe-8.220.0.tgz"
-  integrity sha512-hE3NapEqNCiiQD1lMQPccKgJsu2aANR+oDudUHcuvRnNUJ3GrbntwACs7Op45PvHpJ/RY4l46XDwTMgdWJAm3w==
+stripe@^11.5.0:
+  version "11.5.0"
+  resolved "https://registry.npmjs.org/stripe/-/stripe-11.5.0.tgz#c50728f3bc6c78f4cac097852a95be1a86d6b0b7"
+  integrity sha512-yjTqnzeUk2wg1yIeYWOAH6CL5qu9fINzOhqkibXfbyeWSBEBauQrfCoB8shMmREoK2qdkScz1HjahF9qUg+X3g==
   dependencies:
     "@types/node" ">=8.1.0"
-    qs "^6.10.3"
+    qs "^6.11.0"
 
 styled-jsx@5.1.1:
   version "5.1.1"
