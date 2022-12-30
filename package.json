@@ -19,7 +19,7 @@
     "date-fns": "^2.29.3",
     "express-validator": "^6.14.2",
     "logsnag": "^0.1.6",
-    "micro": "^9.3.4",
+    "micro": "^10.0.1",
     "next": "^13.1.0",
     "next-auth": "^4.10.3",
     "next-themes": "^0.2.1",
@@ -33,7 +33,7 @@
     "react-topbar-progress-indicator": "^4.1.0",
     "slugify": "^1.6.5",
     "stripe": "^8.203.0",
-    "swr": "^1.2.1",
+    "swr": "^2.0.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {
