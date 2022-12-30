@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 
 const initialState = {
-  setWorkspace: () => {},
+  setWorkspace: (any) => {},
   workspace: null,
 };
 

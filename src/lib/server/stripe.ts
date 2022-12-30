@@ -1,13 +1,14 @@
-import initStripe from 'stripe';
+import Stripe from 'stripe';
+const stripe = new Stripe(process.env.PAYMENTS_SECRET_KEY, {
+  apiVersion: '2020-08-27',
+});
 
-const stripe = initStripe(process.env.PAYMENTS_SECRET_KEY);
-
-export const createCustomer = async (email) =>
+export const createCustomer = async (email: string) =>
   await stripe.customers.create({
     email,
   });
 
-export const getInvoices = async (customer) => {
+export const getInvoices = async (customer: string) => {
   const invoices = await stripe.invoices.list({ customer });
   return invoices?.data;
 };

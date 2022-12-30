@@ -1,8 +1,20 @@
-import { Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/outline';
+import { Fragment } from 'react';
 
-const Modal = ({ children, show, title, toggle }) => {
+type ModalProps = {
+  children: any;
+  show: boolean;
+  title: string;
+  toggle: any;
+};
+
+const Modal: React.FC<ModalProps> = ({
+  children,
+  show,
+  title = '',
+  toggle = false,
+}) => {
   return (
     <Transition appear as={Fragment} show={show}>
       <Dialog
@@ -33,13 +45,16 @@ const Modal = ({ children, show, title, toggle }) => {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <div className="relative inline-block p-10 my-10 space-y-5 overflow-hidden text-left align-middle transition-all transform bg-white rounded shadow-xl">
-              <Dialog.Title as="h2" className="text-2xl font-bold leading-5">
+            <div className="relative inline-block p-10 my-10 space-y-5 overflow-hidden text-left align-middle transition-all transform bg-white dark:bg-neutral-900 rounded shadow-xl">
+              <Dialog.Title
+                as="h2"
+                className="text-xl font-bold leading-5 dark:text-white"
+              >
                 {title}
               </Dialog.Title>
               {children}
               <button
-                className="absolute top-0 outline-none right-5"
+                className="absolute top-0 outline-none right-5 dark:text-gray-400"
                 onClick={toggle}
               >
                 <XIcon className="w-6 h-6" />
@@ -50,13 +65,6 @@ const Modal = ({ children, show, title, toggle }) => {
       </Dialog>
     </Transition>
   );
-};
-
-Modal.defaultProps = {
-  show: false,
-  subtitle: '',
-  title: '',
-  toggle: null,
 };
 
 export default Modal;

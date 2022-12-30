@@ -1,16 +1,16 @@
 import slugify from 'slugify';
 
-import {
-  validateCreateWorkspace,
-  validateSession,
-} from '@/config/api-validation/index';
-import { createWorkspace } from '@/prisma/services/workspace';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { unstable_getServerSession } from 'next-auth';
+import { createWorkspace } from '../../../../prisma/services/workspace';
+import { validateCreateWorkspace } from '../../../config/api-validation/index';
+import { authOptions } from '../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'POST') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     await validateCreateWorkspace(req, res);
     const { name } = req.body;
     let slug = slugify(name.toLowerCase());

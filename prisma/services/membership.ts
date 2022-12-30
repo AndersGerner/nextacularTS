@@ -1,13 +1,12 @@
-import { InvitationStatus } from '@prisma/client';
-import prisma from '@/prisma/index';
+import { InvitationStatus, Member, TeamRole } from '@prisma/client';
+import prisma from '../index';
 
-export const getMember = async (id) =>
-  await prisma.member.findFirst({
-    select: { teamRole: true },
+export const getMember = async (id: string): Promise<Member> =>
+  await prisma.member.findUnique({
     where: { id },
   });
 
-export const getMembers = async (slug) =>
+export const getMembers = async (slug: string) =>
   await prisma.member.findMany({
     select: {
       id: true,
@@ -25,7 +24,7 @@ export const getMembers = async (slug) =>
     },
   });
 
-export const getPendingInvitations = async (email) =>
+export const getPendingInvitations = async (email: string) =>
   await prisma.member.findMany({
     select: {
       id: true,
@@ -63,19 +62,19 @@ export const getPendingInvitations = async (email) =>
     },
   });
 
-export const remove = async (id) =>
+export const remove = async (id: string) =>
   await prisma.member.update({
     data: { deletedAt: new Date() },
     where: { id },
   });
 
-export const toggleRole = async (id, teamRole) =>
+export const toggleRole = async (id: string, teamRole: TeamRole) =>
   await prisma.member.update({
     data: { teamRole },
     where: { id },
   });
 
-export const updateStatus = async (id, status) =>
+export const updateStatus = async (id: string, status: InvitationStatus) =>
   await prisma.member.update({
     data: { status },
     where: { id },

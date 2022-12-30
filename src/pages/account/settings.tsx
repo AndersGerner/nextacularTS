@@ -1,18 +1,26 @@
-import { useState } from 'react';
 import { DocumentDuplicateIcon } from '@heroicons/react/outline';
 import { getSession, signOut } from 'next-auth/react';
+import { useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
 import isEmail from 'validator/lib/isEmail';
 
-import Button from '@/components/Button/index';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import Meta from '@/components/Meta';
-import Modal from '@/components/Modal/index';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { getUser } from '@/prisma/services/user';
+import { getUser } from '../../../prisma/services/user';
+import Button from '../../components/Button/Button';
+import PrimaryButton from '../../components/Button/PrimaryButton';
+import RedButton from '../../components/Button/RedButton';
+import Card from '../../components/Card/Card';
+import CardBody from '../../components/Card/CardBody';
+import CardFooter from '../../components/Card/CardFooter';
+import ContentContainer from '../../components/Content/ContentContainer';
+import ContentDivider from '../../components/Content/ContentDivider';
+import ContentTitle from '../../components/Content/ContentTitle';
+import DefaultInput from '../../components/Input/DefaultInput';
+import Meta from '../../components/Meta/Meta';
+import Modal from '../../components/Modal/Modal';
+import SuccessToast from '../../components/Toasts/SuccessToast';
+import AccountLayout from '../../layouts/AccountLayout';
+import api from '../../lib/common/api';
 
 const Settings = ({ user }) => {
   const [email, setEmail] = useState(user.email || '');
@@ -25,7 +33,10 @@ const Settings = ({ user }) => {
   const validEmail = isEmail(email);
   const verifiedEmail = verifyEmail === email;
 
-  const copyToClipboard = () => toast.success('Copied to clipboard!');
+  const copyToClipboard = () =>
+    toast.custom(() => <SuccessToast text="Copied to clipboard!" />, {
+      position: 'top-right',
+    });
 
   const changeName = (event) => {
     event.preventDefault();
@@ -41,7 +52,9 @@ const Settings = ({ user }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Name successfully updated!');
+        toast.custom(() => <SuccessToast text="Name successfully updated!" />, {
+          position: 'top-right',
+        });
       }
     });
   };
@@ -65,7 +78,14 @@ const Settings = ({ user }) => {
             toast.error(response.errors[error].msg)
           );
         } else {
-          toast.success('Email successfully updated and signing you out!');
+          toast.custom(
+            () => (
+              <SuccessToast text="Email successfully updated and signing you out!" />
+            ),
+            {
+              position: 'top-right',
+            }
+          );
           setTimeout(() => signOut({ callbackUrl: '/auth/login' }), 2000);
         }
       });
@@ -86,7 +106,12 @@ const Settings = ({ user }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Account has been deactivated!');
+        toast.custom(
+          () => <SuccessToast text="Account has been deactivated!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };
@@ -105,95 +130,89 @@ const Settings = ({ user }) => {
   return (
     <AccountLayout>
       <Meta title="Nextacular - Account Settings" />
-      <Content.Title
+      <ContentTitle
         title="Account Settings"
         subtitle="Manage your profile, preferences, and account settings"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
           <form>
-            <Card.Body
+            <CardBody
               title="Your Name"
               subtitle="Please enter your full name, or a display name you are comfortable with"
             >
-              <input
-                className="px-3 py-2 border rounded md:w-1/2"
+              <DefaultInput
                 disabled={isSubmitting}
                 onChange={handleNameChange}
+                placeholder="Your Name"
                 type="text"
                 value={name}
               />
-            </Card.Body>
-            <Card.Footer>
+            </CardBody>
+            <CardFooter>
               <small>Please use 32 characters at maximum</small>
-              <Button
-                className="text-white bg-blue-600 hover:bg-blue-500"
-                disabled={!validName || isSubmitting}
-                onClick={changeName}
-              >
-                Save
-              </Button>
-            </Card.Footer>
+              <PrimaryButton
+                title="Save"
+                action={changeName}
+                disabled={!changeName || isSubmitting}
+              />
+            </CardFooter>
           </form>
         </Card>
         <Card>
           <form>
-            <Card.Body
+            <CardBody
               title="Email Address"
               subtitle="Please enter the email address you want to use to log in with
               Nextacular"
             >
-              <input
-                className="px-3 py-2 border rounded md:w-1/2"
+              <DefaultInput
                 disabled={isSubmitting}
                 onChange={handleEmailChange}
+                placeholder="your@email.com"
                 type="email"
                 value={email}
               />
-            </Card.Body>
-            <Card.Footer>
+            </CardBody>
+            <CardFooter>
               <small>We will email you to verify the change</small>
-              <Button
-                className="text-white bg-blue-600 hover:bg-blue-500"
+              <PrimaryButton
+                title="Save"
+                action={changeEmail}
                 disabled={!validEmail || isSubmitting}
-                onClick={changeEmail}
-              >
-                Save
-              </Button>
-            </Card.Footer>
+              />
+            </CardFooter>
           </form>
         </Card>
         <Card>
-          <Card.Body
+          <CardBody
             title="Personal Account ID"
             subtitle="Used when interacting with APIs"
           >
-            <div className="flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border rounded md:w-1/2">
+            <div className="text-xs flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border dark:bg-black dark:border-gray-700 rounded md:w-1/2">
               <span className="overflow-x-auto">{userCode}</span>
               <CopyToClipboard onCopy={copyToClipboard} text={userCode}>
                 <DocumentDuplicateIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
               </CopyToClipboard>
             </div>
-          </Card.Body>
+          </CardBody>
         </Card>
         <Card danger>
-          <Card.Body
+          <CardBody
             title="Danger Zone"
             subtitle="Permanently remove your Personal Account and all of its contents
               from Nextacular platform"
           />
-          <Card.Footer>
+          <CardFooter>
             <small>
               This action is not reversible, so please continue with caution
             </small>
-            <Button
-              className="text-white bg-red-600 hover:bg-red-500"
+            <RedButton
+              title="Deactivate Personal Account"
               onClick={toggleModal}
-            >
-              Deactivate Personal Account
-            </Button>
-          </Card.Footer>
+            />
+          </CardFooter>
           <Modal
             show={showModal}
             title="Deactivate Personal Account"
@@ -230,7 +249,7 @@ const Settings = ({ user }) => {
             </div>
           </Modal>
         </Card>
-      </Content.Container>
+      </ContentContainer>
     </AccountLayout>
   );
 };

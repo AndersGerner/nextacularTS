@@ -1,15 +1,20 @@
 import { TeamRole } from '@prisma/client';
 
-import { validateSession } from '@/config/api-validation';
-import { getMember, toggleRole } from '@/prisma/services/membership';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { unstable_getServerSession } from 'next-auth';
+import {
+  getMember,
+  toggleRole,
+} from '../../../../../prisma/services/membership';
+import { authOptions } from '../../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'PUT') {
-    await validateSession(req, res);
+    await unstable_getServerSession(req, res, authOptions);
     const { memberId } = req.body;
-    const member = getMember(memberId);
+    const member = await getMember(memberId);
     await toggleRole(
       memberId,
       member.teamRole === TeamRole.MEMBER ? TeamRole.OWNER : TeamRole.MEMBER

@@ -1,13 +1,16 @@
-import { useState } from 'react';
-import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-import Card from '@/components/Card/index';
-import Button from '@/components/Button';
-import api from '@/lib/common/api';
-import { getInvitation } from '@/prisma/services/workspace';
+import { getInvitation } from '../../../prisma/services/workspace';
+import Button from '../../components/Button/Button';
+import Card from '../../components/Card/Card';
+import CardBody from '../../components/Card/CardBody';
+import CardFooter from '../../components/Card/CardFooter';
+import SuccessToast from '../../components/Toasts/SuccessToast';
+import api from '../../lib/common/api';
 
 const Invite = ({ workspace }) => {
   const { data } = useSession();
@@ -31,23 +34,25 @@ const Invite = ({ workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Accepted invitation!');
+        toast.custom(() => <SuccessToast text="Accepted invitiation!" />, {
+          position: 'top-right',
+        });
       }
     });
   };
 
   return (
     <main className="relative flex flex-col items-center justify-center h-screen space-y-10">
-      <Toaster position="bottom-center" toastOptions={{ duration: 10000 }} />
+      <Toaster position="bottom-center" toastOptions={{ duration: 5000 }} />
       <div className="w-full py-5">
         <div className="relative flex flex-col mx-auto space-y-5">
           <div className="flex flex-col items-center justify-center mx-auto">
             <Card>
-              <Card.Body
+              <CardBody
                 title={workspace.name}
                 subtitle="You are invited to join this workspace."
               />
-              <Card.Footer>
+              <CardFooter>
                 {data ? (
                   <Button
                     className="text-white bg-blue-600 hover:bg-blue-500"
@@ -63,7 +68,7 @@ const Invite = ({ workspace }) => {
                     </a>
                   </Link>
                 )}
-              </Card.Footer>
+              </CardFooter>
             </Card>
           </div>
         </div>

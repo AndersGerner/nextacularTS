@@ -1,15 +1,22 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import Button from '@/components/Button/index';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import Meta from '@/components/Meta/index';
-import { useInvitations, useWorkspaces } from '@/hooks/data/index';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { useWorkspace } from '@/providers/workspace';
+import Button from '../../components/Button/Button';
+import Card from '../../components/Card/Card';
+import CardBody from '../../components/Card/CardBody';
+import CardEmpty from '../../components/Card/CardEmpty';
+import CardFooter from '../../components/Card/CardFooter';
+import ContentContainer from '../../components/Content/ContentContainer';
+import ContentDivider from '../../components/Content/ContentDivider';
+import ContentTitle from '../../components/Content/ContentTitle';
+import Meta from '../../components/Meta/Meta';
+import SuccessToast from '../../components/Toasts/SuccessToast';
+import useInvitations from '../../hooks/data/useInvitations';
+import useWorkspaces from '../../hooks/data/useWorkspaces';
+import AccountLayout from '../../layouts/AccountLayout';
+import api from '../../lib/common/api';
+import { useWorkspace } from '../../providers/workspace';
 
 const Welcome = () => {
   const router = useRouter();
@@ -33,7 +40,9 @@ const Welcome = () => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Accepted invitation!');
+        toast.custom(() => <SuccessToast text="Accepted invit=ation!" />, {
+          position: 'top-right',
+        });
       }
     });
   };
@@ -51,7 +60,9 @@ const Welcome = () => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Declined invitation!');
+        toast.custom(() => <SuccessToast text="Declined invitation!" />, {
+          position: 'top-right',
+        });
       }
     });
   };
@@ -64,60 +75,60 @@ const Welcome = () => {
   return (
     <AccountLayout>
       <Meta title="Nextacular - Dashboard" />
-      <Content.Title
+      <ContentTitle
         title="Nextacular Dashboard"
         subtitle="Start building SaaS platforms in a day"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {isFetchingWorkspaces ? (
             <Card>
-              <Card.Body />
-              <Card.Footer />
+              <CardBody />
+              <CardFooter />
             </Card>
           ) : workspacesData?.workspaces.length > 0 ? (
             workspacesData.workspaces.map((workspace, index) => (
               <Card key={index}>
-                <Card.Body title={workspace.name} />
-                <Card.Footer>
+                <CardBody title={workspace.name} />
+                <CardFooter>
                   <button
                     className="text-blue-600"
                     onClick={() => navigate(workspace)}
                   >
                     Select workspace &rarr;
                   </button>
-                </Card.Footer>
+                </CardFooter>
               </Card>
             ))
           ) : (
-            <Card.Empty>Start creating a workspace now</Card.Empty>
+            <CardEmpty>Start creating a workspace now</CardEmpty>
           )}
         </div>
-      </Content.Container>
-      <Content.Divider thick />
-      <Content.Title
+      </ContentContainer>
+      <ContentDivider />
+      <ContentTitle
         title="Workspace Invitations"
         subtitle="Listed here are the invitations received by your account"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {isFetchingInvitations ? (
             <Card>
-              <Card.Body />
-              <Card.Footer />
+              <CardBody />
+              <CardFooter />
             </Card>
           ) : invitationsData?.invitations.length > 0 ? (
             invitationsData.invitations.map((invitation, index) => (
               <Card key={index}>
-                <Card.Body
+                <CardBody
                   title={invitation.workspace.name}
                   subtitle={`You have been invited by ${
                     invitation.invitedBy.name || invitation.invitedBy.email
                   }`}
                 />
-                <Card.Footer>
+                <CardFooter>
                   <Button
                     className="text-white bg-blue-600 hover:bg-blue-500"
                     disabled={isSubmitting}
@@ -132,16 +143,16 @@ const Welcome = () => {
                   >
                     Decline
                   </Button>
-                </Card.Footer>
+                </CardFooter>
               </Card>
             ))
           ) : (
-            <Card.Empty>
+            <CardEmpty>
               You haven&apos;t received any invitations to a workspace yet.
-            </Card.Empty>
+            </CardEmpty>
           )}
         </div>
-      </Content.Container>
+      </ContentContainer>
     </AccountLayout>
   );
 };

@@ -1,11 +1,13 @@
-import { validateSession } from '@/config/api-validation';
-import api from '@/lib/common/api';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { unstable_getServerSession } from 'next-auth';
+import api from '../../../../lib/common/api';
+import { authOptions } from '../../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'GET') {
-    await validateSession(req, res);
+    await unstable_getServerSession(req, res, authOptions);
     const { domain } = req.query;
     const teamId = process.env.VERCEL_TEAM_ID;
     const response = await api(

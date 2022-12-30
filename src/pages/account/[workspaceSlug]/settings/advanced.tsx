@@ -1,17 +1,26 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 
-import Button from '@/components/Button/index';
-import Meta from '@/components/Meta/index';
-import Modal from '@/components/Modal/index';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { useWorkspace } from '@/providers/workspace';
 import { getSession } from 'next-auth/react';
-import { getWorkspace, isWorkspaceCreator } from '@/prisma/services/workspace';
+import {
+  getWorkspace,
+  isWorkspaceCreator,
+} from '../../../../../prisma/services/workspace';
+import Button from '../../../../components/Button/Button';
+import RedButton from '../../../../components/Button/RedButton';
+import Card from '../../../../components/Card/Card';
+import CardBody from '../../../../components/Card/CardBody';
+import CardFooter from '../../../../components/Card/CardFooter';
+import ContentContainer from '../../../../components/Content/ContentContainer';
+import ContentDivider from '../../../../components/Content/ContentDivider';
+import ContentTitle from '../../../../components/Content/ContentTitle';
+import Meta from '../../../../components/Meta/Meta';
+import Modal from '../../../../components/Modal/Modal';
+import SuccessToast from '../../../../components/Toasts/SuccessToast';
+import AccountLayout from '../../../../layouts/AccountLayout';
+import api from '../../../../lib/common/api';
+import { useWorkspace } from '../../../../providers/workspace';
 
 const Advanced = ({ isCreator }) => {
   const { setWorkspace, workspace } = useWorkspace();
@@ -39,7 +48,12 @@ const Advanced = ({ isCreator }) => {
         toggleModal();
         setWorkspace(null);
         router.replace('/account');
-        toast.success('Workspace has been deleted!');
+        toast.custom(
+          () => <SuccessToast text="Workspace has been deleted!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };
@@ -52,57 +66,55 @@ const Advanced = ({ isCreator }) => {
   return (
     <AccountLayout>
       <Meta title={`Nextacular - ${workspace?.name} | Advanced Settings`} />
-      <Content.Title
+      <ContentTitle
         title="Advanced Workspace Settings"
         subtitle="Manage your workspace settings"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card danger>
-          <Card.Body
+          <CardBody
             title="Delete Workspace"
             subtitle="The workspace will be permanently deleted, including its contents and domains. This action is irreversible and can not be undone."
           />
-          <Card.Footer>
-            <small className={[isCreator && 'text-red-600']}>
+          <CardFooter>
+            <small className={isCreator && 'text-red-600'}>
               {isCreator
                 ? 'This action is not reversible. Please be certain.'
                 : 'Please contact your team creator for the deletion of your workspace.'}
             </small>
             {isCreator && (
-              <Button
-                className="text-white bg-red-600 hover:bg-red-500"
-                disabled={isSubmitting}
+              <RedButton
+                title={isSubmitting ? 'Deleting' : 'Delete'}
                 onClick={toggleModal}
-              >
-                {isSubmitting ? 'Deleting' : 'Delete'}
-              </Button>
+                disabled={isSubmitting}
+              />
             )}
-          </Card.Footer>
+          </CardFooter>
           <Modal
             show={showModal}
             title="Deactivate Workspace"
             toggle={toggleModal}
           >
             <p className="flex flex-col">
-              <span>
+              <span className="text-sm text-gray-600 dark:text-gray-200">
                 Your workspace will be deleted, along with all of its contents.
               </span>
-              <span>
+              <span className="text-sm text-gray-600 dark:text-gray-200">
                 Data associated with this workspace can&apos;t be accessed by
                 team members.
               </span>
             </p>
-            <p className="px-3 py-2 text-red-600 border border-red-600 rounded">
+            <p className="px-3 py-2 text-sm text-red-600 border border-red-600 rounded">
               <strong>Warning:</strong> This action is not reversible. Please be
               certain.
             </p>
             <div className="flex flex-col">
-              <label className="text-sm text-gray-400">
+              <label className="text-sm text-gray-600 dark:text-gray-200 mb-2">
                 Enter <strong>{workspace?.slug}</strong> to continue:
               </label>
               <input
-                className="px-3 py-2 border rounded"
+                className="px-3 py-2 h-9 border rounded text-sm focus:outline-none focus:border-gray-800 dark:bg-black dark:border-gray-700 dark:focus:border-gray-400"
                 disabled={isSubmitting}
                 onChange={handleVerifyWorkspaceChange}
                 type="email"
@@ -111,7 +123,7 @@ const Advanced = ({ isCreator }) => {
             </div>
             <div className="flex flex-col items-stretch">
               <Button
-                className="text-white bg-red-600 hover:bg-red-500"
+                className="text-white text-sm bg-red-600 border border-red-500 hover:bg-transparent hover:text-red-500"
                 disabled={!verifiedWorkspace || isSubmitting}
                 onClick={deleteWorkspace}
               >
@@ -120,7 +132,7 @@ const Advanced = ({ isCreator }) => {
             </div>
           </Modal>
         </Card>
-      </Content.Container>
+      </ContentContainer>
     </AccountLayout>
   );
 };

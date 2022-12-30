@@ -1,20 +1,29 @@
-import { useEffect, useState } from 'react';
 import { DocumentDuplicateIcon } from '@heroicons/react/outline';
-import { useRouter } from 'next/router';
 import { getSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
 import isAlphanumeric from 'validator/lib/isAlphanumeric';
 import isSlug from 'validator/lib/isSlug';
 
-import Button from '@/components/Button/index';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import Meta from '@/components/Meta/index';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { useWorkspace } from '@/providers/workspace';
-import { getWorkspace, isWorkspaceOwner } from '@/prisma/services/workspace';
+import {
+  getWorkspace,
+  isWorkspaceOwner,
+} from '../../../../../prisma/services/workspace';
+import PrimaryButton from '../../../../components/Button/PrimaryButton';
+import Card from '../../../../components/Card/Card';
+import CardBody from '../../../../components/Card/CardBody';
+import CardFooter from '../../../../components/Card/CardFooter';
+import ContentContainer from '../../../../components/Content/ContentContainer';
+import ContentDivider from '../../../../components/Content/ContentDivider';
+import ContentTitle from '../../../../components/Content/ContentTitle';
+import DefaultInput from '../../../../components/Input/DefaultInput';
+import Meta from '../../../../components/Meta/Meta';
+import SuccessToast from '../../../../components/Toasts/SuccessToast';
+import AccountLayout from '../../../../layouts/AccountLayout';
+import api from '../../../../lib/common/api';
+import { useWorkspace } from '../../../../providers/workspace';
 
 const General = ({ isTeamOwner, workspace }) => {
   const router = useRouter();
@@ -43,7 +52,12 @@ const General = ({ isTeamOwner, workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Workspace name successfully updated!');
+        toast.custom(
+          () => <SuccessToast text="Workspace name successfully updated!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };
@@ -63,13 +77,21 @@ const General = ({ isTeamOwner, workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Workspace slug successfully updated!');
+        toast.custom(
+          () => <SuccessToast text="Workspace slug successfully updated!" />,
+          {
+            position: 'top-right',
+          }
+        );
         router.replace(`/account/${slug}/settings/general`);
       }
     });
   };
 
-  const copyToClipboard = () => toast.success('Copied to clipboard!');
+  const copyToClipboard = () =>
+    toast.custom(() => <SuccessToast text="Copied to clipboard" />, {
+      position: 'top-right',
+    });
 
   const handleNameChange = (event) => setName(event.target.value);
 
@@ -84,48 +106,46 @@ const General = ({ isTeamOwner, workspace }) => {
   return (
     <AccountLayout>
       <Meta title={`Nextacular - ${workspace.name} | Settings`} />
-      <Content.Title
+      <ContentTitle
         title="Workspace Information"
         subtitle="Manage your workspace details and information"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
-          <Card.Body
+          <CardBody
             title="Workspace Name"
             subtitle="Used to identify your Workspace on the Dashboard"
           >
-            <input
-              className="px-3 py-2 border rounded md:w-1/2"
+            <DefaultInput
               disabled={isSubmitting || !isTeamOwner}
               onChange={handleNameChange}
+              placeholder="Workspace Name"
               type="text"
               value={name}
             />
-          </Card.Body>
-          <Card.Footer>
+          </CardBody>
+          <CardFooter>
             <small>Please use 16 characters at maximum</small>
             {isTeamOwner && (
-              <Button
-                className="text-white bg-blue-600 hover:bg-blue-500"
+              <PrimaryButton
+                title="Save"
+                action={changeName}
                 disabled={!validName || isSubmitting}
-                onClick={changeName}
-              >
-                Save
-              </Button>
+              />
             )}
-          </Card.Footer>
+          </CardFooter>
         </Card>
         <Card>
-          <Card.Body
+          <CardBody
             title="Workspace Slug"
             subtitle="Used to identify your Workspace on the Dashboard"
           >
             <div className="flex items-center space-x-3">
-              <input
-                className="px-3 py-2 border rounded md:w-1/2"
+              <DefaultInput
                 disabled={isSubmitting || !isTeamOwner}
                 onChange={handleSlugChange}
+                placeholder="Workspace Slug"
                 type="text"
                 value={slug}
               />
@@ -133,29 +153,27 @@ const General = ({ isTeamOwner, workspace }) => {
                 {slug.length} / 16
               </span>
             </div>
-          </Card.Body>
-          <Card.Footer>
+          </CardBody>
+          <CardFooter>
             <small>
               Please use 16 characters at maximum. Hyphenated alphanumeric
               characters only.
             </small>
             {isTeamOwner && (
-              <Button
-                className="text-white bg-blue-600 hover:bg-blue-500"
+              <PrimaryButton
+                title="Save"
+                action={changeSlug}
                 disabled={!validSlug || isSubmitting}
-                onClick={changeSlug}
-              >
-                Save
-              </Button>
+              />
             )}
-          </Card.Footer>
+          </CardFooter>
         </Card>
         <Card>
-          <Card.Body
+          <CardBody
             title="Workspace ID"
             subtitle="Used when interacting with APIs"
           >
-            <div className="flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border rounded md:w-1/2">
+            <div className="text-xs flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border dark:bg-black dark:border-gray-700 rounded md:w-1/2">
               <span className="overflow-x-auto">{workspace.workspaceCode}</span>
               <CopyToClipboard
                 onCopy={copyToClipboard}
@@ -164,9 +182,9 @@ const General = ({ isTeamOwner, workspace }) => {
                 <DocumentDuplicateIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
               </CopyToClipboard>
             </div>
-          </Card.Body>
+          </CardBody>
         </Card>
-      </Content.Container>
+      </ContentContainer>
     </AccountLayout>
   );
 };

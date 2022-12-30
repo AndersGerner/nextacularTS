@@ -1,7 +1,10 @@
-import { createCustomer } from '@/lib/server/stripe';
-import prisma from '@/prisma/index';
+import { createCustomer } from '../../src/lib/server/stripe';
+import prisma from '../index';
 
-export const createPaymentAccount = async (email, customerId) => {
+export const createPaymentAccount = async (
+  email: string,
+  customerId: string
+) => {
   const paymentAccount = await createCustomer(email);
   await prisma.customerPayment.create({
     data: {
@@ -12,10 +15,13 @@ export const createPaymentAccount = async (email, customerId) => {
   });
 };
 
-export const getPayment = async (email) =>
+export const getPayment = async (email: string) =>
   await prisma.customerPayment.findUnique({ where: { email } });
 
-export const updateSubscription = async (customerId, subscriptionType) =>
+export const updateSubscription = async (
+  customerId: string,
+  subscriptionType: string
+) =>
   await prisma.customerPayment.update({
     data: { subscriptionType },
     where: { customerId },

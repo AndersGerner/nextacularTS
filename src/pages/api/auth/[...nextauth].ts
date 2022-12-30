@@ -1,14 +1,18 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
+import GithubProvider from 'next-auth/providers/github';
+import GoogleProvider from 'next-auth/providers/google';
+import prisma from '../../../../prisma/index';
+import {
+  createPaymentAccount,
+  getPayment,
+} from '../../../../prisma/services/customer';
+import { html, text } from '../../../config/email-templates/signin';
+import { log } from '../../../lib/server/logsnag';
+import { emailConfig, sendMail } from '../../../lib/server/mail';
 
-import prisma from '@/prisma/index';
-import { html, text } from '@/config/email-templates/signin';
-import { emailConfig, sendMail } from '@/lib/server/mail';
-import { createPaymentAccount, getPayment } from '@/prisma/services/customer';
-import { log } from '@/lib/server/logsnag';
-
-export default NextAuth({
+export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
   callbacks: {
     session: async ({ session, user }) => {
@@ -35,7 +39,8 @@ export default NextAuth({
           log(
             'user-registration',
             'New User Signup',
-            `A new user recently signed up. (${user.email})`
+            `A new user recently signed up. (${user.email})`,
+            null
           ),
         ]);
       }
@@ -51,13 +56,21 @@ export default NextAuth({
           html: html({ email, url }),
           subject: `[Nextacular] Sign in to ${host}`,
           text: text({ email, url }),
+          from: process.env.EMAIL_FROM,
           to: email,
         });
       },
     }),
+    GithubProvider({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
   ],
   secret: process.env.NEXTAUTH_SECRET || null,
-  session: {
-    jwt: true,
-  },
-});
+};
+
+export default NextAuth(authOptions);

@@ -1,20 +1,30 @@
-import { useState } from 'react';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { mutate } from 'swr';
 import isFQDN from 'validator/lib/isFQDN';
+import {
+  getWorkspace,
+  isWorkspaceOwner,
+} from '../../../../../prisma/services/workspace';
 
-import Button from '@/components/Button/index';
-import DomainCard from '@/components/Card/domain';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import Meta from '@/components/Meta/index';
-import { useDomains } from '@/hooks/data';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { getWorkspace, isWorkspaceOwner } from '@/prisma/services/workspace';
+import PrimaryButton from '../../../../components/Button/PrimaryButton';
+import Card from '../../../../components/Card/Card';
+import CardBody from '../../../../components/Card/CardBody';
+import CardFooter from '../../../../components/Card/CardFooter';
+import DomainCard from '../../../../components/Card/domain';
+import ContentContainer from '../../../../components/Content/ContentContainer';
+import ContentDivider from '../../../../components/Content/ContentDivider';
+import ContentEmpty from '../../../../components/Content/ContentEmpty';
+import ContentTitle from '../../../../components/Content/ContentTitle';
+import DefaultInput from '../../../../components/Input/DefaultInput';
+import Meta from '../../../../components/Meta/Meta';
+import SuccessToast from '../../../../components/Toasts/SuccessToast';
+import useDomains from '../../../../hooks/data/useDomains';
+import AccountLayout from '../../../../layouts/AccountLayout';
+import api from '../../../../lib/common/api';
 
 const Domain = ({ isTeamOwner, workspace }) => {
   const { data, isLoading } = useDomains(workspace.slug);
@@ -37,14 +47,19 @@ const Domain = ({ isTeamOwner, workspace }) => {
         );
       } else {
         setDomain('');
-        toast.success('Domain successfully added to workspace!');
+        toast.custom(
+          () => <SuccessToast text="Domain successfully added to workspace!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };
 
   const handleDomainChange = (event) => setDomain(event.target.value);
 
-  const refresh = (domain, verified) => {
+  const refresh = (domain: string, verified: boolean) => {
     setSubmittingState(true);
 
     if (verified) {
@@ -63,7 +78,12 @@ const Domain = ({ isTeamOwner, workspace }) => {
             toast.error(response.errors[error].msg)
           );
         } else {
-          toast.success('Domain successfully verified!');
+          toast.custom(
+            () => <SuccessToast text="Domain successfully verified!" />,
+            {
+              position: 'top-right',
+            }
+          );
         }
       });
     }
@@ -71,7 +91,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
     return verified;
   };
 
-  const remove = (domain) => {
+  const remove = (domain: string) => {
     api(`/api/workspace/${workspace.slug}/domain`, {
       body: { domainName: domain },
       method: 'DELETE',
@@ -81,7 +101,14 @@ const Domain = ({ isTeamOwner, workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Domain successfully deleted from workspace!');
+        toast.custom(
+          () => (
+            <SuccessToast text="Domain successfully deleted from workspace!" />
+          ),
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };
@@ -89,18 +116,18 @@ const Domain = ({ isTeamOwner, workspace }) => {
   return (
     <AccountLayout>
       <Meta title={`Nextacular - ${workspace.name} | Domains`} />
-      <Content.Title
+      <ContentTitle
         title="Subdomain Management"
         subtitle="Manage your subdomain"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
-          <Card.Body
+          <CardBody
             title="Subdomain"
             subtitle="Your subdomain depends on your workspace slug"
           >
-            <div className="flex items-center justify-between px-3 py-2 font-mono text-sm border rounded md:w-1/2">
+            <div className="text-xs flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border dark:bg-black dark:border-gray-700 rounded md:w-1/2">
               <div>
                 <strong>{workspace.slug}</strong>
                 <span className="pr-3">.{workspace.host}</span>
@@ -111,43 +138,40 @@ const Domain = ({ isTeamOwner, workspace }) => {
                 </a>
               </Link>
             </div>
-          </Card.Body>
+          </CardBody>
         </Card>
-      </Content.Container>
+      </ContentContainer>
       {isTeamOwner && (
         <>
-          <Content.Divider thick />
-          <Content.Title
+          <ContentDivider />
+          <ContentTitle
             title="Domain Configuration"
             subtitle="Manage your subdomain and domain names"
           />
-          <Content.Divider />
-          <Content.Container>
+          <ContentDivider />
+          <ContentContainer>
             <Card>
               <form>
-                <Card.Body
+                <CardBody
                   title="Add Your Domain"
                   subtitle="This domain is assigned to your current workspace"
                 >
-                  <input
-                    className="px-3 py-2 border rounded md:w-1/2"
+                  <DefaultInput
                     disabled={isSubmitting}
                     onChange={handleDomainChange}
                     placeholder="mydomain.com"
                     type="text"
                     value={domain}
                   />
-                </Card.Body>
-                <Card.Footer>
+                </CardBody>
+                <CardFooter>
                   <span />
-                  <Button
-                    className="text-white bg-blue-600 hover:bg-blue-500"
+                  <PrimaryButton
+                    title="Add"
+                    action={addDomain}
                     disabled={!validDomainName || isSubmitting}
-                    onClick={addDomain}
-                  >
-                    Add
-                  </Button>
-                </Card.Footer>
+                  />
+                </CardFooter>
               </form>
             </Card>
             {isLoading ? (
@@ -165,12 +189,12 @@ const Domain = ({ isTeamOwner, workspace }) => {
                 />
               ))
             ) : (
-              <Content.Empty>
+              <ContentEmpty>
                 Once you&apos;ve added your domain on Nextacular, that domain
                 will show up here
-              </Content.Empty>
+              </ContentEmpty>
             )}
-          </Content.Container>
+          </ContentContainer>
         </>
       )}
     </AccountLayout>

@@ -1,12 +1,15 @@
 import { InvitationStatus } from '@prisma/client';
+import { unstable_getServerSession } from 'next-auth';
+import { updateStatus } from '../../../../../prisma/services/membership';
 
-import { validateSession } from '@/config/api-validation';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { authOptions } from '../../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'PUT') {
-    await validateSession(req, res);
+    await unstable_getServerSession(req, res, authOptions);
     const { memberId } = req.body;
     await updateStatus(memberId, InvitationStatus.ACCEPTED);
     res.status(200).json({ data: { updatedAt: new Date() } });

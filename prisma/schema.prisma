@@ -66,7 +66,7 @@ model Domain {
 model Member {
   id          String    @id @default(cuid())
   workspaceId String
-  email       String
+  email       String    @unique
   inviter     String
   invitedAt   DateTime? @default(now())
   joinedAt    DateTime?
@@ -159,5 +159,6 @@ enum SubscriptionType {
 
 enum TeamRole {
   MEMBER
+  ADMIN
   OWNER
 }

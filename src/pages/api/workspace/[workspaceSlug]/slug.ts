@@ -1,21 +1,21 @@
-import {
-  validateUpdateWorkspaceSlug,
-  validateSession,
-} from '@/config/api-validation/index';
-import { updateSlug } from '@/prisma/services/workspace';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { unstable_getServerSession } from 'next-auth';
+import { updateSlug } from '../../../../../prisma/services/workspace';
+import { validateUpdateWorkspaceSlug } from '../../../../config/api-validation/index';
+import { authOptions } from '../../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'PUT') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     let { slug } = req.body;
     await validateUpdateWorkspaceSlug(req, res);
     updateSlug(
       session.user.userId,
       session.user.email,
       slug,
-      req.query.workspaceSlug
+      req.query.workspaceSlug as string
     )
       .then((slug) => res.status(200).json({ data: { slug } }))
       .catch((error) =>

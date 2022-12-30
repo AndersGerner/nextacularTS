@@ -1,4 +1,3 @@
-import { Fragment, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import {
   ChevronDownIcon,
@@ -9,18 +8,29 @@ import {
 } from '@heroicons/react/outline';
 import { InvitationStatus, TeamRole } from '@prisma/client';
 import { getSession } from 'next-auth/react';
+import { Fragment, useState } from 'react';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import toast from 'react-hot-toast';
 import isEmail from 'validator/lib/isEmail';
+import {
+  getWorkspace,
+  isWorkspaceOwner,
+} from '../../../../../prisma/services/workspace';
 
-import Button from '@/components/Button/index';
-import Card from '@/components/Card/index';
-import Content from '@/components/Content/index';
-import Meta from '@/components/Meta/index';
-import { useMembers } from '@/hooks/data';
-import { AccountLayout } from '@/layouts/index';
-import api from '@/lib/common/api';
-import { getWorkspace, isWorkspaceOwner } from '@/prisma/services/workspace';
+import Button from '../../../../components/Button/Button';
+import PrimaryButton from '../../../../components/Button/PrimaryButton';
+import Card from '../../../../components/Card/Card';
+import CardBody from '../../../../components/Card/CardBody';
+import CardFooter from '../../../../components/Card/CardFooter';
+import ContentContainer from '../../../../components/Content/ContentContainer';
+import ContentDivider from '../../../../components/Content/ContentDivider';
+import ContentTitle from '../../../../components/Content/ContentTitle';
+import DefaultInput from '../../../../components/Input/DefaultInput';
+import Meta from '../../../../components/Meta/Meta';
+import SuccessToast from '../../../../components/Toasts/SuccessToast';
+import useMembers from '../../../../hooks/data/useMembers';
+import AccountLayout from '../../../../layouts/AccountLayout';
+import api from '../../../../lib/common/api';
 
 const MEMBERS_TEMPLATE = { email: '', role: TeamRole.MEMBER };
 
@@ -46,12 +56,17 @@ const Team = ({ isTeamOwner, workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Updated team member role!');
+        toast.custom(() => <SuccessToast text="Updated team member role!" />, {
+          position: 'top-right',
+        });
       }
     });
   };
 
-  const copyToClipboard = () => toast.success('Copied to clipboard!');
+  const copyToClipboard = () =>
+    toast.custom(() => <SuccessToast text="Copied to clipboard!" />, {
+      position: 'top-right',
+    });
 
   const handleEmailChange = (event, index) => {
     const member = members[index];
@@ -80,7 +95,9 @@ const Team = ({ isTeamOwner, workspace }) => {
       } else {
         const members = [{ ...MEMBERS_TEMPLATE }];
         setMembers([...members]);
-        toast.success('Invited team members!');
+        toast.custom(() => <SuccessToast text="Invited team members!" />, {
+          position: 'top-right',
+        });
       }
     });
   };
@@ -100,7 +117,12 @@ const Team = ({ isTeamOwner, workspace }) => {
           toast.error(response.errors[error].msg)
         );
       } else {
-        toast.success('Removed team member from workspace!');
+        toast.custom(
+          () => <SuccessToast text="Removed team member from workspace!" />,
+          {
+            position: 'top-right',
+          }
+        );
       }
     });
   };
@@ -108,18 +130,18 @@ const Team = ({ isTeamOwner, workspace }) => {
   return (
     <AccountLayout>
       <Meta title={`Nextacular - ${workspace.name} | Team Management`} />
-      <Content.Title
+      <ContentTitle
         title="Team Management"
         subtitle="Manage your team under your workspace and invite team members"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
-          <Card.Body
+          <CardBody
             title="Invite Link"
             subtitle="Allow other people to join your team through the link below"
           >
-            <div className="flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border rounded">
+            <div className="text-xs flex items-center justify-between px-3 py-2 space-x-5 font-mono text-sm border dark:bg-black dark:border-gray-700 rounded md:w-1/2">
               <span className="overflow-x-auto">{workspace.inviteLink}</span>
               <CopyToClipboard
                 onCopy={copyToClipboard}
@@ -128,11 +150,11 @@ const Team = ({ isTeamOwner, workspace }) => {
                 <DocumentDuplicateIcon className="w-5 h-5 cursor-pointer hover:text-blue-600" />
               </CopyToClipboard>
             </div>
-          </Card.Body>
+          </CardBody>
         </Card>
         {isTeamOwner && (
           <Card>
-            <Card.Body
+            <CardBody
               title="Add New Members"
               subtitle="Invite Team members using email address"
             >
@@ -151,17 +173,16 @@ const Team = ({ isTeamOwner, workspace }) => {
                 </div>
                 {members.map((member, index) => (
                   <div key={index} className="flex flex-row space-x-5">
-                    <input
-                      className="w-1/2 px-3 py-2 border rounded"
+                    <DefaultInput
                       disabled={isSubmitting}
                       onChange={(event) => handleEmailChange(event, index)}
                       placeholder="name@email.com"
                       type="text"
                       value={member.email}
                     />
-                    <div className="relative inline-block w-1/2 border rounded md:w-1/4 ">
+                    <div className="relative inline-block w-1/2 border rounded md:w-1/4 dark:border-gray-700">
                       <select
-                        className="w-full px-3 py-2 capitalize rounded appearance-none"
+                        className="w-full h-8 px-3 py-2 text-sm capitalize rounded appearance-none focus:outline-none dark:bg-black"
                         disabled={isSubmitting}
                         onChange={(event) => handleRoleChange(event, index)}
                       >
@@ -171,7 +192,7 @@ const Team = ({ isTeamOwner, workspace }) => {
                           </option>
                         ))}
                       </select>
-                      <div className="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                      <div className="absolute h-8 inset-y-0 right-0 flex items-center px-2 pointer-events-none focus:outline-none dark:bg-black">
                         <ChevronDownIcon className="w-5 h-5" />
                       </div>
                     </div>
@@ -187,42 +208,40 @@ const Team = ({ isTeamOwner, workspace }) => {
                 ))}
                 <div>
                   <Button
-                    className="text-sm border hover:border-black disabled:opacity-75"
+                    className="text-sm h-8 px-2 border hover:border-black disabled:opacity-75"
                     disabled={members.length === 3 || isSubmitting}
                     onClick={addEmail}
                   >
-                    <PlusCircleIcon className="w-5 h-5" />
+                    <PlusCircleIcon className="w-4 h-4" />
                     <span>Add more</span>
                   </Button>
                 </div>
               </div>
-            </Card.Body>
-            <Card.Footer>
+            </CardBody>
+            <CardFooter>
               <small>
                 All invited team members will be set to <strong>Pending</strong>
               </small>
-              <Button
-                className="text-white bg-blue-600 hover:bg-blue-500"
+              <PrimaryButton
+                title="Invite"
                 disabled={validateEmails || isSubmitting}
-                onClick={invite}
-              >
-                Invite
-              </Button>
-            </Card.Footer>
+                action={invite}
+              />
+            </CardFooter>
           </Card>
         )}
-      </Content.Container>
-      <Content.Divider thick />
-      <Content.Title
+      </ContentContainer>
+      <ContentDivider />
+      <ContentTitle
         title="Team Members"
         subtitle="View team members and pending invites"
       />
-      <Content.Divider />
-      <Content.Container>
+      <ContentDivider />
+      <ContentContainer>
         <Card>
-          <Card.Body title="Manage Team Members">
+          <CardBody title="Manage Team Members">
             <table className="table-fixed">
-              <thead className="text-gray-400 border-b">
+              <thead className="text-gray-400 dark:text-gray-500 border-b border-0.5 border-gray-100 dark:border-zinc-800">
                 <tr>
                   <th className="py-3 text-left">Member Name</th>
                   <th className="text-right" />
@@ -264,7 +283,7 @@ const Team = ({ isTeamOwner, workspace }) => {
                                 className="relative inline-block text-left"
                               >
                                 <div>
-                                  <Menu.Button className="flex items-center justify-center p-3 space-x-3 rounded hover:bg-gray-100">
+                                  <Menu.Button className="flex items-center justify-center p-3 space-x-3 rounded">
                                     <DotsVerticalIcon className="w-5 h-5" />
                                   </Menu.Button>
                                 </div>
@@ -277,11 +296,11 @@ const Team = ({ isTeamOwner, workspace }) => {
                                   leaveFrom="transform opacity-100 scale-100"
                                   leaveTo="transform opacity-0 scale-95"
                                 >
-                                  <Menu.Items className="absolute right-0 z-20 mt-2 origin-top-right bg-white border divide-y divide-gray-100 rounded w-60">
+                                  <Menu.Items className="absolute w-60 right-0 z-20 mt-2 origin-top-right bg-white dark:bg-neutral-900 border dark:border-0 divide-y divide-gray-100 dark:divide-gray-700 rounded shadow-xl">
                                     <div className="p-2">
                                       <Menu.Item>
                                         <button
-                                          className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 rounded hover:bg-blue-600 hover:text-white"
+                                          className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group"
                                           onClick={() => changeRole(member.id)}
                                         >
                                           <span>
@@ -321,9 +340,9 @@ const Team = ({ isTeamOwner, workspace }) => {
                 )}
               </tbody>
             </table>
-          </Card.Body>
+          </CardBody>
         </Card>
-      </Content.Container>
+      </ContentContainer>
     </AccountLayout>
   );
 };

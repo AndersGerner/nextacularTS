@@ -1,16 +1,19 @@
-import { validateAddDomain, validateSession } from '@/config/api-validation';
-import api from '@/lib/common/api';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { unstable_getServerSession } from 'next-auth';
 import {
   createDomain,
   deleteDomain,
   verifyDomain,
-} from '@/prisma/services/domain';
+} from '../../../../../prisma/services/domain';
+import { validateAddDomain } from '../../../../config/api-validation';
+import api from '../../../../lib/common/api';
+import { authOptions } from '../../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'POST') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     await validateAddDomain(req, res);
     const { domainName } = req.body;
     const teamId = process.env.VERCEL_TEAM_ID;
@@ -32,7 +35,7 @@ const handler = async (req, res) => {
       await createDomain(
         session.user.userId,
         session.user.email,
-        req.query.workspaceSlug,
+        req.query.workspaceSlug as string,
         domainName,
         apexName,
         verified,
@@ -45,7 +48,7 @@ const handler = async (req, res) => {
         .json({ errors: { error: { msg: response.error.message } } });
     }
   } else if (method === 'PUT') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     const { domainName } = req.body;
     const teamId = process.env.VERCEL_TEAM_ID;
     const response = await api(
@@ -64,7 +67,7 @@ const handler = async (req, res) => {
       await verifyDomain(
         session.user.userId,
         session.user.email,
-        req.query.workspaceSlug,
+        req.query.workspaceSlug as string,
         domainName,
         response.verified
       );
@@ -75,7 +78,7 @@ const handler = async (req, res) => {
         .json({ errors: { error: { msg: response.error.message } } });
     }
   } else if (method === 'DELETE') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     const { domainName } = req.body;
     const teamId = process.env.VERCEL_TEAM_ID;
     await api(
@@ -92,7 +95,7 @@ const handler = async (req, res) => {
     await deleteDomain(
       session.user.userId,
       session.user.email,
-      req.query.workspaceSlug,
+      req.query.workspaceSlug as string,
       domainName
     );
     res.status(200).json({ data: { domain: domainName } });

@@ -1,11 +1,13 @@
-import { validateSession } from '@/config/api-validation';
-import { joinWorkspace } from '@/prisma/services/workspace';
+import type { NextApiRequest, NextApiResponse } from 'next';
+import { unstable_getServerSession } from 'next-auth';
+import { joinWorkspace } from '../../../../../prisma/services/workspace';
+import { authOptions } from '../../auth/[...nextauth]';
 
-const handler = async (req, res) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
 
   if (method === 'POST') {
-    const session = await validateSession(req, res);
+    const session = await unstable_getServerSession(req, res, authOptions);
     const { workspaceCode } = req.body;
     joinWorkspace(workspaceCode, session.user.email)
       .then((joinedAt) => res.status(200).json({ data: { joinedAt } }))

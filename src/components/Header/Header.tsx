@@ -1,17 +1,9 @@
-import { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import {
-  CogIcon,
-  CreditCardIcon,
-  DesktopComputerIcon,
-  LogoutIcon,
-  MoonIcon,
-  SunIcon,
-  UserCircleIcon,
-} from '@heroicons/react/outline';
-import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 import { useTheme } from 'next-themes';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Fragment } from 'react';
 
 const Header = () => {
   const { data } = useSession();
@@ -30,6 +22,14 @@ const Header = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
+  const getUserImage = () => {
+    if (data && data.user.image) {
+      return data.user.image;
+    } else {
+      return require('../../../public/images/user-image.webp');
+    }
+  };
+
   return (
     <div className="flex flex-row items-center justify-between">
       <div>
@@ -39,36 +39,37 @@ const Header = () => {
           )}
         </h5>
       </div>
-      <Menu as="div" className="relative inline-block text-left">
+      <Menu as="div" className="ml-4 relative flex-shrink-0">
         <div>
-          <Menu.Button className="flex items-center justify-center px-5 py-2 space-x-3 border rounded hover:bg-gray-100 dark:hover:text-gray-800">
-            <CogIcon aria-hidden="true" className="w-5 h-5" />
-            <span>Settings</span>
+          <Menu.Button className="bg-white rounded-full flex text-sm ring-2 ring-white ring-opacity-20 focus:outline-none focus:ring-opacity-100">
+            <span className="sr-only">Open user menu</span>
+            <Image
+              className="rounded-full"
+              width={35}
+              height={35}
+              alt=""
+              src={getUserImage()}
+            />
           </Menu.Button>
         </div>
         <Transition
           as={Fragment}
-          enter="transition ease-out duration-100"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
           leave="transition ease-in duration-75"
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="absolute right-0 w-40 mt-2 origin-top-right bg-white border divide-y divide-gray-100 rounded">
+          <Menu.Items className="absolute right-0 w-40 mt-2 origin-top-right bg-white dark:bg-neutral-900 divide-y divide-gray-100 dark:divide-gray-700 rounded shadow-xl">
             <div className="p-2">
               <Menu.Item>
                 <Link href="/account/settings">
-                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 rounded hover:bg-blue-600 hover:text-white group">
-                    <UserCircleIcon aria-hidden="true" className="w-5 h-5" />
+                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group">
                     <span>Account</span>
                   </a>
                 </Link>
               </Menu.Item>
               <Menu.Item>
                 <Link href="/account/billing">
-                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 rounded hover:bg-blue-600 hover:text-white group">
-                    <CreditCardIcon aria-hidden="true" className="w-5 h-5" />
+                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group">
                     <span>Billing</span>
                   </a>
                 </Link>
@@ -77,28 +78,22 @@ const Header = () => {
             <div className="p-2">
               <Menu.Item>
                 <Link href="/">
-                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 rounded hover:bg-blue-600 hover:text-white group">
-                    <DesktopComputerIcon
-                      aria-hidden="true"
-                      className="w-5 h-5"
-                    />
+                  <a className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group">
                     <span>Landing Page</span>
                   </a>
                 </Link>
               </Menu.Item>
               <Menu.Item>
                 <button
-                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 rounded hover:bg-blue-600 hover:text-white group"
+                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group"
                   onClick={toggleTheme}
                 >
                   {theme === 'dark' ? (
                     <>
-                      <SunIcon className="w-5 h-5" />
                       <span>Light Mode</span>
                     </>
                   ) : (
                     <>
-                      <MoonIcon className="w-5 h-5" />
                       <span>Dark Mode</span>
                     </>
                   )}
@@ -108,10 +103,9 @@ const Header = () => {
             <div className="p-2">
               <Menu.Item>
                 <button
-                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 rounded hover:bg-blue-600 hover:text-white group"
+                  className="flex items-center w-full px-2 py-2 space-x-2 text-sm text-gray-800 dark:text-gray-300 rounded hover:bg-gray-100 dark:hover:bg-neutral-800 dark:hover:text-white group"
                   onClick={logOut}
                 >
-                  <LogoutIcon aria-hidden="true" className="w-5 h-5" />
                   <span>Logout</span>
                 </button>
               </Menu.Item>

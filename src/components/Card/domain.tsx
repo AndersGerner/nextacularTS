@@ -1,13 +1,30 @@
-import { useState } from 'react';
 import { ExternalLinkIcon } from '@heroicons/react/outline';
 import { CheckCircleIcon, XCircleIcon } from '@heroicons/react/solid';
 import Link from 'next/link';
+import { useState } from 'react';
+import useDomain from '../../hooks/data/useDomain';
+import Button from '../Button/Button';
+import CardBody from './CardBody';
+import CardFooter from './CardFooter';
+import Card from './Card';
 
-import Button from '@/components/Button/index';
-import Card from '@/components/Card/index';
-import { useDomain } from '@/hooks/data';
+type DomainCardProps = {
+  apex?: string;
+  cname?: string;
+  domain?: any;
+  isLoading: boolean;
+  refresh?: (arg0: string, arg1: boolean) => {};
+  remove?: (arg0: string) => void;
+};
 
-const DomainCard = ({ apex, cname, domain, isLoading, refresh, remove }) => {
+const DomainCard: React.FC<DomainCardProps> = ({
+  apex = '',
+  cname = '',
+  domain = '',
+  isLoading = false,
+  refresh,
+  remove,
+}) => {
   const { name, subdomain, value, verified } = domain || {};
   const { data, isLoading: isChecking } = useDomain(name);
   const [display, setDisplay] = useState(verified ? 'cname' : 'txt');
@@ -39,10 +56,10 @@ const DomainCard = ({ apex, cname, domain, isLoading, refresh, remove }) => {
   return (
     <Card>
       {isLoading ? (
-        <Card.Body />
+        <CardBody />
       ) : (
         <>
-          <Card.Body title={name}>
+          <CardBody title={name}>
             <div className="flex items-center mb-5 space-x-3">
               <Link href={`https://${name}`}>
                 <a
@@ -142,8 +159,8 @@ const DomainCard = ({ apex, cname, domain, isLoading, refresh, remove }) => {
                 </tbody>
               </table>
             </div>
-          </Card.Body>
-          <Card.Footer>
+          </CardBody>
+          <CardFooter>
             {!verified ? (
               <span className="text-red-600">
                 <strong>Error</strong>: Domain {name} was added to a different
@@ -174,21 +191,11 @@ const DomainCard = ({ apex, cname, domain, isLoading, refresh, remove }) => {
                 Remove
               </Button>
             </div>
-          </Card.Footer>
+          </CardFooter>
         </>
       )}
     </Card>
   );
-};
-
-DomainCard.defaultProps = {
-  apex: '',
-  cname: '',
-  isLoading: true,
-  name: '',
-  refresh: () => {},
-  remove: () => {},
-  slug: '',
 };
 
 export default DomainCard;
