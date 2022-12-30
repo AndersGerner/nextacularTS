@@ -7,8 +7,9 @@ import Image from 'next/image'
 import sidebarMenu from '../../config/menu/sidebar-static'
 import useWorkspaces from '../../hooks/data/useWorkspaces'
 import { useWorkspace } from '../../providers/workspace'
-import Actions from './Actions'
-import Menu from './Menu'
+
+import Menu from './menu'
+import Actions from './actions'
 
 const staticMenu = sidebarMenu()
 

@@ -1,10 +1,10 @@
-import Item from './Item';
+import Item from './item'
 
 type MenuProps = {
-  data: any;
-  isLoading?: boolean;
-  showMenu: boolean;
-};
+  data: any
+  isLoading?: boolean
+  showMenu: boolean
+}
 
 const Menu: React.FC<MenuProps> = ({
   data,
@@ -22,7 +22,7 @@ const Menu: React.FC<MenuProps> = ({
         ))}
       </ul>
     </div>
-  ) : null;
-};
+  ) : null
+}
 
-export default Menu;
+export default Menu
