@@ -1,7 +1,9 @@
+import { ReactNode } from 'react'
+
 type CardProps = {
-  children: any;
-  danger?: any;
-};
+  children: ReactNode
+  danger?: boolean
+}
 
 const Card: React.FC<CardProps> = ({ children, danger }) => {
   return danger ? (
@@ -12,7 +14,7 @@ const Card: React.FC<CardProps> = ({ children, danger }) => {
     <div className="flex flex-col justify-between border rounded dark:border-zinc-800">
       {children}
     </div>
-  );
-};
+  )
+}
 
-export default Card;
+export default Card

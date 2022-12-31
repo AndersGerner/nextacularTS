@@ -1,4 +1,5 @@
 import { DocumentDuplicateIcon } from '@heroicons/react/24/outline'
+import { GetServerSideProps } from 'next'
 import { getSession, signOut } from 'next-auth/react'
 import { useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -254,7 +255,7 @@ const Settings = ({ user }) => {
   )
 }
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
   const { email, name, userCode } = await getUser(session.user?.userId)
   return {

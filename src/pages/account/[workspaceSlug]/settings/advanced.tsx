@@ -1,67 +1,67 @@
-import { useRouter } from 'next/router';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
 
-import { getSession } from 'next-auth/react';
+import { getSession } from 'next-auth/react'
 import {
   getWorkspace,
   isWorkspaceCreator,
-} from '../../../../../prisma/services/workspace';
-import Button from '../../../../components/Button/Button';
-import RedButton from '../../../../components/Button/RedButton';
-import Card from '../../../../components/Card/Card';
-import CardBody from '../../../../components/Card/CardBody';
-import CardFooter from '../../../../components/Card/CardFooter';
-import ContentContainer from '../../../../components/Content/ContentContainer';
-import ContentDivider from '../../../../components/Content/ContentDivider';
-import ContentTitle from '../../../../components/Content/ContentTitle';
-import Meta from '../../../../components/Meta/Meta';
-import Modal from '../../../../components/Modal/Modal';
-import SuccessToast from '../../../../components/Toasts/SuccessToast';
-import AccountLayout from '../../../../layouts/AccountLayout';
-import api from '../../../../lib/common/api';
-import { useWorkspace } from '../../../../providers/workspace';
+} from '../../../../../prisma/services/workspace'
+import Button from '../../../../components/Button/Button'
+import RedButton from '../../../../components/Button/RedButton'
+import Card from '../../../../components/Card/Card'
+import CardBody from '../../../../components/Card/CardBody'
+import CardFooter from '../../../../components/Card/CardFooter'
+import ContentContainer from '../../../../components/Content/ContentContainer'
+import ContentDivider from '../../../../components/Content/ContentDivider'
+import ContentTitle from '../../../../components/Content/ContentTitle'
+import Meta from '../../../../components/Meta/Meta'
+import Modal from '../../../../components/Modal/Modal'
+import SuccessToast from '../../../../components/Toasts/SuccessToast'
+import AccountLayout from '../../../../layouts/AccountLayout'
+import api from '../../../../lib/common/api'
+import { useWorkspace } from '../../../../providers/workspace'
 
 const Advanced = ({ isCreator }) => {
-  const { setWorkspace, workspace } = useWorkspace();
-  const router = useRouter();
-  const [isSubmitting, setSubmittingState] = useState(false);
-  const [showModal, setModalState] = useState(false);
-  const [verifyWorkspace, setVerifyWorkspace] = useState('');
-  const verifiedWorkspace = verifyWorkspace === workspace?.slug;
+  const { setWorkspace, workspace } = useWorkspace()
+  const router = useRouter()
+  const [isSubmitting, setSubmittingState] = useState(false)
+  const [showModal, setModalState] = useState(false)
+  const [verifyWorkspace, setVerifyWorkspace] = useState('')
+  const verifiedWorkspace = verifyWorkspace === workspace?.slug
 
   const handleVerifyWorkspaceChange = (event) =>
-    setVerifyWorkspace(event.target.value);
+    setVerifyWorkspace(event.target.value)
 
   const deleteWorkspace = () => {
-    setSubmittingState(true);
+    setSubmittingState(true)
     api(`/api/workspace/${workspace.slug}`, {
       method: 'DELETE',
     }).then((response) => {
-      setSubmittingState(false);
+      setSubmittingState(false)
 
       if (response.errors) {
         Object.keys(response.errors).forEach((error) =>
           toast.error(response.errors[error].msg)
-        );
+        )
       } else {
-        toggleModal();
-        setWorkspace(null);
-        router.replace('/account');
+        toggleModal()
+        setWorkspace(null)
+        router.replace('/account')
         toast.custom(
           () => <SuccessToast text="Workspace has been deleted!" />,
           {
             position: 'top-right',
           }
-        );
+        )
       }
-    });
-  };
+    })
+  }
 
   const toggleModal = () => {
-    setVerifyWorkspace('');
-    setModalState(!showModal);
-  };
+    setVerifyWorkspace('')
+    setModalState(!showModal)
+  }
 
   return (
     <AccountLayout>
@@ -134,23 +134,23 @@ const Advanced = ({ isCreator }) => {
         </Card>
       </ContentContainer>
     </AccountLayout>
-  );
-};
+  )
+}
 
-export const getServerSideProps = async (context) => {
-  const session = await getSession(context);
-  let isCreator = false;
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const session = await getSession(context)
+  let isCreator = false
 
   if (session) {
     const workspace = await getWorkspace(
       session.user.userId,
       session.user.email,
       context.params.workspaceSlug
-    );
-    isCreator = isWorkspaceCreator(session.user.userId, workspace.creatorId);
+    )
+    isCreator = isWorkspaceCreator(session.user.userId, workspace.creatorId)
   }
 
-  return { props: { isCreator } };
-};
+  return { props: { isCreator } }
+}
 
-export default Advanced;
+export default Advanced

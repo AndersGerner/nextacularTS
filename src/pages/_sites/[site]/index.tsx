@@ -1,4 +1,5 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import DefaultErrorPage from 'next/error'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -56,7 +57,7 @@ const Site = ({ workspace }) => {
   )
 }
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const paths = await getWorkspacePaths()
   return {
     paths,
@@ -64,9 +65,12 @@ export const getStaticPaths = async () => {
   }
 }
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { site } = params
-  const siteWorkspace = await getSiteWorkspace(site, site.includes('.'))
+  const siteWorkspace = await getSiteWorkspace(
+    site.toString(),
+    site.includes('.')
+  )
   let workspace = null
 
   if (siteWorkspace) {

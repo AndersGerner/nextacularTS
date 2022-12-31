@@ -1,6 +1,8 @@
+import { ReactNode } from 'react'
+
 type CardEmptyProps = {
-  children: any;
-};
+  children: ReactNode
+}
 
 const CardEmpty: React.FC<CardEmptyProps> = ({ children }) => {
   return (
@@ -9,6 +11,6 @@ const CardEmpty: React.FC<CardEmptyProps> = ({ children }) => {
         <p>{children}</p>
       </div>
     </div>
-  );
-};
-export default CardEmpty;
+  )
+}
+export default CardEmpty

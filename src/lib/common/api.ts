@@ -1,6 +1,6 @@
-const api = async (url: string, options: any) => {
-  const { body, headers, ...opts } = options;
-  const requestBody = JSON.stringify(body);
+const api = async (url: string, options: RequestInit) => {
+  const { body, headers, ...opts } = options
+  const requestBody = JSON.stringify(body)
   const response = await fetch(url, {
     body: requestBody,
     headers: {
@@ -8,9 +8,9 @@ const api = async (url: string, options: any) => {
       ...headers,
     },
     ...opts,
-  });
-  const result = await response.json();
-  return { status: response.status, ...result, url };
-};
+  })
+  const result = await response.json()
+  return { status: response.status, ...result, url }
+}
 
-export default api;
+export default api

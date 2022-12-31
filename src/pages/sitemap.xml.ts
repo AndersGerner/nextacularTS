@@ -1,7 +1,9 @@
+import { GetServerSideProps } from 'next'
+
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const Sitemap = () => {}
 
-export const getServerSideProps = async ({ res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ res }) => {
   const publicPages = ['index', 'auth/login']
   const staticPages = publicPages.map(
     (staticPagePath) =>

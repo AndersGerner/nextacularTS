@@ -1,6 +1,8 @@
+import { ReactNode } from 'react'
+
 type ContentEmptyProps = {
-  children: any;
-};
+  children: ReactNode
+}
 
 const ContentEmpty: React.FC<ContentEmptyProps> = ({ children }) => {
   return (
@@ -9,7 +11,7 @@ const ContentEmpty: React.FC<ContentEmptyProps> = ({ children }) => {
         <p>{children}</p>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ContentEmpty;
+export default ContentEmpty

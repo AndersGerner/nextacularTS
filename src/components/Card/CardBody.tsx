@@ -1,8 +1,10 @@
+import { ReactNode } from 'react'
+
 export type CardBodyProps = {
-  children?: any;
-  subtitle?: string;
-  title?: string;
-};
+  children?: ReactNode
+  subtitle?: string
+  title?: string
+}
 
 const CardBody: React.FC<CardBodyProps> = ({ children, subtitle, title }) => {
   return (
@@ -15,7 +17,7 @@ const CardBody: React.FC<CardBodyProps> = ({ children, subtitle, title }) => {
       {subtitle && <h3 className="text-sm dark:text-gray-50">{subtitle}</h3>}
       <div className="flex flex-col">{children}</div>
     </div>
-  );
-};
+  )
+}
 
-export default CardBody;
+export default CardBody

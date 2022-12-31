@@ -17,7 +17,7 @@ type MailProps = {
   to: string
   subject: string
   text: string
-  html: any
+  html: string
 }
 
 export const sendMail = async ({

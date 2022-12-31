@@ -1,7 +1,7 @@
 import Link from 'next/link'
 
 type ItemProps = {
-  data: any
+  data: { path: string; name: string }
   isLoading: boolean
 }
 

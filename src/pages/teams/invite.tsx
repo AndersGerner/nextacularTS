@@ -78,7 +78,7 @@ const Invite = ({ workspace }) => {
   )
 }
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { code } = context.query
   const workspace = await getInvitation(code)
   return { props: { workspace } }

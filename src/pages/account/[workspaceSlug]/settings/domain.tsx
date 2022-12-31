@@ -199,7 +199,7 @@ const Domain = ({ isTeamOwner, workspace }) => {
   )
 }
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const session = await getSession(context)
   let isTeamOwner = false
   let workspace = null

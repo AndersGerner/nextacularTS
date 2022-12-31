@@ -6,10 +6,10 @@ const menu = (workspaceId) => [
         name: 'Home',
         path: `/account/${workspaceId}`,
       },
-      {
+      /* {
         name: 'Integrations',
         path: `/account/${workspaceId}/integrations`,
-      },
+      }, */
     ],
   },
   {
@@ -33,6 +33,6 @@ const menu = (workspaceId) => [
       },
     ],
   },
-];
+]
 
-export default menu;
+export default menu
