@@ -1,10 +1,10 @@
-import Button from './Button';
+import Button from './Button'
 
 type PrimaryButtonProps = {
-  title: string;
-  disabled: boolean;
-  action: (event: any) => void;
-};
+  title: string
+  disabled: boolean
+  action: (event: React.MouseEvent<HTMLDivElement>) => void
+}
 
 const PrimaryButton: React.FC<PrimaryButtonProps> = ({
   title,
@@ -19,7 +19,7 @@ const PrimaryButton: React.FC<PrimaryButtonProps> = ({
     >
       {title}
     </Button>
-  );
-};
+  )
+}
 
-export default PrimaryButton;
+export default PrimaryButton

@@ -1,12 +1,12 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { XCircleIcon } from '@heroicons/react/24/outline'
-import { Fragment } from 'react'
+import { Fragment, ReactNode } from 'react'
 
 type ModalProps = {
-  children: any
+  children: ReactNode
   show: boolean
   title: string
-  toggle: any
+  toggle: () => void
 }
 
 const Modal: React.FC<ModalProps> = ({

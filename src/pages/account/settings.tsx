@@ -39,7 +39,7 @@ const Settings = ({ user }) => {
       position: 'top-right',
     })
 
-  const changeName = (event) => {
+  const changeName = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
     setSubmittingState(true)
     api('/api/user/name', {

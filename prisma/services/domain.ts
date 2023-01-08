@@ -1,4 +1,5 @@
-import prisma from '../index';
+import { Workspace } from '@prisma/client'
+import prisma from '../index'
 
 export const createDomain = async (
   id: string,
@@ -9,13 +10,13 @@ export const createDomain = async (
   verified: boolean,
   verificationData: any
 ) => {
-  let subdomain = null;
-  let verificationValue = null;
+  let subdomain = null
+  let verificationValue = null
 
   if (!verified) {
-    const { domain, value } = verificationData[0];
-    subdomain = domain.replace(`.${apexName}`, '');
-    verificationValue = value;
+    const { domain, value } = verificationData[0]
+    subdomain = domain.replace(`.${apexName}`, '')
+    verificationValue = value
   }
 
   const workspace = await prisma.workspace.findFirst({
@@ -37,7 +38,7 @@ export const createDomain = async (
         slug,
       },
     },
-  });
+  })
   await prisma.domain.create({
     data: {
       addedById: id,
@@ -47,8 +48,8 @@ export const createDomain = async (
       verified,
       workspaceId: workspace.id,
     },
-  });
-};
+  })
+}
 
 export const deleteDomain = async (
   id: string,
@@ -75,7 +76,7 @@ export const deleteDomain = async (
         slug,
       },
     },
-  });
+  })
   const domain = await prisma.domain.findFirst({
     select: { id: true },
     where: {
@@ -83,14 +84,14 @@ export const deleteDomain = async (
       name,
       workspaceId: workspace.id,
     },
-  });
+  })
   await prisma.domain.update({
     data: { deletedAt: new Date() },
     where: { id: domain.id },
-  });
-};
+  })
+}
 
-export const getDomains = async (slug: string) =>
+export const getDomains = async (slug: Workspace['slug']) =>
   await prisma.domain.findMany({
     select: {
       name: true,
@@ -105,7 +106,7 @@ export const getDomains = async (slug: string) =>
         slug,
       },
     },
-  });
+  })
 
 export const verifyDomain = async (
   id: string,
@@ -133,7 +134,7 @@ export const verifyDomain = async (
         slug,
       },
     },
-  });
+  })
   const domain = await prisma.domain.findFirst({
     select: { id: true },
     where: {
@@ -141,9 +142,9 @@ export const verifyDomain = async (
       name,
       workspaceId: workspace.id,
     },
-  });
+  })
   await prisma.domain.update({
     data: { verified },
     where: { id: domain.id },
-  });
-};
+  })
+}

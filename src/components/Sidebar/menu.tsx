@@ -1,7 +1,7 @@
 import Item from './item'
 
 type MenuProps = {
-  data: any
+  data: { name: string; menuItems: Array<{ name: string; path: string }> }
   isLoading?: boolean
   showMenu: boolean
 }

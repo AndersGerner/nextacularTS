@@ -7,11 +7,12 @@ import Button from '../Button/Button'
 import CardBody from './CardBody'
 import CardFooter from './CardFooter'
 import Card from './Card'
+import { Domain } from '@prisma/client'
 
 type DomainCardProps = {
   apex?: string
   cname?: string
-  domain?: any
+  domain?: Domain
   isLoading: boolean
   refresh?: (arg0: string, arg1: boolean) => boolean
   remove?: (arg0: string) => void
@@ -20,7 +21,7 @@ type DomainCardProps = {
 const DomainCard: React.FC<DomainCardProps> = ({
   apex = '',
   cname = '',
-  domain = '',
+  domain,
   isLoading = false,
   refresh,
   remove,
