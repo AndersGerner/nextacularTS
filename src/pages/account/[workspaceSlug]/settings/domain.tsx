@@ -1,4 +1,6 @@
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
+import { Workspace } from '@prisma/client'
+import { GetServerSideProps } from 'next'
 import { getSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -199,16 +201,23 @@ const Domain = ({ isTeamOwner, workspace }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<{
+  isTeamOwner: boolean
+  workspace: Workspace | null
+}> = async (context) => {
   const session = await getSession(context)
   let isTeamOwner = false
   let workspace = null
+
+  const { workspaceSlug } = context.params as {
+    workspaceSlug: Workspace['slug']
+  }
 
   if (session) {
     workspace = await getWorkspace(
       session.user.userId,
       session.user.email,
-      context.params.workspaceSlug
+      workspaceSlug
     )
 
     if (workspace) {

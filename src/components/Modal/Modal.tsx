@@ -6,14 +6,14 @@ type ModalProps = {
   children: ReactNode
   show: boolean
   title: string
-  toggle: () => void
+  toggle: (value: boolean) => void
 }
 
 const Modal: React.FC<ModalProps> = ({
   children,
   show,
   title = '',
-  toggle = false,
+  toggle,
 }) => {
   return (
     <Transition appear as={Fragment} show={show}>
@@ -55,7 +55,7 @@ const Modal: React.FC<ModalProps> = ({
               {children}
               <button
                 className="absolute top-0 outline-none right-5 dark:text-gray-400"
-                onClick={toggle}
+                onClick={() => toggle(!show)}
               >
                 <XCircleIcon className="w-6 h-6" />
               </button>

@@ -1,3 +1,5 @@
+import type { Workspace } from '@prisma/client'
+import { GetServerSideProps } from 'next'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -11,15 +13,16 @@ import CardBody from '../../components/Card/CardBody'
 import CardFooter from '../../components/Card/CardFooter'
 import SuccessToast from '../../components/Toasts/SuccessToast'
 import api from '../../lib/common/api'
+import { JoinRequest } from '../api/workspace/team/join'
 
-const Invite = ({ workspace }) => {
+const Invite = ({ workspace }: { workspace: Workspace }) => {
   const { data } = useSession()
   const router = useRouter()
   const [isSubmitting, setSubmittingState] = useState(false)
 
   const join = () => {
     setSubmittingState(true)
-    api(`/api/workspace/team/join`, {
+    api<JoinRequest>(`/api/workspace/team/join`, {
       body: { workspaceCode: workspace.workspaceCode },
       method: 'POST',
     }).then((response) => {
@@ -78,9 +81,13 @@ const Invite = ({ workspace }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { code } = context.query
-  const workspace = await getInvitation(code)
+type Invitations = Pick<Workspace, 'id' | 'name' | 'workspaceCode' | 'slug'>
+
+export const getServerSideProps: GetServerSideProps<{
+  workspace: Invitations
+}> = async (context) => {
+  const { code } = context.query as { code: Workspace['inviteCode'] }
+  const workspace: Invitations = await getInvitation(code)
   return { props: { workspace } }
 }
 

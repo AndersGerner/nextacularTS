@@ -21,6 +21,8 @@ import SuccessToast from '../../../../components/Toasts/SuccessToast'
 import AccountLayout from '../../../../layouts/AccountLayout'
 import api from '../../../../lib/common/api'
 import { useWorkspace } from '../../../../providers/workspace'
+import { GetServerSideProps } from 'next'
+import { Workspace } from '@prisma/client'
 
 const Advanced = ({ isCreator }) => {
   const { setWorkspace, workspace } = useWorkspace()
@@ -137,15 +139,21 @@ const Advanced = ({ isCreator }) => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<{
+  isCreator: boolean
+}> = async (context) => {
   const session = await getSession(context)
   let isCreator = false
+
+  const { workspaceSlug } = context.params as {
+    workspaceSlug: Workspace['slug']
+  }
 
   if (session) {
     const workspace = await getWorkspace(
       session.user.userId,
       session.user.email,
-      context.params.workspaceSlug
+      workspaceSlug
     )
     isCreator = isWorkspaceCreator(session.user.userId, workspace.creatorId)
   }

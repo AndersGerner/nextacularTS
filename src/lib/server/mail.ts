@@ -1,16 +1,19 @@
 import nodemailer from 'nodemailer'
+import mg from 'nodemailer-mailgun-transport'
 
 export const emailConfig = {
   auth: {
     user: process.env.EMAIL_SERVER_USER,
     pass: process.env.EMAIL_SERVER_PASSWORD,
+    api_key: process.env.EMAIL_SERVER_API_KEY,
+    domain: process.env.EMAIL_SERVER_DOMAIN,
   },
-  host: process.env.EMAIL_SERVER_HOST,
-  port: process.env.EMAIL_SERVER_PORT,
+  host: 'api.eu.mailgun.net',
+  //port: parseInt(process.env.EMAIL_SERVER_PORT),
   service: process.env.EMAIL_SERVICE,
 }
 
-const transporter = nodemailer.createTransport(emailConfig)
+const transporter = nodemailer.createTransport(mg(emailConfig))
 
 type MailProps = {
   from: string
