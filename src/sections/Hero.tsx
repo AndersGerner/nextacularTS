@@ -94,16 +94,15 @@ const Hero = () => {
           </p>
         </div>
         <div className="flex items-center justify-center space-x-5">
-          <Link href="/auth/login">
-            <Link
-              href=""
-              className="px-10 py-3 text-center text-white bg-blue-600 rounded shadow hover:bg-blue-700"
-            >
-              Get Started
-            </Link>
-          </Link>
           <Link
-            href=""
+            href="/auth/login"
+            className="px-10 py-3 text-center text-white bg-blue-600 rounded shadow hover:bg-blue-700"
+          >
+            Get Started
+          </Link>
+
+          <Link
+            href="/auth/login"
             className="px-10 py-3 text-center text-blue-600 rounded shadow hover:bg-blue-50"
           >
             Live Demo
