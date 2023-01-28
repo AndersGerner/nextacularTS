@@ -22,6 +22,14 @@ Nextacular Demo: [https://demo.nextacular.co](https://demo.nextacular.co)
 
 Nextacular Documentation: [https://docs.nextacular.co](https://docs.nextacular.co)
 
+-- To be moved to documentation:
+
+For the TS version, when adding new translations, be sure to add a reference to the json file in the types/i18next.d.ts.
+
+This will provide type safety when using the useTranslations like:
+` const { t } = useTranslation('landing', { keyPrefix: 'hero' })``
+ `keyPrefix` is only needed if you create nested objects in the translation file.
+
 ## Getting Started
 
 Read the quick start here: [https://docs.nextacular.co/getting-started/quick-start](https://docs.nextacular.co/getting-started/quick-start)

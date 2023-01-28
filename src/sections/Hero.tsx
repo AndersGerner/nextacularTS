@@ -5,14 +5,17 @@ import {
   XCircleIcon,
 } from '@heroicons/react/24/outline'
 import { useSession } from 'next-auth/react'
+import { useTranslation } from 'next-i18next'
 import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useState } from 'react'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 
 const Hero = () => {
   const { status: sessionStatus } = useSession()
   const [showMenu, setMenuVisibility] = useState(false)
   const { theme, setTheme } = useTheme()
+  const { t } = useTranslation('landing', { keyPrefix: 'hero' })
 
   const toggleMenu = () => setMenuVisibility(!showMenu)
 
@@ -26,7 +29,7 @@ const Hero = () => {
       <div className="relative flex flex-col px-10 mx-auto space-y-5 md:w-3/4">
         <header className="flex items-center justify-between space-x-3">
           <Link href="/" className="text-2xl font-bold dark:text-white">
-            Nextacular
+            {t('projectName')}
           </Link>
           <button className="md:hidden" onClick={toggleMenu}>
             {!showMenu ? (
@@ -112,5 +115,11 @@ const Hero = () => {
     </div>
   )
 }
+
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ['header'])),
+  },
+})
 
 export default Hero
