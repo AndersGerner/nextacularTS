@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:analyze": "ANALYZE=true yarn build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
@@ -15,6 +16,7 @@
     "@headlessui/react": "1.7.7",
     "@heroicons/react": "2.0.13",
     "@next-auth/prisma-adapter": "1.0.5",
+    "@next/bundle-analyzer": "^13.1.6",
     "@prisma/client": "4.8.1",
     "@stripe/stripe-js": "1.46.0",
     "date-fns": "2.29.3",
